@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link href ="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BistroWeb.Web.styles.css" asp-append-version="true" />
+
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/base/logo-blank.png" alt="BistroWeb.Web Logo" class="logo-img">
+                </a>
+                <button class="navbar-toggler navbar-light" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Domů</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Lahve">Láhvová piva</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" id="navbarDropdownCustomer" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Nábidník</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownCustomer">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Menu">Nábidník</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="HookahMenu">Tabáky</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Accesories">Příslušenství</a>
+                                </li>
+                            </ul>
+                        </li>
+                        @if (User.Identity.IsAuthenticated == true && (User.IsInRole(nameof(Roles.Admin)) || User.IsInRole(nameof(Roles.Manager))))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-light" id="navbarDropdownCustomer" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Správa</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownCustomer">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Product" asp-action="Index">Láhve</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Product" asp-action="Index">Archiv láhví</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Product" asp-action="Index">Čepované pivo</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated == true && (User.IsInRole(nameof(Roles.Customer))))
+                        {
+                            <!--
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Domů</a>
+                            </li>
+                            -->
+                        }
+                    </ul>                    
+                    @{
+                        @if (User.Identity.IsAuthenticated == false)
+                        {
+                            <ul class="navbar-nav navbar-right">
+                                <li class="nav-item"><a class="nav-link text-light" asp-area="Security" asp-controller="Account" asp-action="Register"><i class="bi bi-person-plus"></i> Zaregistrovat se</a></li>
+                                <li class="nav-item"><a class="nav-link text-light" asp-area="Security" asp-controller="Account" asp-action="Login"><i class="bi bi-unlock"></i> Přihlásit se</a></li>
+                            </ul>
+                        }
+                        else
+                        {
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-light" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person"></i>Přihlášen @User.Identity.Name</a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item text-dark" asp-area="Security" asp-controller="Account" asp-action="Logout"><i class="bi bi-person-slash me-1"></i> Odhlásit se</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        }
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Your Bootstrap-compatible HTML file -->
+
+    <footer class="footer bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Column 1 -->
+                <div class="col-md-3">
+                    <h4>Adresa</h4>
+                    <ul>
+                        <li><a>Bistro Stars Hollow</a></li>
+                        <li><a href="https://www.google.com/maps/place/Doln%C3%AD+494,+744+01+Fren%C5%A1t%C3%A1t+pod+Radho%C5%A1t%C4%9Bm/@(49.5487195),@(18.2064625),17z/data=!3m1!4b1!4m6!3m5!1s0x47138cbede496753:0xb8088cd4316e07cb!8m2!3d49.548716!4d18.2090374!16s%2Fg%2F11c5my1jk4?entry=ttu">Dolní 492, Frenštát pod Radhoštěm</a></li>
+                    </ul>
+                </div>
+                <!-- Column 2 -->
+                <div class="col-md-3">
+                    <h4>Otevírací doba</h4>
+                    <ul>
+                        <li><a>NE - ČT: 15:00 - 21:00</a></li>
+                        <li><a>PÁ - SO: 15:00 - 22:00</a></li>
+                    </ul>
+                </div>
+                <!-- Column 4 -->
+                <div class="col-md-3">
+                    <h4>Kontakt</h4>
+                    <ul>
+                        <li><a>info@bistroacajovnafrenstat.cz</a></li>
+                        <li><a>+420 608 970 999</a></li>
+                    </ul>
+                </div>
+                <!-- Column 3 -->
+                <div class="col-md-3">
+                    <h4>Sledujte nás</h4>
+                    <div class="social">
+                        <a href="https://www.instagram.com/bistrostarshollow/"><i class="ri-instagram-line"></i></a>
+                        <a href="https://www.facebook.com/bistroStarsHollow"><i class="ri-facebook-box-line"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Author -->
+        <div class="author bg-dark text-white py-3">
+            <p class="mb-0">Copyright ©2023 Michal Těšík</p>
+        </div>
+    </footer>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

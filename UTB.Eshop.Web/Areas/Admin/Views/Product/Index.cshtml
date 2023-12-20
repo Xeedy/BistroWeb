@@ -1,0 +1,48 @@
+﻿@model IList<Product>
+
+@{
+    ViewData["Title"] = "Administrace produktů";
+}
+<h1>@ViewData["Title"]</h1>
+
+<a asp-action="Create">Přidat produkt</a>
+
+@{
+    if (Model != null && Model.Count > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Název</th>
+                    <th scope="col">Pivovar</th>
+                    <th scope="col">Popis</th>
+                    <th scope="col">Cena (CZK)</th>
+                    <th scope="col">Editovat</th>
+                    <th scope="col">Odstranit</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @for (int i = 0; i < Model.Count; ++i)
+                {
+                    <tr>
+                        <th scope="row">@Model[i].Id</th>
+                        <td>@Model[i].Name</td>
+                        <td>@Model[i].Brewery</td>
+                        <td>@Model[i].Description</td>
+                        <td>@Model[i].Price</td>
+                        <td><a asp-action="Edit" asp-route-id="@Model[i].Id">Upravit</a></td>
+                        <td><a asp-action="Delete" asp-route-id="@Model[i].Id" onclick="return ConfirmDelete();">Vymazat</a></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+}
+
+@section Scripts
+{
+    <script src="~/js/dialogs.js"></script>
+}
