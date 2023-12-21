@@ -1,11 +1,11 @@
-﻿@model IList<Product>
+﻿@model IList<Brewery>
 
 @{
-    ViewData["Title"] = "Administrace produktů";
+    ViewData["Title"] = "Administrace pivovarů";
 }
 <h1>@ViewData["Title"]</h1>
 
-<a class="btn btn-success" asp-action="Create">Přidat pivo</a>
+<a class="btn btn-success" asp-action="Create">Přidat pivovar</a>
 
 @{
     if (Model != null && Model.Any())
@@ -15,26 +15,22 @@
                 <tr>
                     <th><a asp-action="Index" asp-route-sortOrder="@("ID")">ID</a></th>
                     <th><a asp-action="Index" asp-route-sortOrder="@("Name")">Název</a></th>
-                    <th><a asp-action="Index" asp-route-sortOrder="@("Brewery")">Pivovar</a></th>
-                    <th><a asp-action="Index" asp-route-sortOrder="@("Price")">Cena (CZK)</a></th>
                     <th class="text-end"></th>
                     <th class="text-end"></th>
                 </tr>
             </thead>
             <tbody>
 
-                @foreach (var product in Model)
+                @foreach (var brewery in Model)
                 {
                     <tr>
-                        <td>@product.Id</td>
-                        <td><span class="fade-overflow">@product.Name</span></td>
-                        <td>@product.Brewery</td>
-                        <td>@product.Price</td>
+                        <td>@brewery.Id</td>
+                        <td><span class="fade-overflow">@brewery.Name</span></td>
                         <th class="text-end">
-                            <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
+                            <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@brewery.Id">Edit</a>
                         </th>
                         <th class="text-start">
-                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@product.Id" onclick="return ConfirmDelete();">Del</a>
+                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@brewery.Id" onclick="return ConfirmDelete();">Del</a>
                         </th>
                     </tr>
                 }

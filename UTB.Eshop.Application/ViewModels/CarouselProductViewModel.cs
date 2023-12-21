@@ -9,7 +9,8 @@ namespace BistroWeb.Application.ViewModels
 {
     public class CarouselProductViewModel
     {
-        public IList<Carousel> Carousels { get; set; }
         public IList<Product> Products { get; set; }
+        public IList<Item> Items { get; set; }
+        public IList<Brewery> Brewery { get; set; }
     }
 }

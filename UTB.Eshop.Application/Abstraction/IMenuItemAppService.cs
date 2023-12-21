@@ -7,12 +7,12 @@ using BistroWeb.Domain.Entities;
 
 namespace BistroWeb.Application.Abstraction
 {
-    public interface IProductAppService
+    public interface IMenuItemAppService
     {
-        IList<Product> Select();
-        Task Create(Product product);
+        IList<Item> Select();
+        Task Create(Item item);
         bool Delete(int id);
-        Task Edit(Product editedProduct);
-        Product GetProductById(int id);
+        Task Edit(Item editedItem);
+        Item GetItemById(int id); // Add this method
     }
 }

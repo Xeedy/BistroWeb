@@ -21,7 +21,8 @@ namespace BistroWeb.Application.Implementation
         {
             CarouselProductViewModel viewModel = new CarouselProductViewModel();
             viewModel.Products = _eshopDbContext.Products.ToList();
-            viewModel.Carousels = _eshopDbContext.Carousels.ToList();
+            viewModel.Items = _eshopDbContext.Items.ToList();
+            viewModel.Brewery = _eshopDbContext.Brewery.ToList();
             return viewModel;
         }
     }

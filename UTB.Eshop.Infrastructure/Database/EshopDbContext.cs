@@ -14,7 +14,9 @@ namespace BistroWeb.Infrastructure.Database
     public class EshopDbContext : IdentityDbContext<User, Role, int>
     {
         public DbSet<Product> Products { get; set; }
+        public DbSet<Item> Items { get; set; }
         public DbSet<Carousel> Carousels { get; set; }
+        public DbSet<Brewery> Brewery { get; set; }
 
         public EshopDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
         {
@@ -26,7 +28,9 @@ namespace BistroWeb.Infrastructure.Database
 
             DatabaseInit dbInit = new DatabaseInit();
             modelBuilder.Entity<Product>().HasData(dbInit.GetProducts());
+            modelBuilder.Entity<Item>().HasData(dbInit.GetItems());
             modelBuilder.Entity<Carousel>().HasData(dbInit.GetCarousels());
+            modelBuilder.Entity<Brewery>().HasData(dbInit.GetBrewery());
 
 
             //Identity - User and Role initialization

@@ -15,7 +15,8 @@ namespace BistroWeb.Application.Implementation
         {
             CarouselProductViewModel viewModel = new CarouselProductViewModel();
             viewModel.Products = DatabaseFake.Products;
-            viewModel.Carousels = DatabaseFake.Carousels;
+            viewModel.Items = DatabaseFake.Items;
+            viewModel.Brewery = DatabaseFake.Brewery;
             return viewModel;
         }
     }

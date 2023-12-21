@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Database\Configuration\**" />
+    <EmbeddedResource Remove="Database\Configuration\**" />
+    <None Remove="Database\Configuration\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.14">
       <PrivateAssets>all</PrivateAssets>
@@ -21,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Database\Configuration\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 

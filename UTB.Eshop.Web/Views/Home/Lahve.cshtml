@@ -9,36 +9,6 @@
 </div>
 
 @{
-    if (Model != null && Model.Carousels != null && Model.Carousels.Count > 0)
-    {
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-
-                @for (int i = 0; i < Model.Carousels.Count; ++i)
-                {
-                    string active = String.Empty;
-                    if (i == 0)
-                        active = "active";
-
-                    <div class="carousel-item @active">
-                        <img src="@Model.Carousels[i].ImageSrc" class="d-block w-100" alt="@Model.Carousels[i].ImageAlt">
-                    </div>
-                }
-
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    }
-}
-
-@{
     if (Model != null && Model.Products != null && Model.Products.Count > 0)
     {
         <section class="py-5">
@@ -80,7 +50,6 @@
     <link rel="stylesheet" href="~/css/shop_home.css" asp-append-version="true" />
 }
 
-
 @section Scripts
     {
     <environment include="Development">
@@ -89,4 +58,4 @@
     <environment exclude="Development">
         <script src="~/js/product.min.js"></script>
     </environment>
-}                           
+}             

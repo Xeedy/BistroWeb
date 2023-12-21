@@ -27,6 +27,36 @@ namespace BistroWeb.Infrastructure.Database
 
             return products;
         }
+        public IList<Item> GetItems()
+        {
+            IList<Item> items = new List<Item>();
+
+            items.Add(new Item
+            {
+                Id = 1,
+                Name = "Test",
+                Description = "Testovací sada",
+                Price = 999,
+                Section = "",
+                Price2 = 0
+            }); ;
+
+            return items;
+        }
+        public IList<Brewery> GetBrewery()
+        {
+            IList<Brewery> brewery = new List<Brewery>();
+
+            brewery.Add(new Brewery
+            {
+                Id = 1,
+                Name = "Testovci pivovar",
+                Description = "Testovací sada",
+                ImageSrc = "/img/products/produkty-01.jpg"
+            }); ;
+
+            return brewery;
+        }
 
         public IList<Carousel> GetCarousels()
         {

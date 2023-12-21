@@ -17,22 +17,24 @@ namespace BistroWeb.Tests.Admin.ProductController
         [Fact]
         public async Task Create_success()
         {
-            //Arrange
+            // Arrange
             DatabaseFake.Products.Clear();
+
             Mock<IProductAppService> productServiceMock = new Mock<IProductAppService>();
             productServiceMock.Setup(productService => productService.Create(It.IsAny<Product>()))
-                                        .Returns<Product>(product => Task.Run(() => { DatabaseFake.Products.Add(product); }));
+                .Returns<Product>(product => Task.Run(() => { DatabaseFake.Products.Add(product); }));
+
+            // Mock IFileUploadService
+            Mock<IFileUploadService> fileUploadServiceMock = new Mock<IFileUploadService>();
 
             var product = GetProduct();
 
-            var productController = new Web.Areas.Admin.Controllers.ProductController(productServiceMock.Object);
+            var productController = new Web.Areas.Admin.Controllers.ProductController(productServiceMock.Object, fileUploadServiceMock.Object);
 
-
-            //Act
+            // Act
             var actionResult = await productController.Create(product);
 
-
-            //Assert
+            // Assert
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(actionResult);
             Assert.NotNull(redirectToActionResult.ActionName);
             Assert.Equal(nameof(Web.Areas.Admin.Controllers.ProductController.Index), redirectToActionResult.ActionName);

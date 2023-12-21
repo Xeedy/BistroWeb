@@ -1,4 +1,4 @@
-﻿@model Product
+﻿@model Brewery
 
 @{
     ViewData["Title"] = "Vytvoření produktu";
@@ -8,41 +8,25 @@
 <form asp-action="Create" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="All"></div>
     <div class="mb-3">
-        <label class="form-label" asp-for="Name">Název</label>
+        <label class="form-label" asp-for="Name">Název pivovaru</label>
         <input class="form-control" asp-for="Name">
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label class="form-label" asp-for="Brewery">Pivovar</label>
-        <select class="form-control" asp-for="Brewery">
-            <option value="Brewery1">Brewery 1</option>
-            <option value="Brewery2">Brewery 2</option>
-            <option value="Brewery3">Brewery 3</option>
-        </select>
-        <span asp-validation-for="Brewery" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label" asp-for="Description">Popisek</label>
+        <label class="form-label" asp-for="Description">Popisek pivovaru</label>
         <input class="form-control" asp-for="Description">
         <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" asp-for="Price">Cena</label>
-        <input class="form-control" asp-for="Price">
-        <span asp-validation-for="Price" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label class="form-label" asp-for="Image">Obrázek</label>
         <input id="fileupload" class="form-control-file" asp-for="Image">
         <span asp-validation-for="Image" class="text-danger"></span>
     </div>
-
     <button type="submit" class="btn btn-primary">Potvrdit</button>
 </form>
 
 @section Scripts
-    {
+{
     <partial name="_ValidationScriptsPartial" />
     <script src="~/js/Validations/FileContentValidation.js"></script>
 }

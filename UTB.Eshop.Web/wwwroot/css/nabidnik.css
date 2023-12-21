@@ -1,0 +1,10 @@
+﻿.container-wrapper {
+    border: 2px solid #ccc; /* Modify the border style as needed */
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow with desired values */
+
+}
+    .container-wrapper h1 {
+        margin-top: 15px;
+        text-align: center; /* Remove default margin to ensure accurate centering */
+    }

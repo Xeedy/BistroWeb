@@ -69,6 +69,8 @@ builder.Services.AddScoped<ISecurityService, SecurityIdentityService>();
 
 builder.Services.AddScoped<IFileUploadService, FileUploadService>(serviceProvider => new FileUploadService(serviceProvider.GetService<IWebHostEnvironment>().WebRootPath));
 builder.Services.AddScoped<IProductAppService, ProductAppService>();
+builder.Services.AddScoped<IBreweryAppService, BreweryAppService>();
+builder.Services.AddScoped<IMenuItemAppService, MenuItemAppService>();
 
 builder.Services.AddScoped<IHomeService, HomeService>();
 

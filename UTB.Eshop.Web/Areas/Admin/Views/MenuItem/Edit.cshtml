@@ -1,0 +1,57 @@
+﻿@model Item
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Edit" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All"></div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Name">Název</label>
+        <input class="form-control" asp-for="Name" value="@Model.Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Section">Skupina</label>
+        <select class="form-control" asp-for="Section">
+            <option value="Nápoje" selected="@(Model.Section == "Nápoje")">Nápoje</option>
+            <option value="Pivo" selected="@(Model.Section == "Pivo")">Pivo</option>
+            <option value="Vína" selected="@(Model.Section == "Vína")">Vína</option>
+            <option value="Destiláty" selected="@(Model.Section == "Destiláty")">Destiláty</option>
+            <option value="Míchané" selected="@(Model.Section == "Míchané")">Míchané</option>
+            <option value="Palačinky" selected="@(Model.Section == "Palačinky")">Palačinky</option>
+            <option value="Sendviče" selected="@(Model.Section == "Sendviče")">Sendviče</option>
+            <option value="Pity" selected="@(Model.Section == "Pity")">Pity</option>
+            <option value="Speciality" selected="@(Model.Section == "Speciality")">Speciality</option>
+            <option value="Dezerty" selected="@(Model.Section == "Dezerty")">Dezerty</option>
+            <option value="Doplňky" selected="@(Model.Section == "Doplňky")">Doplňky</option>
+            <option value="Čaje" selected="@(Model.Section == "Čaje")">Čaje</option>
+        </select>
+        <span asp-validation-for="Section" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Description">Popisek</label>
+        <input class="form-control" asp-for="Description" value="@Model.Description">
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Price">Hlavní Cena</label>
+        <input class="form-control" asp-for="Price" value="@Model.Price">
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Price2">Cena</label>
+        <input class="form-control" asp-for="Price2" value="@Model.Price2">
+        <span asp-validation-for="Price2" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Potvrdit</button>
+</form>
+
+@section Scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/Validations/FileValidationEdit.js"></script>
+}

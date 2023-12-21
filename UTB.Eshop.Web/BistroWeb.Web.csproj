@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Customer\Controllers\**" />
+    <Content Remove="Areas\Customer\Controllers\**" />
+    <EmbeddedResource Remove="Areas\Customer\Controllers\**" />
+    <None Remove="Areas\Customer\Controllers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\UTB.Eshop.Application\BistroWeb.Application.csproj" />
     <ProjectReference Include="..\UTB.Eshop.Domain\BistroWeb.Domain.csproj" />
     <ProjectReference Include="..\UTB.Eshop.Infrastructure\BistroWeb.Infrastructure.csproj" />
@@ -21,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Customer\Controllers\" />
     <Folder Include="wwwroot\img\base\" />
   </ItemGroup>
 

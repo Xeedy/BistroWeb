@@ -9,20 +9,18 @@ using System.Threading.Tasks;
 using BistroWeb.Domain.Implementation.Validations;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
+
 namespace BistroWeb.Domain.Entities
 {
-    public class Product : Entity<int>
+    public class Item : Entity<int>
     {
         [Required]
         [StringLength(70)]
-        public string? Name { get; set; }
-        public string? Brewery { get; set; }
+        public string Name { get; set; }
         public string? Description { get; set; }
         public double Price { get; set; }
-        public string? ImageSrc { get; set; }
+        public string Section { get; set; }
+        public double? Price2 { get; set; }
 
-        [NotMapped]
-        [FileContent("image")]
-        public IFormFile? Image { get; set; }
     }
 }

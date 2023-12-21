@@ -3,6 +3,7 @@ using System.Diagnostics;
 using BistroWeb.Application.Abstraction;
 using BistroWeb.Application.ViewModels;
 using BistroWeb.Web.Models;
+using BistroWeb.Application.Implementation;
 
 namespace BistroWeb.Web.Controllers
 {
@@ -10,12 +11,14 @@ namespace BistroWeb.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         IHomeService _homeService;
+        IBreweryAppService _breweryAppService;
 
         public HomeController(ILogger<HomeController> logger,
-                                IHomeService homeService)
+                                IHomeService homeService, IBreweryAppService breweryAppService)
         {
             _logger = logger;
             _homeService = homeService;
+            _breweryAppService = breweryAppService;
         }
 
         public IActionResult Index()
@@ -27,6 +30,7 @@ namespace BistroWeb.Web.Controllers
         {
             return View();
         }
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -44,7 +48,8 @@ namespace BistroWeb.Web.Controllers
         }
         public IActionResult Menu()
         {
-            return View();
+            CarouselProductViewModel viewModel = _homeService.GetIndexViewModel();
+            return View(viewModel);
         }
         public IActionResult Accesories()
         {

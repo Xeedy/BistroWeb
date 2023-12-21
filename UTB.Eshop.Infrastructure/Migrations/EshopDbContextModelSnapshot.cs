@@ -19,6 +19,37 @@ namespace BistroWeb.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "7.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("BistroWeb.Domain.Entities.Brewery", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ImageSrc")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("varchar(70)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Brewery");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Testovací sada",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovci pivovar"
+                        });
+                });
+
             modelBuilder.Entity("BistroWeb.Domain.Entities.Carousel", b =>
                 {
                     b.Property<int>("Id")
@@ -55,6 +86,46 @@ namespace BistroWeb.Infrastructure.Migrations
                             Id = 3,
                             ImageAlt = "Third slide",
                             ImageSrc = "/img/carousel/itec-index-banner.jpg"
+                        });
+                });
+
+            modelBuilder.Entity("BistroWeb.Domain.Entities.Item", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("varchar(70)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("double");
+
+                    b.Property<double?>("Price2")
+                        .HasColumnType("double");
+
+                    b.Property<string>("Section")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Items");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Testovací sada",
+                            Name = "Test",
+                            Price = 999.0,
+                            Price2 = 0.0,
+                            Section = ""
                         });
                 });
 

@@ -1,203 +1,154 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>Restaurant Menu</title>
-</head>
-<body>
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">Our Menu</h2>
+﻿@model CarouselProductViewModel
 
-        <div class="row">
-            <!-- Drinks -->
-            <div class="col-md-6">
-                <div class="mb-4">
-                    <h4>Nápoje</h4>
-                    <hr>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Kofola (0,3 l/0,5 l)</p>
+@{
+    ViewData["Title"] = "Láhvová piva";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Naše menu</h1>
+</div>
+
+@if (Model != null && Model.Items != null && Model.Items.Count > 0)
+{
+    // Define the order of sections for the first container
+    var firstContainerSections = new List<List<string>>
+    {
+        new List<string> { "Nápoje", "Pivo", "Vína", "Míchané" },
+        new List<string> { "Destiláty" }
+    };
+    var secondContainerSections = new List<List<string>>
+    {
+        new List<string> { "Palačinky", "Sendviče", "Pity" },
+        new List<string> { "Speciality", "Dezerty", "Doplňky", "Čaje" }
+    };
+
+    // Group items by section
+    var itemsBySection = Model.Items.GroupBy(item => item.Section);
+
+    <div class="container-wrapper border">
+        <h1>Nápojový lístek</h1>
+        <!-- First Container -->
+        <section class="py-1 mt-3">
+            <!-- Adjust mt-3 to set the top margin -->
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5">
+                    @for (int i = 0; i < firstContainerSections.Count; i++)
+                    {
+                        <div class="col-md-6 mb-5">
+                            @foreach (var sectionName in firstContainerSections[i])
+                            {
+                                // Find items in the database that match the predefined section
+                                var itemsInSection = itemsBySection.FirstOrDefault(group => group.Key == sectionName);
+
+                                if (itemsInSection != null)
+                                {
+                                    <h2>@sectionName</h2> <!-- Section name -->
+
+                                    <ul class="list-unstyled">
+                                        @foreach (var item in itemsInSection)
+                                        {
+                                            <li>
+                                                <div class="d-flex justify-content-between">
+                                                    <!-- Product name-->
+                                                    <span class="fw-bolder">@item.Name</span>
+                                                    <!-- Product price-->
+                                                    @if (item.Price2 != null)
+                                                    {
+                                                        <!-- Case 2: Price and price2 -->
+                                                        <span>@item.Price2,- / @item.Price,-</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <!-- Case 1: No price2 -->
+                                                        <span>@item.Price,-</span>
+                                                    }
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    @if (item.Description != null)
+                                                    {
+                                                        <!-- Case 2: Price and price2 -->
+                                                        <span>@item.Description</span>
+                                                    }
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            }
                         </div>
-                        <div class="col-md-6 text-right">
-                            <p>25,-/ 35,-</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Royal Crown Cola (0,3l )</p>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <p>30,-/ 40,-</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>River Tonic (0,5 l)</p>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <p>35,-</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Džus Rauch (0,2 l)</p>
-                            <small>Jahoda, Hruška</small>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <p>45,-</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Džus Rani (0,24 l - plech)</p>
-                            <small>Broskev, Mango, Pomeranč, Ananas</small>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <p>45,-</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Jablečný Mošt (0,3 l /0,5 l)</p>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <p>35,- / 50,-</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Rajec neperlivý / Jemně perlivý (0,33 l)</p>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <p>35,-</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Kohoutková voda s citrónem (1 l)</p>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <p>39,-</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Domácí limonáda (0,5 l)</p>
-                            <small>Máta, Bez, Zázvor, Malina, Višeň, Grapefruit, Pomeranč</small>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <p>49,-</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Mléčný koktejl (0,5 l)</p>
-                            <small>Pistácie, Banán, Vanilka</small>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <p>55,-</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Svařené víno (0,2 l)</p>
-                            <small>Bílé, Červené</small>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <p>59,-</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Espresso</p>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <p>50,-</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Cappuccino</p>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <p>60,-</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Cappuccino</p>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <p>60,-</p>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
+        </section>
 
-            <!-- Column 2 -->
-            <div class="col-md-6">
-                <!-- Section 2 -->
-                <div class="mb-4">
-                    <h4>Second Section</h4>
-                    <hr>
-                </div>
+        <!-- Second Container -->
+        <section class="py-1">
+            <div class="container px-4 px-lg-5 mt-0">
+                <!-- Adjust mt-0 to set the top margin -->
+                <div class="row gx-4 gx-lg-5 mt-0">
+                    @for (int i = 0; i < secondContainerSections.Count; i++)
+                    {
+                        <div class="col-md-6 mb-5">
+                            @foreach (var sectionName in secondContainerSections[i])
+                            {
+                                // Find items in the database that match the predefined section
+                                var itemsInSection = itemsBySection.FirstOrDefault(group => group.Key == sectionName);
 
-                <!-- Dish 3 -->
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Dish 3</p>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <p>$20.99</p>
-                        </div>
-                    </div>
-                </div>
+                                if (itemsInSection != null)
+                                {
+                                    <h2>@sectionName</h2> <!-- Section name -->
 
-                <!-- Dish 4 -->
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Dish 4</p>
+                                    <ul class="list-unstyled">
+                                        @foreach (var item in itemsInSection)
+                                        {
+                                            <li>
+                                                <div class="d-flex justify-content-between">
+                                                    <!-- Product name-->
+                                                    <span class="fw-bolder">@item.Name</span>
+                                                    <!-- Product price-->
+                                                    @if (item.Price2 != null)
+                                                    {
+                                                        <!-- Case 2: Price and price2 -->
+                                                        <span>@item.Price2,- / @item.Price,-</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <!-- Case 1: No price2 -->
+                                                        <span>@item.Price,-</span>
+                                                    }
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    @if (item.Description != null)
+                                                    {
+                                                        <!-- Case 2: Price and price2 -->
+                                                        <span>@item.Description</span>
+                                                    }
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            }
                         </div>
-                        <div class="col-md-6 text-right">
-                            <p>$15.99</p>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 
-</body>
-</html>
+}
+
+@section Styles
+    {
+    <link rel="stylesheet" href="~/css/nabidnik.css" asp-append-version="true" />
+}
+
+@section Scripts
+    {
+    <environment include="Development">
+        <script src="~/js/product.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/product.min.js"></script>
+    </environment>
+}
