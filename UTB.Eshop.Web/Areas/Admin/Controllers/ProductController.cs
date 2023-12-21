@@ -77,46 +77,60 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Product product = _productAppService.GetProductById(id);
-
+            var product = _productAppService.GetProductById(id);
             if (product == null)
             {
-                return NotFound(); // or handle appropriately
+                return NotFound();
             }
 
-            return View(product);
+            var breweries = _breweryAppService.GetAllBreweries().ToList();
+
+            var viewModel = new ProductViewModel
+            {
+                Product = product,
+                Breweries = breweries
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Product editedProduct)
+        public async Task<IActionResult> Edit(ProductViewModel viewModel)
         {
-            // Retrieve the existing product from the database
-            Product existingProduct = _productAppService.GetProductById(editedProduct.Id);
-
-            if (existingProduct != null)
+            if (ModelState.IsValid)
             {
-                // Update other properties
-                existingProduct.Name = editedProduct.Name;
-                existingProduct.Description = editedProduct.Description;
-                existingProduct.Price = editedProduct.Price;
+                // Retrieve the existing product from the database
+                var existingProduct = _productAppService.GetProductById(viewModel.Product.Id);
 
-                // Check if a new image is provided
-                if (editedProduct.Image != null)
+                if (existingProduct != null)
                 {
-                    // Upload and update the image source
-                    string newImageSrc = await _fileUploadService.FileUploadAsync(editedProduct.Image, Path.Combine("img", "products"));
-                    existingProduct.ImageSrc = newImageSrc;
+                    // Update other properties
+                    existingProduct.Name = viewModel.Product.Name;
+                    existingProduct.Brewery = viewModel.Product.Brewery;
+                    existingProduct.Description = viewModel.Product.Description;
+                    existingProduct.Price = viewModel.Product.Price;
+
+                    // Check if a new image is provided
+                    if (viewModel.Product.Image != null)
+                    {
+                        // Upload and update the image source
+                        string newImageSrc = await _fileUploadService.FileUploadAsync(viewModel.Product.Image, Path.Combine("img", "product"));
+                        existingProduct.ImageSrc = newImageSrc;
+                    }
+
+                    // Save the changes to the database
+                    await _productAppService.Edit(existingProduct);
+
+                    return RedirectToAction(nameof(Index));
                 }
-
-                // Save the changes to the database
-                await _productAppService.Edit(existingProduct);
-
-                return RedirectToAction(nameof(Index));
             }
             // If the model state is not valid, return to the edit view with the current model
-            return View(editedProduct);
+            return View(viewModel);
         }
+
+
+
 
     }
 }

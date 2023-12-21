@@ -1,61 +1,51 @@
-﻿@model Product
+﻿@using BistroWeb.Application.ViewModels
+@model ProductViewModel
 
 @{
-    ViewData["Title"] = "Edit Product";
+    ViewData["Title"] = "Editace produktu";
 }
 
 <h1>@ViewData["Title"]</h1>
 
-<form asp-action="Edit" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="All"></div>
     <div class="mb-3">
-        <label class="form-label" asp-for="Name">Název</label>
-        <input class="form-control" asp-for="Name" value="@Model.Name">
-        <span asp-validation-for="Name" class="text-danger"></span>
+        <label class="form-label" asp-for="Product.Name">Název</label>
+        <input class="form-control" asp-for="Product.Name">
+        <span asp-validation-for="Product.Name" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label class="form-label" asp-for="Brewery">Pivovar</label>
-        <input class="form-control" asp-for="Brewery" value="@Model.Brewery">
-        <span asp-validation-for="Brewery" class="text-danger"></span>
+        <label class="form-label" asp-for="Product.Brewery">Pivovar</label>
+        <select class="form-control" asp-for="Product.Brewery">
+            @foreach (var brewery in Model.Breweries)
+            {
+                <option value="@brewery.Name">@brewery.Name</option>
+            }
+        </select>
+        <span asp-validation-for="Product.Brewery" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label class="form-label" asp-for="Description">Popisek</label>
-        <input class="form-control" asp-for="Description" value="@Model.Description">
-        <span asp-validation-for="Description" class="text-danger"></span>
+        <label class="form-label" asp-for="Product.Description">Popisek</label>
+        <input class="form-control" asp-for="Product.Description">
+        <span asp-validation-for="Product.Description" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label class="form-label" asp-for="Price">Cena</label>
-        <input class="form-control" asp-for="Price" value="@Model.Price">
-        <span asp-validation-for="Price" class="text-danger"></span>
+        <label class="form-label" asp-for="Product.Price">Cena</label>
+        <input class="form-control" asp-for="Product.Price">
+        <span asp-validation-for="Product.Price" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label class="form-label" asp-for="Image">Obrázek</label>
-        <input id="fileupload" class="form-control-file" asp-for="Image">
-
-        <!-- Display validation error only if the Image is required and the model does not have a current image -->
-        @if (ViewData.ModelState.TryGetValue("Image", out var imageError) && !string.IsNullOrEmpty(Model.ImageSrc))
-        {
-            <span class="text-danger">@imageError.Errors.FirstOrDefault()?.ErrorMessage</span>
-        }
+        <label class="form-label" asp-for="Product.Image">Obrázek</label>
+        <input id="fileupload" class="form-control-file" asp-for="Product.Image">
+        <span asp-validation-for="Product.Image" class="text-danger"></span>
     </div>
+    <input type="hidden" asp-for="Product.Id" />
 
-    <!-- Display the current image if it exists -->
-    @if (!string.IsNullOrEmpty(Model.ImageSrc))
-    {
-        <div class="mb-3">
-            <label class="form-label">Aktuální obrázek</label>
-            <img src="@Model.ImageSrc" alt="Current Image" class="img-thumbnail" />
-        </div>
-    }
-
-    <!-- Hidden input for ImageSrc to trick the validation -->
-    <input type="hidden" asp-for="ImageSrc" />
-
-    <button type="submit" class="btn btn-primary">Potvrdit</button>
+    <button type="submit" class="btn btn-primary">Uložit změny</button>
 </form>
 
 @section Scripts
     {
     <partial name="_ValidationScriptsPartial" />
-    <script src="~/js/Validations/FileValidationEdit.js"></script>
+    <script src="~/js/Validations/FileContentValidation.js"></script>
 }

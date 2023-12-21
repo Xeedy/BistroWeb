@@ -11,6 +11,11 @@ namespace BistroWeb.Application.ViewModels
     {
         public Product Product { get; set; }
         public List<Brewery> Breweries { get; set; }
+        public ProductViewModel()
+        {
+            // Initialize Breweries to an empty list
+            Breweries = new List<Brewery>();
+        }
     }
 
 }
