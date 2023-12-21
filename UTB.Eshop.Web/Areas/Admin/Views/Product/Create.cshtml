@@ -37,12 +37,12 @@
         <input id="fileupload" class="form-control-file" asp-for="Image">
         <span asp-validation-for="Image" class="text-danger"></span>
     </div>
-
+    
     <button type="submit" class="btn btn-primary">Potvrdit</button>
 </form>
 
 @section Scripts
-    {
+{
     <partial name="_ValidationScriptsPartial" />
     <script src="~/js/Validations/FileContentValidation.js"></script>
 }

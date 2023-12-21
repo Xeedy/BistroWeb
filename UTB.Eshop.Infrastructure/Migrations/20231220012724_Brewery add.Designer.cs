@@ -3,6 +3,7 @@ using System;
 using BistroWeb.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BistroWeb.Infrastructure.Migrations
 {
     [DbContext(typeof(EshopDbContext))]
-    partial class EshopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231220012724_Brewery add")]
+    partial class Breweryadd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,44 +61,59 @@ namespace BistroWeb.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("BistroWeb.Domain.Entities.Item", b =>
+            modelBuilder.Entity("BistroWeb.Domain.Entities.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
+                    b.Property<DateTime>("DateTimeCreated")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValueSql("NOW(6)");
+
+                    b.Property<string>("OrderNumber")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(70)
-                        .HasColumnType("varchar(70)");
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("double");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("BistroWeb.Domain.Entities.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderID")
+                        .HasColumnType("int");
 
                     b.Property<double>("Price")
                         .HasColumnType("double");
 
-                    b.Property<double?>("Price2")
-                        .HasColumnType("double");
-
-                    b.Property<string>("Section")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Items");
+                    b.HasIndex("OrderID");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Testovací sada",
-                            Name = "Test",
-                            Price = 999.0,
-                            Price2 = 0.0,
-                            Section = ""
-                        });
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("BistroWeb.Domain.Entities.Product", b =>
@@ -129,11 +147,26 @@ namespace BistroWeb.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Brewery = "Testovaci pivovar",
-                            Description = "Testovací sada",
+                            Description = "nejlepší rohlík na světě",
                             ImageSrc = "/img/products/produkty-01.jpg",
-                            Name = "Test",
-                            Price = 999.0
+                            Name = "Rohlík",
+                            Price = 2.0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "nejlepší chleba v galaxii",
+                            ImageSrc = "/img/products/produkty-02.jpg",
+                            Name = "Chleba",
+                            Price = 50.0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "nejlepší bageta ve vesmíru",
+                            ImageSrc = "/img/products/produkty-05.jpg",
+                            Name = "Bageta",
+                            Price = 40.0
                         });
                 });
 
@@ -263,18 +296,18 @@ namespace BistroWeb.Infrastructure.Migrations
                             Id = 1,
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "b09a83ae-cfd3-4ee7-97e6-fbcf0b0fe78c",
-                            Email = "michal.tesik1@gmail.com",
+                            Email = "admin@admin.cz",
                             EmailConfirmed = true,
-                            FirstName = "Michal",
-                            LastName = "Těšík",
+                            FirstName = "Adminek",
+                            LastName = "Adminovy",
                             LockoutEnabled = true,
-                            NormalizedEmail = "MICHAL.TESIK1@GMAIL.COM",
-                            NormalizedUserName = "XEEDY",
+                            NormalizedEmail = "ADMIN@ADMIN.CZ",
+                            NormalizedUserName = "ADMIN",
                             PasswordHash = "AQAAAAEAACcQAAAAEM9O98Suoh2o2JOK1ZOJScgOfQ21odn/k6EYUpGWnrbevCaBFFXrNL7JZxHNczhh/w==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "SEJEPXC646ZBNCDYSM3H5FRK5RWP2TN6",
                             TwoFactorEnabled = false,
-                            UserName = "Xeedy"
+                            UserName = "admin"
                         },
                         new
                         {
@@ -422,6 +455,36 @@ namespace BistroWeb.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("BistroWeb.Domain.Entities.Order", b =>
+                {
+                    b.HasOne("BistroWeb.Infrastructure.Identity.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BistroWeb.Domain.Entities.OrderItem", b =>
+                {
+                    b.HasOne("BistroWeb.Domain.Entities.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BistroWeb.Domain.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("BistroWeb.Infrastructure.Identity.Role", null)
@@ -471,6 +534,11 @@ namespace BistroWeb.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BistroWeb.Domain.Entities.Order", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }

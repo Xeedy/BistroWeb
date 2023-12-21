@@ -3,7 +3,6 @@ using System.Diagnostics;
 using BistroWeb.Application.Abstraction;
 using BistroWeb.Application.ViewModels;
 using BistroWeb.Web.Models;
-using BistroWeb.Application.Implementation;
 
 namespace BistroWeb.Web.Controllers
 {
@@ -30,7 +29,7 @@ namespace BistroWeb.Web.Controllers
         {
             return View();
         }
-        
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
