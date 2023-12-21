@@ -1,28 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BistroWeb.Application.Abstraction;
+﻿using BistroWeb.Application.Abstraction;
 using BistroWeb.Application.ViewModels;
+using BistroWeb.Domain.Entities;
 using BistroWeb.Infrastructure.Database;
 
 namespace BistroWeb.Application.Implementation
 {
     public class HomeService : IHomeService
     {
-        EshopDbContext _eshopDbContext;
-        public HomeService(EshopDbContext eshopDbContext)
-        {
-            _eshopDbContext = eshopDbContext;
-        }
-
         public CarouselProductViewModel GetIndexViewModel()
         {
             CarouselProductViewModel viewModel = new CarouselProductViewModel();
-            viewModel.Products = _eshopDbContext.Products.ToList();
-            viewModel.Items = _eshopDbContext.Items.ToList();
-            viewModel.Brewery = _eshopDbContext.Brewery.ToList();
+            viewModel.Products = DatabaseFake.Products;
+            viewModel.Items = DatabaseFake.Items;
+
+            // Explicitly cast IList<Brewery> to List<Brewery>
+            viewModel.Breweries = (List<Brewery>)DatabaseFake.Brewery;
+
             return viewModel;
         }
     }

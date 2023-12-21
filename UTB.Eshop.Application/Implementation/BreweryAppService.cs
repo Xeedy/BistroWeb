@@ -23,7 +23,10 @@ namespace BistroWeb.Application.Implementation
         {
             return _eshopDbContext.Brewery.Find(id);
         }
-
+        public IEnumerable<Brewery> GetAllBreweries()
+        {
+            return _eshopDbContext.Brewery.ToList();
+        }
         public IList<Brewery> Select()
         {
             return _eshopDbContext.Brewery.ToList();

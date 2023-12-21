@@ -5,6 +5,7 @@ using BistroWeb.Infrastructure.Database;
 using Microsoft.AspNetCore.Authorization;
 using BistroWeb.Infrastructure.Identity.Enums;
 using BistroWeb.Application.Implementation;
+using BistroWeb.Application.ViewModels;
 
 namespace BistroWeb.Web.Areas.Admin.Controllers
 {
@@ -14,15 +15,18 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
     {
         IProductAppService _productAppService;
         EshopDbContext _eshopDbContext;
+        IBreweryAppService _breweryAppService;
         private readonly IFileUploadService _fileUploadService;
         public Product GetProductById(int id)
         {
             return _eshopDbContext.Products.Find(id);
         }
-        public ProductController(IProductAppService productAppService, IFileUploadService fileUploadService)
+        public ProductController(IProductAppService productAppService, IFileUploadService fileUploadService, IBreweryAppService breweryAppService, EshopDbContext eshopDbContext)
         {
             _productAppService = productAppService;
             _fileUploadService = fileUploadService;
+            _breweryAppService = breweryAppService;
+            _eshopDbContext = eshopDbContext;
         }
 
         public IActionResult Index()
@@ -30,11 +34,18 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
             IList<Product> products = _productAppService.Select();
             return View(products);
         }
-
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            List<Brewery> breweries = _breweryAppService.GetAllBreweries().ToList();
+
+            var viewModel = new ProductViewModel
+            {
+                Product = new Product(),
+                Breweries = breweries
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]

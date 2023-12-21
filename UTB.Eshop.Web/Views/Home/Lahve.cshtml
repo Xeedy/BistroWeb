@@ -42,6 +42,26 @@
                 </div>
             </div>
         </section>
+        <!-- Add a container for breweries -->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row">
+                    <div class="col">
+                        <h2>Breweries</h2>
+                        <ul>
+                            @foreach (var brewery in Model.Breweries)
+                            {
+                                <li>
+                                    <!-- Add a button for each brewery -->
+                                    <button class="btn btn-outline-dark mt-auto" onclick="ShowBreweryDetails(@brewery.Id)">@brewery.Name</button>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     }
 }
 

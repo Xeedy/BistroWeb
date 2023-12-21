@@ -14,5 +14,7 @@ namespace BistroWeb.Application.Abstraction
         bool Delete(int id);
         Task Edit(Brewery editedBrewery);
         Brewery GetBreweryById(int id);
+        public IEnumerable<Brewery> GetAllBreweries();
+        IEnumerable<Product> GetProductsByBrewery(int breweryId);
     }
 }

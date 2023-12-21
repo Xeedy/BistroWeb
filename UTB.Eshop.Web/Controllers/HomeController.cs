@@ -3,7 +3,6 @@ using System.Diagnostics;
 using BistroWeb.Application.Abstraction;
 using BistroWeb.Application.ViewModels;
 using BistroWeb.Web.Models;
-using BistroWeb.Application.Implementation;
 
 namespace BistroWeb.Web.Controllers
 {
@@ -14,11 +13,10 @@ namespace BistroWeb.Web.Controllers
         IBreweryAppService _breweryAppService;
 
         public HomeController(ILogger<HomeController> logger,
-                                IHomeService homeService, IBreweryAppService breweryAppService)
+                                IHomeService homeService)
         {
             _logger = logger;
             _homeService = homeService;
-            _breweryAppService = breweryAppService;
         }
 
         public IActionResult Index()
@@ -30,7 +28,14 @@ namespace BistroWeb.Web.Controllers
         {
             return View();
         }
-        
+        public ActionResult FilterProductsByBrewery(int breweryId)
+        {
+            // Implement your logic to filter products based on the selected brewery
+            var filteredProducts = _breweryAppService.GetProductsByBrewery(breweryId);
+
+            // Return a partial view with the filtered products
+            return PartialView("_FilteredProductsPartialView", filteredProducts);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -57,3 +62,4 @@ namespace BistroWeb.Web.Controllers
         }
     }
 }
+

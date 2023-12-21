@@ -17,6 +17,11 @@ namespace BistroWeb.Application.Implementation
         {
             return _eshopDbContext.Brewery.Find(id);
         }
+        public IEnumerable<Product> GetProductsByBrewery(int breweryId)
+        {
+            // Your implementation to retrieve products by brewery
+            return DatabaseFake.Products.Where(p => p.BreweryId == breweryId);
+        }
         public BreweryAppDFService(IFileUploadService fileUploadService)
         {
             _fileUploadService = fileUploadService;
@@ -56,6 +61,10 @@ namespace BistroWeb.Application.Implementation
                 deleted = DatabaseFake.Brewery.Remove(brewery);
             }
             return deleted;
+        }
+        public IEnumerable<Brewery> GetAllBreweries()
+        {
+            return _eshopDbContext.Brewery.ToList();
         }
         public async Task Edit(Brewery editedBrewery)
         {

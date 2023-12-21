@@ -7,10 +7,10 @@ using BistroWeb.Domain.Entities;
 
 namespace BistroWeb.Application.ViewModels
 {
-    public class CarouselProductViewModel
+    public class ProductViewModel
     {
-        public IList<Product> Products { get; set; }
-        public IList<Item> Items { get; set; }
+        public Product Product { get; set; }
         public List<Brewery> Breweries { get; set; }
     }
+
 }
