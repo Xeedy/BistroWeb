@@ -17,11 +17,6 @@ namespace BistroWeb.Application.Implementation
         {
             return _eshopDbContext.Brewery.Find(id);
         }
-        public IEnumerable<Product> GetProductsByBrewery(int breweryId)
-        {
-            // Your implementation to retrieve products by brewery
-            return DatabaseFake.Products.Where(p => p.BreweryId == breweryId);
-        }
         public BreweryAppDFService(IFileUploadService fileUploadService)
         {
             _fileUploadService = fileUploadService;

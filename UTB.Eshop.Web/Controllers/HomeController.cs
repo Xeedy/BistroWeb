@@ -28,14 +28,6 @@ namespace BistroWeb.Web.Controllers
         {
             return View();
         }
-        public ActionResult FilterProductsByBrewery(int breweryId)
-        {
-            // Implement your logic to filter products based on the selected brewery
-            var filteredProducts = _breweryAppService.GetProductsByBrewery(breweryId);
-
-            // Return a partial view with the filtered products
-            return PartialView("_FilteredProductsPartialView", filteredProducts);
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

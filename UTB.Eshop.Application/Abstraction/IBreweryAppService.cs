@@ -15,6 +15,5 @@ namespace BistroWeb.Application.Abstraction
         Task Edit(Brewery editedBrewery);
         Brewery GetBreweryById(int id);
         public IEnumerable<Brewery> GetAllBreweries();
-        IEnumerable<Product> GetProductsByBrewery(int breweryId);
     }
 }
