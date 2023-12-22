@@ -8,42 +8,47 @@
 
 <form asp-action="Create" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="All"></div>
-    <div class="mb-3">
-        <label class="form-label" asp-for="Products[0].Name">Název</label>
-        <input class="form-control" asp-for="Products[0].Name">
-        <span asp-validation-for="Products[0].Name" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" asp-for="SelectedBreweryId">Pivovar</label>
-        @if (ViewBag.Breweries != null)
-        {
-            <select asp-for="SelectedBreweryId" asp-items="@(new SelectList(ViewBag.Breweries, "Id", "Name"))">
-                <option value="">-- Select Brewery --</option>
-            </select>
-        }
-        else
-        {
-            <p>No breweries available</p>
-        }
-        <span asp-validation-for="SelectedBreweryId" class="text-danger"></span>
-    </div>
-    
 
-    <div class="mb-3">
-        <label class="form-label" asp-for="Products[0].Description">Popisek</label>
-        <input class="form-control" asp-for="Products[0].Description">
-        <span asp-validation-for="Products[0].Description" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" asp-for="Products[0].Price">Cena</label>
-        <input class="form-control" asp-for="Products[0].Price">
-        <span asp-validation-for="Products[0].Price" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" asp-for="Products[0].Image">Obrázek</label>
-        <input id="fileupload" class="form-control-file" asp-for="Products[0].Image">
-        <span asp-validation-for="Products[0].Image" class="text-danger"></span>
-    </div>
+    @if (Model.Products != null && Model.Products.Any())
+    {
+        <div class="mb-3">
+            <label class="form-label" asp-for="Products[0].Name">Název</label>
+            <input class="form-control" asp-for="Products[0].Name">
+            <span asp-validation-for="Products[0].Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" asp-for="SelectedBreweryId">Pivovar</label>
+            @if (ViewData["Breweries"] != null)
+            {
+                <select class="form-control" asp-for="SelectedBreweryId" asp-items="@(ViewData["Breweries"] as SelectList)">
+                    <option value="">-- Vyberte pivovar --</option>
+                </select>
+            }
+            else
+            {
+                <p>No breweries available</p>
+            }
+            <span asp-validation-for="SelectedBreweryId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="Products[0].Description">Popisek</label>
+            <input class="form-control" asp-for="Products[0].Description">
+            <span asp-validation-for="Products[0].Description" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="Products[0].Price">Cena</label>
+            <input class="form-control" asp-for="Products[0].Price">
+            <span asp-validation-for="Products[0].Price" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="Products[0].Image">Obrázek</label>
+            <input id="fileupload" class="form-control-file" asp-for="Products[0].Image">
+            <span asp-validation-for="Products[0].Image" class="text-danger"></span>
+        </div>
+    }
 
     <button type="submit" class="btn btn-primary">Potvrdit</button>
 </form>

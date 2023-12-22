@@ -62,8 +62,8 @@ namespace BistroWeb.Application.Implementation
 
         public async Task Edit(Product editedProduct)
         {
-            // Fetch the existing product from the database without tracking
-            var existingProduct = _eshopDbContext.Products.AsNoTracking().FirstOrDefault(p => p.Id == editedProduct.Id);
+            // Fetch the existing product from the database
+            var existingProduct = _eshopDbContext.Products.FirstOrDefault(p => p.Id == editedProduct.Id);
 
             if (existingProduct != null)
             {
@@ -79,9 +79,12 @@ namespace BistroWeb.Application.Implementation
                     string newImageSrc = await _fileUploadService.FileUploadAsync(editedProduct.Image, Path.Combine("img", "products"));
                     existingProduct.ImageSrc = newImageSrc;
                 }
+
+                // Save changes to the database
                 await _eshopDbContext.SaveChangesAsync();
             }
         }
-
     }
+
+
 }

@@ -52,7 +52,7 @@ namespace BistroWeb.Web.Controllers
         }
         public IActionResult Menu()
         {
-            CarouselProductViewModel viewModel = _homeService.GetIndexViewModel();
+            MenuItemViewModel viewModel = _homeService.GetIndexViewModel2();
             return View(viewModel);
         }
         public IActionResult Accesories()

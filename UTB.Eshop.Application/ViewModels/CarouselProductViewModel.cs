@@ -10,7 +10,7 @@ namespace BistroWeb.Application.ViewModels
 {
     public class CarouselProductViewModel
     {
-        public IList<Product> Products { get; set; }
+        public List<Product> Products { get; set; } = new List<Product>();
         public IList<Brewery> Brewery { get; set; }
         [Required(ErrorMessage = "Please select a brewery")]
         public int SelectedBreweryId { get; set; }

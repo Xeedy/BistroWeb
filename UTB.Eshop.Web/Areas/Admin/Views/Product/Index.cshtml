@@ -28,8 +28,15 @@
                     <tr>
                         <td>@product.Id</td>
                         <td><span class="fade-overflow">@product.Name</span></td>
-                        <td>@product.Brewery</td>
-                        <td>@product.Description</td>
+                        <td>
+                            @{
+                                // Get the Brewery name by its ID
+                                var breweries = ViewBag.Breweries as List<Brewery>;
+                                var brewery = breweries?.FirstOrDefault(b => b.Id == product.BreweryId);
+                                string breweryName = brewery != null ? brewery.Name : "N/A";
+                            }
+                            @breweryName
+                        </td>
                         <td>@product.Price</td>
                         <th class="text-end">
                             <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
