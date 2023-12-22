@@ -11,6 +11,6 @@ namespace BistroWeb.Application.ViewModels
     {
         public IList<Product> Products { get; set; }
         public IList<Item> Items { get; set; }
-        public List<Brewery> Breweries { get; set; }
+        public IList<Brewery> Brewery { get; set; }
     }
 }

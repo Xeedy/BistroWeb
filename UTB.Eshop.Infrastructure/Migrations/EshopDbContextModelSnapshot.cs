@@ -165,6 +165,15 @@ namespace BistroWeb.Infrastructure.Migrations
                             ImageSrc = "/img/products/produkty-01.jpg",
                             Name = "Test",
                             Price = 999.0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Brewery = "Neco",
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            Price = 10.0
                         });
                 });
 

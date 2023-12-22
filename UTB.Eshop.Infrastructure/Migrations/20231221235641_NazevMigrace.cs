@@ -317,7 +317,11 @@ namespace BistroWeb.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "Brewery", "Description", "ImageSrc", "Name", "Price" },
-                values: new object[] { 1, "Testovaci pivovar", "Testovací sada", "/img/products/produkty-01.jpg", "Test", 999.0 });
+                values: new object[,]
+                {
+                    { 1, "Testovaci pivovar", "Testovací sada", "/img/products/produkty-01.jpg", "Test", 999.0 },
+                    { 2, "Neco", "Cosik", "/img/products/produkty-01.jpg", "Testovacka", 10.0 }
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BistroWeb.Infrastructure.Migrations
 {
     [DbContext(typeof(EshopDbContext))]
-    [Migration("20231221173458_NazevMigrace")]
+    [Migration("20231221235641_NazevMigrace")]
     partial class NazevMigrace
     {
         /// <inheritdoc />
@@ -168,6 +168,15 @@ namespace BistroWeb.Infrastructure.Migrations
                             ImageSrc = "/img/products/produkty-01.jpg",
                             Name = "Test",
                             Price = 999.0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Brewery = "Neco",
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            Price = 10.0
                         });
                 });
 

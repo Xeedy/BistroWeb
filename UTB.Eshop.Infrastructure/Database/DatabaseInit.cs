@@ -24,6 +24,15 @@ namespace BistroWeb.Infrastructure.Database
                 Price = 999,
                 ImageSrc = "/img/products/produkty-01.jpg"
             });
+            products.Add(new Product
+            {
+                Id = 2,
+                Name = "Testovacka",
+                Brewery = "Neco",
+                Description = "Cosik",
+                Price = 10,
+                ImageSrc = "/img/products/produkty-01.jpg"
+            });
 
             return products;
         }

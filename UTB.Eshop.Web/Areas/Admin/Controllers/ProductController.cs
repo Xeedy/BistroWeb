@@ -35,31 +35,32 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
             return View(products);
         }
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(Product product)
         {
-            List<Brewery> breweries = _breweryAppService.GetAllBreweries().ToList();
-
-            var viewModel = new ProductViewModel
+            var viewModel = new BreweryProductViewModel
             {
-                Product = new Product(),
-                Breweries = breweries
+                Products = new List<Product> { new Product() }, // Initialize the list with at least one product
+                Breweries = _breweryAppService.GetAllBreweries()?.ToList() ?? new List<Brewery>()
             };
 
             return View(viewModel);
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> Create(Product product)
+        public async Task<IActionResult> Create(BreweryProductViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                await _productAppService.Create(product);
+                // Assuming you want to create a new product
+                var newProduct = viewModel.Products[0];
+                await _productAppService.Create(newProduct);
 
-                return RedirectToAction(nameof(ProductController.Index));
+                return RedirectToAction(nameof(Index));
             }
             else
             {
-                return View(product);
+                return View(viewModel);
             }
         }
 
@@ -85,9 +86,9 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
 
             var breweries = _breweryAppService.GetAllBreweries().ToList();
 
-            var viewModel = new ProductViewModel
+            var viewModel = new BreweryProductViewModel
             {
-                Product = product,
+                Products = new List<Product> { product },
                 Breweries = breweries
             };
 
@@ -96,36 +97,32 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(ProductViewModel viewModel)
+        public async Task<IActionResult> Edit(BreweryProductViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                // Retrieve the existing product from the database
-                var existingProduct = _productAppService.GetProductById(viewModel.Product.Id);
+                var existingProduct = _productAppService.GetProductById(viewModel.Products[0].Id);
 
                 if (existingProduct != null)
                 {
                     // Update other properties
-                    existingProduct.Name = viewModel.Product.Name;
-                    existingProduct.Brewery = viewModel.Product.Brewery;
-                    existingProduct.Description = viewModel.Product.Description;
-                    existingProduct.Price = viewModel.Product.Price;
+                    existingProduct.Name = viewModel.Products[0].Name;
+                    existingProduct.Brewery = viewModel.Products[0].Brewery;
+                    existingProduct.Description = viewModel.Products[0].Description;
+                    existingProduct.Price = viewModel.Products[0].Price;
 
-                    // Check if a new image is provided
-                    if (viewModel.Product.Image != null)
+                    if (viewModel.Products[0].Image != null)
                     {
-                        // Upload and update the image source
-                        string newImageSrc = await _fileUploadService.FileUploadAsync(viewModel.Product.Image, Path.Combine("img", "product"));
+                        string newImageSrc = await _fileUploadService.FileUploadAsync(viewModel.Products[0].Image, Path.Combine("img", "product"));
                         existingProduct.ImageSrc = newImageSrc;
                     }
 
-                    // Save the changes to the database
                     await _productAppService.Edit(existingProduct);
 
                     return RedirectToAction(nameof(Index));
                 }
             }
-            // If the model state is not valid, return to the edit view with the current model
+
             return View(viewModel);
         }
 

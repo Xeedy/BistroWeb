@@ -27,12 +27,21 @@ namespace BistroWeb.Tests.Admin.ProductController
             // Mock IFileUploadService
             Mock<IFileUploadService> fileUploadServiceMock = new Mock<IFileUploadService>();
 
+            // Mock other services (IBreweryAppService and EshopDbContext)
+            Mock<IBreweryAppService> breweryAppServiceMock = new Mock<IBreweryAppService>();
+            Mock<EshopDbContext> dbContextMock = new Mock<EshopDbContext>();
+
             var product = GetProduct();
 
-            var productController = new Web.Areas.Admin.Controllers.ProductController(productServiceMock.Object, fileUploadServiceMock.Object);
-
+            // Pass all mock objects to the controller constructor
+            var productController = new Web.Areas.Admin.Controllers.ProductController(
+                productServiceMock.Object,
+                fileUploadServiceMock.Object,
+                breweryAppServiceMock.Object, // Add this line
+                dbContextMock.Object // Add this line
+            );
             // Act
-            var actionResult = await productController.Create(product);
+            var actionResult = productController.Create(product);
 
             // Assert
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(actionResult);

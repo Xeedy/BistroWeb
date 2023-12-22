@@ -3,6 +3,8 @@ using System.Diagnostics;
 using BistroWeb.Application.Abstraction;
 using BistroWeb.Application.ViewModels;
 using BistroWeb.Web.Models;
+using BistroWeb.Domain.Entities;
+using Newtonsoft.Json;
 
 namespace BistroWeb.Web.Controllers
 {
@@ -37,8 +39,13 @@ namespace BistroWeb.Web.Controllers
         public IActionResult Lahve()
         {
             CarouselProductViewModel viewModel = _homeService.GetIndexViewModel();
+
+            // Add debug output
+            Debug.WriteLine($"Number of products: {viewModel.Products.Count}");
+
             return View(viewModel);
         }
+
         public IActionResult HookahMenu()
         {
             return View();

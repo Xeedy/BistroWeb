@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BistroWeb.Domain.Entities;
 using BistroWeb.Infrastructure.Identity;
+using System.Diagnostics;
 
 namespace BistroWeb.Infrastructure.Database
 {
@@ -25,6 +26,7 @@ namespace BistroWeb.Infrastructure.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            Debug.WriteLine("OnModelCreating: Seeding data...");
 
             DatabaseInit dbInit = new DatabaseInit();
             modelBuilder.Entity<Product>().HasData(dbInit.GetProducts());
