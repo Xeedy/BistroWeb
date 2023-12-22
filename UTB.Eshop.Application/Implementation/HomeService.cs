@@ -15,16 +15,16 @@ namespace BistroWeb.Application.Implementation
         public CarouselProductViewModel GetIndexViewModel()
         {
             CarouselProductViewModel viewModel = new CarouselProductViewModel();
-            viewModel.Products = DatabaseFake.Products;
-            viewModel.Items = DatabaseFake.Items;
-
+            viewModel.Products = _eshopDbContext.Products.ToList();
+            viewModel.Items = _eshopDbContext.Items.ToList();
+            viewModel.Brewery = _eshopDbContext.Brewery.ToList();
             return viewModel;
         }
         public BreweryProductViewModel GetIndexViewModel2()
         {
             BreweryProductViewModel viewModel = new BreweryProductViewModel();
-            viewModel.Products = DatabaseFake.Products;
-            viewModel.Breweries = (List<Brewery>)DatabaseFake.Brewery;
+            viewModel.Products = _eshopDbContext.Products.ToList();
+            viewModel.Breweries = _eshopDbContext.Brewery.ToList();
 
             return viewModel;
         }

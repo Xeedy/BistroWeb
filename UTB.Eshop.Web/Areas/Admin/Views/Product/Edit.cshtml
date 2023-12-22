@@ -1,5 +1,4 @@
-﻿@using BistroWeb.Application.ViewModels
-@model ProductViewModel
+﻿@model BistroWeb.Application.ViewModels.BreweryProductViewModel
 
 @{
     ViewData["Title"] = "Editace produktu";
@@ -10,38 +9,40 @@
 <form asp-action="Edit" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="All"></div>
     <div class="mb-3">
-        <label class="form-label" asp-for="Product.Name">Název</label>
-        <input class="form-control" asp-for="Product.Name">
-        <span asp-validation-for="Product.Name" class="text-danger"></span>
+        <label class="form-label" asp-for="Products[0].Name">Název</label>
+        <input class="form-control" asp-for="Products[0].Name" value="@Model.Products[0].Name">
+        <span asp-validation-for="Products[0].Name" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label class="form-label" asp-for="Product.Brewery">Pivovar</label>
-        <select class="form-control" asp-for="Product.Brewery">
+        <label class="form-label" asp-for="Products[0].Brewery">Pivovar</label>
+        <select class="form-control" asp-for="Products[0].Brewery">
             @foreach (var brewery in Model.Breweries)
             {
-                <option value="@brewery.Name">@brewery.Name</option>
+                <option value="@brewery.Name" selected="@(brewery.Name == Model.Products[0]?.Brewery)">@brewery.Name</option>
             }
         </select>
-        <span asp-validation-for="Product.Brewery" class="text-danger"></span>
+        <span asp-validation-for="Products[0].Brewery" class="text-danger"></span>
     </div>
-    <div class="mb-3">
-        <label class="form-label" asp-for="Product.Description">Popisek</label>
-        <input class="form-control" asp-for="Product.Description">
-        <span asp-validation-for="Product.Description" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" asp-for="Product.Price">Cena</label>
-        <input class="form-control" asp-for="Product.Price">
-        <span asp-validation-for="Product.Price" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" asp-for="Product.Image">Obrázek</label>
-        <input id="fileupload" class="form-control-file" asp-for="Product.Image">
-        <span asp-validation-for="Product.Image" class="text-danger"></span>
-    </div>
-    <input type="hidden" asp-for="Product.Id" />
 
-    <button type="submit" class="btn btn-primary">Uložit změny</button>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Products[0].Description">Popisek</label>
+        <input class="form-control" asp-for="Products[0].Description" value="@Model.Products[0]?.Description">
+        <span asp-validation-for="Products[0].Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" asp-for="Products[0].Price">Cena</label>
+        <input class="form-control" asp-for="Products[0].Price" value="@Model.Products[0]?.Price">
+        <span asp-validation-for="Products[0].Price" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" asp-for="Products[0].Image">Obrázek</label>
+        <input id="fileupload" class="form-control-file" asp-for="Products[0].Image" value="@Model.Products[0]?.Image">
+        <span asp-validation-for="Products[0].Image" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Potvrdit</button>
 </form>
 
 @section Scripts

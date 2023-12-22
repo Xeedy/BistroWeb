@@ -5,25 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BistroWeb.Application.Abstraction;
-using Microsoft.AspNetCore.Hosting;
 
 namespace BistroWeb.Application.Implementation
 {
     public class FileUploadService : IFileUploadService
     {
         public string RootPath { get; set; }
-        
+
         public FileUploadService(string rootPath)
         {
             this.RootPath = rootPath;
         }
+
         public async Task<string> FileUploadAsync(IFormFile fileToUpload, string folderNameOnServer)
         {
-            if (fileToUpload == null)
-            {
-                // Return a default or placeholder image path
-                return "path/to/default/image.jpg";
-            }
             string filePathOutput = String.Empty;
 
             var fileName = Path.GetFileNameWithoutExtension(fileToUpload.FileName);

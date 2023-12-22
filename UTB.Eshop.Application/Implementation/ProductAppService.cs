@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BistroWeb.Application.Abstraction;
+using BistroWeb.Application.ViewModels;
 using BistroWeb.Domain.Entities;
 using BistroWeb.Infrastructure.Database;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BistroWeb.Application.Implementation
 {
@@ -56,18 +59,19 @@ namespace BistroWeb.Application.Implementation
             }
             return deleted;
         }
+
         public async Task Edit(Product editedProduct)
         {
-            Product existingProduct = _eshopDbContext.Products.Find(editedProduct.Id);
+            // Fetch the existing product from the database without tracking
+            var existingProduct = _eshopDbContext.Products.AsNoTracking().FirstOrDefault(p => p.Id == editedProduct.Id);
 
             if (existingProduct != null)
             {
-                // Update the properties of the existing product with the edited values
+                // Update other properties
                 existingProduct.Name = editedProduct.Name;
                 existingProduct.Description = editedProduct.Description;
                 existingProduct.Price = editedProduct.Price;
                 existingProduct.Brewery = editedProduct.Brewery;
-                // ... (update other properties as needed)
 
                 // If a new image is provided, upload and update the image source
                 if (editedProduct.Image != null)
@@ -75,10 +79,9 @@ namespace BistroWeb.Application.Implementation
                     string newImageSrc = await _fileUploadService.FileUploadAsync(editedProduct.Image, Path.Combine("img", "products"));
                     existingProduct.ImageSrc = newImageSrc;
                 }
-
-                // Save the changes to the database
-                _eshopDbContext.SaveChanges();
+                await _eshopDbContext.SaveChangesAsync();
             }
         }
+
     }
 }

@@ -29,7 +29,7 @@ namespace BistroWeb.Application.Implementation
 
         public async Task Create(Product product)
         {
-            if(DatabaseFake.Products != null
+            if (DatabaseFake.Products != null
                 && DatabaseFake.Products.Count > 0)
             {
                 product.Id = DatabaseFake.Products.Last().Id + 1;
@@ -59,22 +59,25 @@ namespace BistroWeb.Application.Implementation
         }
         public async Task Edit(Product editedProduct)
         {
-            Product existingProduct = _eshopDbContext.Products.Find(editedProduct.Id);
+            // Fetch the existing product from the database without tracking
+            var existingProduct = _eshopDbContext.Products.Find(editedProduct.Id);
 
             if (existingProduct != null)
             {
-                existingProduct.Name = editedProduct.Name;
+                // Update other properties
+                existingProduct.Name = editedProduct.Name ?? existingProduct.Name;  // Check if Name is null, use the existing value
                 existingProduct.Description = editedProduct.Description;
                 existingProduct.Price = editedProduct.Price;
-                existingProduct.Brewery = editedProduct.Brewery;
-                // ... (update other properties as needed)
 
+                // Check if a new image is provided
                 if (editedProduct.Image != null)
                 {
+                    // Upload and update the image source
                     string newImageSrc = await _fileUploadService.FileUploadAsync(editedProduct.Image, Path.Combine("img", "products"));
                     existingProduct.ImageSrc = newImageSrc;
                 }
 
+                // Save the changes to the database
                 _eshopDbContext.SaveChanges();
             }
         }
