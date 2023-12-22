@@ -36,12 +36,11 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
             return View(products);
         }
         [HttpGet]
-        public IActionResult Create(Product product)
+        public IActionResult Create()
         {
-            var viewModel = new BreweryProductViewModel
+            var viewModel = new CarouselProductViewModel
             {
-                Products = new List<Product> { new Product() }, // Initialize the list with at least one product
-                Breweries = _breweryAppService.GetAllBreweries()?.ToList() ?? new List<Brewery>()
+                Brewery = _breweryAppService.GetBreweries().ToList()
             };
 
             return View(viewModel);
@@ -49,21 +48,28 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create(BreweryProductViewModel viewModel)
+        public async Task<IActionResult> Create(CarouselProductViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
                 // Assuming you want to create a new product
                 var newProduct = viewModel.Products[0];
+
+                // Set the BreweryId for the new product
+                newProduct.BreweryId = viewModel.SelectedBreweryId;
+
                 await _productAppService.Create(newProduct);
 
                 return RedirectToAction(nameof(Index));
             }
             else
             {
+                // Populate the breweries again in case of model validation failure
+                ViewBag.Breweries = _breweryAppService.GetBreweries(); // Assuming you have a method to get breweries
                 return View(viewModel);
             }
         }
+
 
         public IActionResult Delete(int id)
         {
@@ -93,57 +99,15 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
                 : null;
 
             // Construct the view model
-            var viewModel = new BreweryProductViewModel
+            var viewModel = new CarouselProductViewModel
             {
                 Products = new List<Product> { existingProduct },
-                Breweries = _breweryAppService.GetAllBreweries()?.ToList() ?? new List<Brewery>(),
+                Brewery = _breweryAppService.GetBreweries()?.ToList() ?? new List<Brewery>(),
                 SelectedBreweryId = existingProduct.BreweryId ?? 0 // Handle the nullable case
             };
 
             return View(viewModel);
         }
-
-
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(BreweryProductViewModel editedViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                // Retrieve the existing product from the database
-                Product existingProduct = _productAppService.GetProductById(editedViewModel.Products[0].Id);
-
-                if (existingProduct != null)
-                {
-                    // Update other properties
-                    existingProduct.Name = editedViewModel.Products[0].Name;
-                    existingProduct.Description = editedViewModel.Products[0].Description;
-                    existingProduct.Price = editedViewModel.Products[0].Price;
-
-                    // Check if a new image is provided
-                    if (editedViewModel.Products[0].Image != null)
-                    {
-                        // Upload and update the image source
-                        string newImageSrc = await _fileUploadService.FileUploadAsync(editedViewModel.Products[0].Image, Path.Combine("img", "products"));
-                        existingProduct.ImageSrc = newImageSrc;
-                    }
-
-                    // Update breweryId
-                    existingProduct.BreweryId = editedViewModel.Products[0].BreweryId;
-
-                    // Save the changes to the database
-                    await _productAppService.Edit(existingProduct);
-
-                    return RedirectToAction(nameof(Index));
-                }
-            }
-
-            // If the model state is not valid or existingProduct is not found, return to the edit view with the current model
-            return View(editedViewModel);
-        }
-
 
     }
 }

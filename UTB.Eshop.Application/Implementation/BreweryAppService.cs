@@ -21,15 +21,15 @@ namespace BistroWeb.Application.Implementation
         }
         public Brewery GetBreweryById(int id)
         {
-            return _eshopDbContext.Breweries.Find(id);
+            return _eshopDbContext.Brewery.Find(id);
         }
-        public IEnumerable<Brewery> GetAllBreweries()
+        public IEnumerable<Brewery> GetBreweries()
         {
-            return _eshopDbContext.Breweries.ToList();
+            return _eshopDbContext.Brewery.ToList();
         }
         public IList<Brewery> Select()
         {
-            return _eshopDbContext.Breweries.ToList();
+            return _eshopDbContext.Brewery.ToList();
         }
 
         public async Task Create(Brewery brewery)
@@ -37,9 +37,9 @@ namespace BistroWeb.Application.Implementation
             string imageSrc = await _fileUploadService.FileUploadAsync(brewery.Image, Path.Combine("img", "brewery"));
             brewery.ImageSrc = imageSrc;
 
-            if (!_eshopDbContext.Breweries.Any(b => b.Id == brewery.Id))
+            if (!_eshopDbContext.Brewery.Any(b => b.Id == brewery.Id))
             {
-                _eshopDbContext.Breweries.Add(brewery);
+                _eshopDbContext.Brewery.Add(brewery);
                 await _eshopDbContext.SaveChangesAsync();
             }
             else
@@ -51,11 +51,11 @@ namespace BistroWeb.Application.Implementation
         {
             bool deleted = false;
 
-            Brewery? brewery = _eshopDbContext.Breweries.FirstOrDefault(prod => prod.Id == id);
+            Brewery? brewery = _eshopDbContext.Brewery.FirstOrDefault(prod => prod.Id == id);
 
             if (brewery != null)
             {
-                _eshopDbContext.Breweries.Remove(brewery);
+                _eshopDbContext.Brewery.Remove(brewery);
                 _eshopDbContext.SaveChanges();
                 deleted = true;
             }
@@ -65,7 +65,7 @@ namespace BistroWeb.Application.Implementation
         public async Task Edit(Brewery editedBrewery)
         {
             // Retrieve the existing brewery from the database
-            Brewery existingBrewery = _eshopDbContext.Breweries.Find(editedBrewery.Id);
+            Brewery existingBrewery = _eshopDbContext.Brewery.Find(editedBrewery.Id);
 
             if (existingBrewery != null)
             {

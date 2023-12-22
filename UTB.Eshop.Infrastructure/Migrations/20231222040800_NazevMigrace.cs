@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BistroWeb.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Something : Migration
+    public partial class NazevMigrace : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

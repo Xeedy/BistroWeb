@@ -1,8 +1,9 @@
 ﻿@model Brewery
 
 @{
-    ViewData["Title"] = "Vytvoření produktu";
+    ViewData["Title"] = "Vytvoření pivovaru";
 }
+
 <h1>@ViewData["Title"]</h1>
 
 <form asp-action="Create" method="post" enctype="multipart/form-data">
@@ -19,14 +20,14 @@
     </div>
     <div class="mb-3">
         <label class="form-label" asp-for="Image">Obrázek</label>
-        <input id="fileupload" class="form-control-file" asp-for="Image">
+        <input id="fileupload" class="form-control-file" asp-for="Image" type="file">
         <span asp-validation-for="Image" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Potvrdit</button>
 </form>
 
 @section Scripts
-{
+    {
     <partial name="_ValidationScriptsPartial" />
     <script src="~/js/Validations/FileContentValidation.js"></script>
 }

@@ -1,4 +1,4 @@
-﻿@model BistroWeb.Application.ViewModels.BreweryProductViewModel
+﻿@model BistroWeb.Application.ViewModels.CarouselProductViewModel
 
 @{
     ViewData["Title"] = "Editace produktu";
@@ -16,7 +16,7 @@
     <div class="mb-3">
         <label class="form-label" asp-for="Products[0].Brewery">Pivovar</label>
         <select class="form-control" asp-for="Products[0].Brewery">
-            @foreach (var brewery in Model.Breweries)
+            @foreach (var brewery in Model.Brewery)
             {
                 <option value="@brewery.Name" selected="@(brewery.Name == Model.Products[0]?.Brewery?.Name)">@brewery.Name</option>
             }

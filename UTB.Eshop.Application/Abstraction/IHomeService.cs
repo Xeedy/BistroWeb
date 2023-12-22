@@ -11,6 +11,6 @@ namespace BistroWeb.Application.Abstraction
     public interface IHomeService
     {
         CarouselProductViewModel GetIndexViewModel();
-        public BreweryProductViewModel GetIndexViewModel2();
+        MenuItemViewModel GetIndexViewModel2();
     }
 }

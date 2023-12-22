@@ -22,6 +22,6 @@ namespace BistroWeb.Domain.Entities
         [NotMapped]
         [FileContent("image")]
         public IFormFile? Image { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public ICollection<Product>? Products { get; set; }
     }
 }

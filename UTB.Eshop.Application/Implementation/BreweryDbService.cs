@@ -19,7 +19,7 @@ namespace BistroWeb.Application.Implementation
         }
         public IEnumerable<Brewery> GetAllBreweries()
         {
-            return _eshopDbContext.Breweries.ToList();
+            return _eshopDbContext.Brewery.ToList();
         }
         
     }

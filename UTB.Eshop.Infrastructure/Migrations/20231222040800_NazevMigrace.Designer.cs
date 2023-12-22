@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BistroWeb.Infrastructure.Migrations
 {
     [DbContext(typeof(EshopDbContext))]
-    [Migration("20231222030754_Something")]
-    partial class Something
+    [Migration("20231222040800_NazevMigrace")]
+    partial class NazevMigrace
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

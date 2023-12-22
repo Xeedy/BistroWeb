@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,8 @@ namespace BistroWeb.Application.ViewModels
     public class CarouselProductViewModel
     {
         public IList<Product> Products { get; set; }
-        public IList<Item> Items { get; set; }
         public IList<Brewery> Brewery { get; set; }
+        [Required(ErrorMessage = "Please select a brewery")]
+        public int SelectedBreweryId { get; set; }
     }
 }
