@@ -119,12 +119,6 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
                 SelectedBreweryId = existingProduct.BreweryId.HasValue ? (int)existingProduct.BreweryId : 0 // Set the default selected value based on existing product
             };
             ViewData["Breweries"] = new SelectList(viewModel.Brewery, "Id", "Name", viewModel.SelectedBreweryId);
-            Console.WriteLine($"Product Id: {existingProduct.Id}");
-            Console.WriteLine($"Product Name: {existingProduct.Name}");
-            Console.WriteLine($"Product Description: {existingProduct.Description}");
-            Console.WriteLine($"Product Price: {existingProduct.Price}");
-            Console.WriteLine($"BreweryId: {existingProduct.BreweryId}");
-
 
             return View(viewModel);
         }
@@ -153,7 +147,7 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
             existingProduct.Name = viewModel.Products[0].Name;
             existingProduct.Description = viewModel.Products[0].Description;
             existingProduct.Price = viewModel.Products[0].Price;
-            existingProduct.BreweryId = viewModel.SelectedBreweryId;
+            existingProduct.BreweryId = viewModel.Products[0].BreweryId;
 
             // If a new image is provided, upload and update the image source
             if (viewModel.Products[0].Image != null)
