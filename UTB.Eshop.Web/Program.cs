@@ -66,7 +66,11 @@ builder.Services.AddSession(options =>
 builder.Services.AddScoped<IAccountService, AccountIdentityService>();
 builder.Services.AddScoped<ISecurityService, SecurityIdentityService>();
 
-
+builder.Services.AddLogging(builder =>
+{
+    builder.AddConsole();
+    // Add other logging providers if needed
+});
 builder.Services.AddScoped<IFileUploadService, FileUploadService>(serviceProvider => new FileUploadService(serviceProvider.GetService<IWebHostEnvironment>().WebRootPath));
 builder.Services.AddScoped<IProductAppService, ProductAppService>();
 builder.Services.AddScoped<IBreweryAppService, BreweryAppService>();

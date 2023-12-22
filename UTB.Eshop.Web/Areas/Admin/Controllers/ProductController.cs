@@ -118,7 +118,13 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
                 Brewery = _breweryAppService.GetBreweries()?.ToList() ?? new List<Brewery>(),
                 SelectedBreweryId = existingProduct.BreweryId.HasValue ? (int)existingProduct.BreweryId : 0 // Set the default selected value based on existing product
             };
-            ViewData["Breweries"] = new SelectList(viewModel.Brewery, "Id", "Name");
+            ViewData["Breweries"] = new SelectList(viewModel.Brewery, "Id", "Name", viewModel.SelectedBreweryId);
+            Console.WriteLine($"Product Id: {existingProduct.Id}");
+            Console.WriteLine($"Product Name: {existingProduct.Name}");
+            Console.WriteLine($"Product Description: {existingProduct.Description}");
+            Console.WriteLine($"Product Price: {existingProduct.Price}");
+            Console.WriteLine($"BreweryId: {existingProduct.BreweryId}");
+
 
             return View(viewModel);
         }
@@ -147,7 +153,7 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
             existingProduct.Name = viewModel.Products[0].Name;
             existingProduct.Description = viewModel.Products[0].Description;
             existingProduct.Price = viewModel.Products[0].Price;
-            existingProduct.Brewery = viewModel.Products[0].Brewery;
+            existingProduct.BreweryId = viewModel.SelectedBreweryId;
 
             // If a new image is provided, upload and update the image source
             if (viewModel.Products[0].Image != null)
@@ -166,12 +172,24 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
+                foreach (var modelStateEntry in ModelState)
+                {
+                    var key = modelStateEntry.Key;
+                    var errors = modelStateEntry.Value.Errors;
+
+                    foreach (var error in errors)
+                    {
+                        Console.WriteLine($"ModelState Error for {key}: {error.ErrorMessage}");
+                    }
+                }
+
                 // Log the exception or handle it appropriately
                 ModelState.AddModelError(string.Empty, "Error updating product.");
                 viewModel.Brewery = _breweryAppService.GetBreweries()?.ToList() ?? new List<Brewery>();
                 return View(viewModel);
             }
         }
+
 
 
 
