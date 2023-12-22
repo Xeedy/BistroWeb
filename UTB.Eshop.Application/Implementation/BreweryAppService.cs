@@ -11,8 +11,8 @@ namespace BistroWeb.Application.Implementation
 {
     public class BreweryAppService : IBreweryAppService
     {
-        IFileUploadService _fileUploadService;
-        EshopDbContext _eshopDbContext;
+        private readonly IFileUploadService _fileUploadService;
+        private readonly EshopDbContext _eshopDbContext;
 
         public BreweryAppService(IFileUploadService fileUploadService, EshopDbContext eshopDbContext)
         {
@@ -21,15 +21,15 @@ namespace BistroWeb.Application.Implementation
         }
         public Brewery GetBreweryById(int id)
         {
-            return _eshopDbContext.Brewery.Find(id);
+            return _eshopDbContext.Breweries.Find(id);
         }
         public IEnumerable<Brewery> GetAllBreweries()
         {
-            return _eshopDbContext.Brewery.ToList();
+            return _eshopDbContext.Breweries.ToList();
         }
         public IList<Brewery> Select()
         {
-            return _eshopDbContext.Brewery.ToList();
+            return _eshopDbContext.Breweries.ToList();
         }
 
         public async Task Create(Brewery brewery)
@@ -37,50 +37,55 @@ namespace BistroWeb.Application.Implementation
             string imageSrc = await _fileUploadService.FileUploadAsync(brewery.Image, Path.Combine("img", "brewery"));
             brewery.ImageSrc = imageSrc;
 
-            if (_eshopDbContext.Brewery != null)
+            if (!_eshopDbContext.Breweries.Any(b => b.Id == brewery.Id))
             {
-                _eshopDbContext.Brewery.Add(brewery);
-                _eshopDbContext.SaveChanges();
+                _eshopDbContext.Breweries.Add(brewery);
+                await _eshopDbContext.SaveChangesAsync();
+            }
+            else
+            {
+                throw new InvalidOperationException("Brewery with the same ID already exists");
             }
         }
-        
         public bool Delete(int id)
         {
             bool deleted = false;
 
-            Brewery? brewery
-                = _eshopDbContext.Brewery.FirstOrDefault(prod => prod.Id == id);
+            Brewery? brewery = _eshopDbContext.Breweries.FirstOrDefault(prod => prod.Id == id);
 
             if (brewery != null)
             {
-                _eshopDbContext.Brewery.Remove(brewery);
+                _eshopDbContext.Breweries.Remove(brewery);
                 _eshopDbContext.SaveChanges();
                 deleted = true;
             }
+
             return deleted;
         }
         public async Task Edit(Brewery editedBrewery)
         {
-            Brewery existingBrewery = _eshopDbContext.Brewery.Find(editedBrewery.Id);
+            // Retrieve the existing brewery from the database
+            Brewery existingBrewery = _eshopDbContext.Breweries.Find(editedBrewery.Id);
 
             if (existingBrewery != null)
             {
-                // Update the properties of the existing product with the edited values
+                // Update other properties
                 existingBrewery.Name = editedBrewery.Name;
                 existingBrewery.Description = editedBrewery.Description;
-  
-                // ... (update other properties as needed)
 
-                // If a new image is provided, upload and update the image source
+                // Check if a new image is provided
                 if (editedBrewery.Image != null)
                 {
+                    // Upload and update the image source
                     string newImageSrc = await _fileUploadService.FileUploadAsync(editedBrewery.Image, Path.Combine("img", "brewery"));
                     existingBrewery.ImageSrc = newImageSrc;
                 }
 
                 // Save the changes to the database
-                _eshopDbContext.SaveChanges();
+                await _eshopDbContext.SaveChangesAsync();
             }
         }
     }
+
+   
 }

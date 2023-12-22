@@ -11,7 +11,7 @@ namespace BistroWeb.Application.ViewModels
     {
         public IList<Product> Products { get; set; }
         public IList<Brewery> Breweries { get; set; }
-
+        public int SelectedBreweryId { get; set; }
         public BreweryProductViewModel()
         {
             // Ensure Breweries is initialized in the constructor if needed.

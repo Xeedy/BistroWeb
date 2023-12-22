@@ -17,7 +17,7 @@ namespace BistroWeb.Infrastructure.Database
         public DbSet<Product> Products { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Carousel> Carousels { get; set; }
-        public DbSet<Brewery> Brewery { get; set; }
+        public DbSet<Brewery> Breweries { get; set; }
 
         public EshopDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
         {
@@ -29,11 +29,14 @@ namespace BistroWeb.Infrastructure.Database
             Debug.WriteLine("OnModelCreating: Seeding data...");
 
             DatabaseInit dbInit = new DatabaseInit();
-            modelBuilder.Entity<Product>().HasData(dbInit.GetProducts());
+            modelBuilder.Entity<Product>().HasData(dbInit.GetProducts(dbInit.GetBrewery()));
             modelBuilder.Entity<Item>().HasData(dbInit.GetItems());
             modelBuilder.Entity<Carousel>().HasData(dbInit.GetCarousels());
             modelBuilder.Entity<Brewery>().HasData(dbInit.GetBrewery());
-
+            modelBuilder.Entity<Product>()
+                    .HasOne(p => p.Brewery)
+                    .WithMany(b => b.Products)
+                    .HasForeignKey(p => p.BreweryId);
 
             //Identity - User and Role initialization
             //roles must be added first

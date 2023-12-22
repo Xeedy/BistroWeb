@@ -18,7 +18,7 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
         private readonly IFileUploadService _fileUploadService;
         public Brewery GetBreweryById(int id)
         {
-            return _eshopDbContext.Brewery.Find(id);
+            return _eshopDbContext.Breweries.Find(id);
         }
         public BreweryController(IBreweryAppService breweryAppService, IFileUploadService fileUploadService)
         {
@@ -43,14 +43,13 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Save the new brewery to the database
                 await _breweryAppService.Create(brewery);
 
-                return RedirectToAction(nameof(BreweryController.Index));
+                return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                return View(brewery);
-            }
+
+            return View(brewery);
         }
 
         public IActionResult Delete(int id)

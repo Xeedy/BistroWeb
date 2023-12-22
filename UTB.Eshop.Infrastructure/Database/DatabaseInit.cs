@@ -11,31 +11,62 @@ namespace BistroWeb.Infrastructure.Database
 {
     internal class DatabaseInit
     {
-        public IList<Product> GetProducts()
+        public List<Brewery> GetBrewery()
         {
-            IList<Product> products = new List<Product>();
+            List<Brewery> breweries = new List<Brewery>();
 
-            products.Add(new Product
+            breweries.Add(new Brewery
             {
                 Id = 1,
-                Name = "Test",
-                Brewery = "Testovaci pivovar",
+                Name = "Testovci pivovar",
                 Description = "Testovací sada",
-                Price = 999,
                 ImageSrc = "/img/products/produkty-01.jpg"
             });
-            products.Add(new Product
+            breweries.Add(new Brewery
             {
                 Id = 2,
-                Name = "Testovacka",
-                Brewery = "Neco",
-                Description = "Cosik",
-                Price = 10,
+                Name = "Testingy",
+                Description = "Sth",
                 ImageSrc = "/img/products/produkty-01.jpg"
             });
 
-            return products;
+            return breweries;
         }
+        public IList<Product> GetProducts(IList<Brewery> breweries)
+        {
+            IList<Product> products = new List<Product>();
+            if (breweries.Count >= 2)
+            {
+                products.Add(new Product
+                {
+                    Id = 1,
+                    Name = "Test",
+                    BreweryId = breweries[0].Id,  // Use the actual Id of the first Brewery
+                    Description = "Testovací sada",
+                    Price = 999,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+
+                products.Add(new Product
+                {
+                    Id = 2,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    Description = "Cosik",
+                    Price = 10,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+
+                return products;
+            }
+            else
+            {
+                throw new InvalidOperationException("Not enough breweries in the list to initialize products.");
+            }
+        }
+
+
+
         public IList<Item> GetItems()
         {
             IList<Item> items = new List<Item>();
@@ -52,21 +83,7 @@ namespace BistroWeb.Infrastructure.Database
 
             return items;
         }
-        public IList<Brewery> GetBrewery()
-        {
-            IList<Brewery> brewery = new List<Brewery>();
-
-            brewery.Add(new Brewery
-            {
-                Id = 1,
-                Name = "Testovci pivovar",
-                Description = "Testovací sada",
-                ImageSrc = "/img/products/produkty-01.jpg"
-            }); ;
-
-            return brewery;
-        }
-
+        
         public IList<Carousel> GetCarousels()
         {
             IList<Carousel> carousels = new List<Carousel>();

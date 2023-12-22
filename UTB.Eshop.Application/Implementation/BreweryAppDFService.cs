@@ -1,83 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using BistroWeb.Application.Abstraction;
 using BistroWeb.Domain.Entities;
-using BistroWeb.Infrastructure.Database;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BistroWeb.Application.Implementation
 {
-    public class BreweryAppDFService : IBreweryAppService
+    internal class BreweryAppDFService : IBreweryAppService
     {
-        IFileUploadService _fileUploadService;
-        EshopDbContext _eshopDbContext;
-        public Brewery GetBreweryById(int id)
-        {
-            return _eshopDbContext.Brewery.Find(id);
-        }
-        public BreweryAppDFService(IFileUploadService fileUploadService)
+        private readonly IFileUploadService _fileUploadService;
+        private readonly BreweryDbService _breweryDbService;
+
+        public BreweryAppDFService(IFileUploadService fileUploadService, BreweryDbService breweryDbService)
         {
             _fileUploadService = fileUploadService;
+            _breweryDbService = breweryDbService;
         }
 
         public IList<Brewery> Select()
         {
-            return DatabaseFake.Brewery;
+            // Use the appropriate method from BreweryDbService to get breweries
+            return _breweryDbService.GetAllBreweries().ToList();
         }
 
         public async Task Create(Brewery brewery)
         {
-            if(DatabaseFake.Brewery != null
-                && DatabaseFake.Brewery.Count > 0)
-            {
-                brewery.Id = DatabaseFake.Brewery.Last().Id + 1;
-            }
-            else
-                brewery.Id = 1;
+            // Set the Id based on the existing breweries in the database
+            brewery.Id = _breweryDbService.GetNextBreweryId();
 
+            // Upload and set the image source
             string imageSrc = await _fileUploadService.FileUploadAsync(brewery.Image, Path.Combine("img", "brewery"));
             brewery.ImageSrc = imageSrc;
 
-            if (DatabaseFake.Brewery != null)
-                DatabaseFake.Brewery.Add(brewery);
+            // Use the appropriate method from BreweryDbService to add the brewery
+            _breweryDbService.AddBrewery(brewery);
         }
 
-        public bool Delete(int id)
+        public RedirectToRouteResult Delete(int id)
         {
-            bool deleted = false;
+            bool deleted = _breweryDbService.Delete(id);
 
-            Brewery? brewery
-                = DatabaseFake.Brewery.FirstOrDefault(prod => prod.Id == id);
-
-            if (brewery != null)
+            if (deleted)
             {
-                deleted = DatabaseFake.Brewery.Remove(brewery);
+                // Assuming "Index" is the action method and "Brewery" is the controller
+                return RedirectToAction("Index", "Brewery");
             }
-            return deleted;
+            else
+            {
+                return RedirectToRoute("NotFound"); // Replace "NotFound" with your route name or URL
+            }
         }
-        public IEnumerable<Brewery> GetAllBreweries()
-        {
-            return _eshopDbContext.Brewery.ToList();
-        }
+
         public async Task Edit(Brewery editedBrewery)
         {
-            Brewery existingBrewery = _eshopDbContext.Brewery.Find(editedBrewery.Id);
-
-            if (existingBrewery != null)
-            {
-                existingBrewery.Name = editedBrewery.Name;
-                existingBrewery.Description = editedBrewery.Description;
-
-                if (editedBrewery.Image != null)
-                {
-                    string newImageSrc = await _fileUploadService.FileUploadAsync(editedBrewery.Image, Path.Combine("img", "brewery"));
-                    existingBrewery.ImageSrc = newImageSrc;
-                }
-
-                _eshopDbContext.SaveChanges();
-            }
+            // Use the appropriate method from BreweryDbService to edit the brewery
+            await _breweryDbService.EditBrewery(editedBrewery);
         }
     }
+
 }

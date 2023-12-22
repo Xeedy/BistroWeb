@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BistroWeb.Infrastructure.Migrations
 {
     [DbContext(typeof(EshopDbContext))]
-    [Migration("20231221235641_NazevMigrace")]
-    partial class NazevMigrace
+    [Migration("20231222030754_Something")]
+    partial class Something
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,13 @@ namespace BistroWeb.Infrastructure.Migrations
                             Description = "Testovací sada",
                             ImageSrc = "/img/products/produkty-01.jpg",
                             Name = "Testovci pivovar"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Sth",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testingy"
                         });
                 });
 
@@ -138,8 +145,9 @@ namespace BistroWeb.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Brewery")
-                        .HasColumnType("longtext");
+                    b.Property<int?>("BreweryId")
+                        .IsRequired()
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
@@ -157,13 +165,15 @@ namespace BistroWeb.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BreweryId");
+
                     b.ToTable("Products");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            Brewery = "Testovaci pivovar",
+                            BreweryId = 1,
                             Description = "Testovací sada",
                             ImageSrc = "/img/products/produkty-01.jpg",
                             Name = "Test",
@@ -172,7 +182,7 @@ namespace BistroWeb.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            Brewery = "Neco",
+                            BreweryId = 2,
                             Description = "Cosik",
                             ImageSrc = "/img/products/produkty-01.jpg",
                             Name = "Testovacka",
@@ -465,6 +475,17 @@ namespace BistroWeb.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("BistroWeb.Domain.Entities.Product", b =>
+                {
+                    b.HasOne("BistroWeb.Domain.Entities.Brewery", "Brewery")
+                        .WithMany("Products")
+                        .HasForeignKey("BreweryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Brewery");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("BistroWeb.Infrastructure.Identity.Role", null)
@@ -514,6 +535,11 @@ namespace BistroWeb.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BistroWeb.Domain.Entities.Brewery", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

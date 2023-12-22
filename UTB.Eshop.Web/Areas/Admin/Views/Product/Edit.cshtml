@@ -18,7 +18,7 @@
         <select class="form-control" asp-for="Products[0].Brewery">
             @foreach (var brewery in Model.Breweries)
             {
-                <option value="@brewery.Name" selected="@(brewery.Name == Model.Products[0]?.Brewery)">@brewery.Name</option>
+                <option value="@brewery.Name" selected="@(brewery.Name == Model.Products[0]?.Brewery?.Name)">@brewery.Name</option>
             }
         </select>
         <span asp-validation-for="Products[0].Brewery" class="text-danger"></span>

@@ -17,10 +17,11 @@ namespace BistroWeb.Infrastructure.Database
         static DatabaseFake()
         {
             DatabaseInit dbInit = new DatabaseInit();
-            Products = dbInit.GetProducts();
+            IList<Brewery> breweries = dbInit.GetBrewery();  // Get breweries first
+            Products = dbInit.GetProducts(breweries);  // Pass the list of breweries to GetProducts
             Items = dbInit.GetItems();
             Carousels = dbInit.GetCarousels();
-            Brewery = dbInit.GetBrewery();
+            Brewery = breweries;  // Store the list of breweries
         }
     }
 }

@@ -79,23 +79,32 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            // Get the existing product and associated brewery for the given id
+            // Get the existing product for the given id
             Product existingProduct = _productAppService.GetProductById(id);
-            Brewery existingBrewery = _breweryAppService.GetBreweryById(existingProduct.BreweryId);
 
-            if (existingProduct == null || existingBrewery == null)
+            if (existingProduct == null)
             {
                 return NotFound(); // or handle appropriately
             }
 
+            // Get the associated brewery for the existing product
+            Brewery existingBrewery = existingProduct.BreweryId.HasValue
+                ? _breweryAppService.GetBreweryById(existingProduct.BreweryId.Value)
+                : null;
+
+            // Construct the view model
             var viewModel = new BreweryProductViewModel
             {
                 Products = new List<Product> { existingProduct },
-                Breweries = _breweryAppService.GetAllBreweries()?.ToList() ?? new List<Brewery>()
+                Breweries = _breweryAppService.GetAllBreweries()?.ToList() ?? new List<Brewery>(),
+                SelectedBreweryId = existingProduct.BreweryId ?? 0 // Handle the nullable case
             };
 
             return View(viewModel);
         }
+
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -103,7 +112,7 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Assuming you want to update the existing product
+                // Retrieve the existing product from the database
                 Product existingProduct = _productAppService.GetProductById(editedViewModel.Products[0].Id);
 
                 if (existingProduct != null)
@@ -121,20 +130,11 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
                         existingProduct.ImageSrc = newImageSrc;
                     }
 
-                    // Save the changes to the existing product
+                    // Update breweryId
+                    existingProduct.BreweryId = editedViewModel.Products[0].BreweryId;
+
+                    // Save the changes to the database
                     await _productAppService.Edit(existingProduct);
-
-                    // Now update the associated brewery
-                    Brewery existingBrewery = _breweryAppService.GetBreweryById(existingProduct.BreweryId);
-
-                    if (existingBrewery != null)
-                    {
-                        // Update brewery properties
-                        existingBrewery.Name = editedViewModel.Products[0].Brewery;
-
-                        // Save the changes to the existing brewery
-                        await _breweryAppService.Edit(existingBrewery);
-                    }
 
                     return RedirectToAction(nameof(Index));
                 }
