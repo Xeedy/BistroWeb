@@ -44,22 +44,48 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Product model)
         {
-            _eshopDbContext.Products.Add(model);
-            _eshopDbContext.SaveChanges();
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                 _eshopDbContext.Products.Add(model);
+                 _eshopDbContext.SaveChanges();
+                 return RedirectToAction(nameof(Index));
+            }
+            return View(model);
         }
 
 
         public IActionResult Delete(int id)
         {
-            bool deleted = _productAppService.Delete(id);
-
-            if (deleted)
+            if (id == null)
             {
-                return RedirectToAction(nameof(ProductController.Index));
+                NotFound();
             }
-            else
-                return NotFound();
+            LoadBreweries();
+            var product = _eshopDbContext.Products.Find(id);
+            return View(product);
+        }
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if(id == null)
+            {
+                NotFound();
+            }
+            LoadBreweries();
+            var product = _eshopDbContext.Products.Find(id);
+            return View(product);
+        }
+        [HttpPost]
+        public IActionResult Edit(Product model)
+        {
+            ModelState.Remove("Breweries");
+            if (!ModelState.IsValid)
+            {
+                _eshopDbContext.Products.Update(model);
+                _eshopDbContext.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
         }
 
 

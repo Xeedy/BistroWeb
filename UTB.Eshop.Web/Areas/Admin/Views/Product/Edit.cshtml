@@ -1,55 +1,40 @@
-﻿@model BistroWeb.Application.ViewModels.CarouselProductViewModel
+﻿@model Product
 
 @{
-    ViewData["Title"] = "Editace produktu";
+    ViewData["Title"] = "Vytvoření produktu";
 }
 
 <h1>@ViewData["Title"]</h1>
 
-<form asp-action="Edit" asp-route-id="@Model.Products[0].Id" method="post" enctype="multipart/form-data">
-
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id"/>
     <div asp-validation-summary="All"></div>
-
-    @if (Model.Products != null && Model.Products.Any())
-    {
-        <div class="mb-3">
-            <label class="form-label" asp-for="Products[0].Name">Název</label>
-            <input class="form-control" asp-for="Products[0].Name">
-            <span asp-validation-for="Products[0].Name" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" asp-for="SelectedBreweryId">Pivovar</label>
-            @if (ViewData["Breweries"] != null)
-            {
-                <select class="form-control" asp-for="SelectedBreweryId" asp-items="@(ViewData["Breweries"] as SelectList)">
-                    <option value="">-- Vyberte pivovar --</option>
-                </select>
-            }
-            else
-            {
-                <p>No breweries available</p>
-            }
-            <span asp-validation-for="SelectedBreweryId" class="text-danger"></span>
-        </div>
-
-
-        <div class="mb-3">
-            <label class="form-label" asp-for="Products[0].Description">Popisek</label>
-            <input class="form-control" asp-for="Products[0].Description">
-            <span asp-validation-for="Products[0].Description" class="text-danger"></span>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label" asp-for="Products[0].Price">Cena</label>
-            <input class="form-control" asp-for="Products[0].Price">
-            <span asp-validation-for="Products[0].Price" class="text-danger"></span>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label" asp-for="Products[0].Image">Obrázek</label>
-            <input id="fileupload" class="form-control-file" asp-for="Products[0].Image">
-            <span asp-validation-for="Products[0].Image" class="text-danger"></span>
-        </div>
+    <div class="container"></div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Name">Název</label>
+        <input class="form-control" asp-for="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Price">Název</label>
+        <input class="form-control" asp-for="Price">
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Description">Název</label>
+        <input class="form-control" asp-for="Description">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Name">Název</label>
+        <input class="form-control" asp-for="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="control-label">Brewery</label>
+        <select asp-for="BreweryId" class="form-control" asp-items="ViewBag.Breweries">
+            <option>--Vyberte Pivovar--</option>
+        </select>
+    </div>
     }
 
     <button type="submit" class="btn btn-primary">Potvrdit</button>

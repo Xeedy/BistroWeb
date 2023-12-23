@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BistroWeb.Infrastructure.Migrations
 {
     [DbContext(typeof(EshopDbContext))]
-    [Migration("20231222051852_Ahoj")]
-    partial class Ahoj
+    [Migration("20231223051148_N")]
+    partial class N
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,6 +26,7 @@ namespace BistroWeb.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(70)
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -35,13 +36,11 @@ namespace BistroWeb.Infrastructure.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(70)
-                        .HasColumnType("varchar(70)");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brewery");
+                    b.ToTable("Breweries");
 
                     b.HasData(
                         new
@@ -76,7 +75,7 @@ namespace BistroWeb.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Carousels");
+                    b.ToTable("Carousel");
 
                     b.HasData(
                         new
@@ -143,6 +142,7 @@ namespace BistroWeb.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(70)
                         .HasColumnType("int");
 
                     b.Property<int?>("BreweryId")
@@ -156,9 +156,7 @@ namespace BistroWeb.Infrastructure.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(70)
-                        .HasColumnType("varchar(70)");
+                        .HasColumnType("longtext");
 
                     b.Property<double>("Price")
                         .HasColumnType("double");
@@ -477,13 +475,13 @@ namespace BistroWeb.Infrastructure.Migrations
 
             modelBuilder.Entity("BistroWeb.Domain.Entities.Product", b =>
                 {
-                    b.HasOne("BistroWeb.Domain.Entities.Brewery", "Brewery")
+                    b.HasOne("BistroWeb.Domain.Entities.Brewery", "Breweries")
                         .WithMany("Products")
                         .HasForeignKey("BreweryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Brewery");
+                    b.Navigation("Breweries");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

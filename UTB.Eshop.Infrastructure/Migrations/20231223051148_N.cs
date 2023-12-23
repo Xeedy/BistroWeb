@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BistroWeb.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Ahoj : Migration
+    public partial class N : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -76,12 +76,12 @@ namespace BistroWeb.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Brewery",
+                name: "Breweries",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", maxLength: 70, nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "varchar(70)", maxLength: 70, nullable: false)
+                    Name = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -90,12 +90,12 @@ namespace BistroWeb.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Brewery", x => x.Id);
+                    table.PrimaryKey("PK_Breweries", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Carousels",
+                name: "Carousel",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -107,7 +107,7 @@ namespace BistroWeb.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Carousels", x => x.Id);
+                    table.PrimaryKey("PK_Carousel", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -257,24 +257,24 @@ namespace BistroWeb.Infrastructure.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", maxLength: 70, nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "varchar(70)", maxLength: 70, nullable: false)
+                    Name = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    BreweryId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Price = table.Column<double>(type: "double", nullable: false),
                     ImageSrc = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    BreweryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Brewery_BreweryId",
+                        name: "FK_Products_Breweries_BreweryId",
                         column: x => x.BreweryId,
-                        principalTable: "Brewery",
+                        principalTable: "Breweries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -300,7 +300,7 @@ namespace BistroWeb.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Brewery",
+                table: "Breweries",
                 columns: new[] { "Id", "Description", "ImageSrc", "Name" },
                 values: new object[,]
                 {
@@ -309,7 +309,7 @@ namespace BistroWeb.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Carousels",
+                table: "Carousel",
                 columns: new[] { "Id", "ImageAlt", "ImageSrc" },
                 values: new object[,]
                 {
@@ -406,7 +406,7 @@ namespace BistroWeb.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Carousels");
+                name: "Carousel");
 
             migrationBuilder.DropTable(
                 name: "Items");
@@ -421,7 +421,7 @@ namespace BistroWeb.Infrastructure.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Brewery");
+                name: "Breweries");
         }
     }
 }
