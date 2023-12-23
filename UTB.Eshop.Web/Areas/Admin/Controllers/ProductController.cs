@@ -14,77 +14,39 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
     [Area("Admin")]
     [Authorize(Roles = nameof(Roles.Admin) + ", " + nameof(Roles.Manager))]
     public class ProductController : Controller
-    {
+    { 
         IProductAppService _productAppService;
         EshopDbContext _eshopDbContext;
-        IBreweryAppService _breweryAppService;
         private readonly IFileUploadService _fileUploadService;
-        public Product GetProductById(int id)
+        public ProductController(IFileUploadService fileUploadService, EshopDbContext eshopDbContext)
         {
-            return _eshopDbContext.Products.Find(id);
-        }
-        public ProductController(IProductAppService productAppService, IFileUploadService fileUploadService, IBreweryAppService breweryAppService, EshopDbContext eshopDbContext)
-        {
-            _productAppService = productAppService;
             _fileUploadService = fileUploadService;
-            _breweryAppService = breweryAppService;
             _eshopDbContext = eshopDbContext;
         }
 
         public IActionResult Index()
         {
-            IList<Product> products = _productAppService.Select();
-
-            // Pass the breweries to the view
-            ViewBag.Breweries = _breweryAppService.GetBreweries();
+            var products = _eshopDbContext.Products.Include("Breweries");
 
             return View(products);
         }
         [HttpGet]
         public IActionResult Create()
         {
-            var viewModel = new CarouselProductViewModel
-            {
-                Products = new List<Product> { new Product() }, // Initialize with a new product
-                Brewery = _breweryAppService.GetBreweries().ToList(),
-                SelectedBreweryId = 0 // Set the default selected value as needed
-            };
-
-            // Use ViewData to pass the Breweries to the view
-            ViewData["Breweries"] = new SelectList(viewModel.Brewery, "Id", "Name");
-
-            return View(viewModel);
+            return View();
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(CarouselProductViewModel viewModel)
+        [NonAction]
+        private void LoadBreweries()
         {
-            // Check if the list of products is not null and contains at least one element
-            if (viewModel.Products != null && viewModel.Products.Any())
-            {
-                // Assuming you want to create a new product
-                Product newProduct = viewModel.Products.FirstOrDefault();
-
-                if (newProduct != null)
-                {
-                    // Set the BreweryId for the new product
-                    newProduct.BreweryId = viewModel.SelectedBreweryId;
-
-                    // Your existing code to upload and create the product
-                    await _productAppService.Create(newProduct);
-
-                    return RedirectToAction(nameof(Index));
-                }
-            }
-
-            // If the list is null or empty, handle it accordingly (maybe return to the same view with an error message)
-            ModelState.AddModelError(string.Empty, "No product data provided.");
-            viewModel.Brewery = _breweryAppService.GetBreweries().ToList();
-
-            // Use ViewData to pass the Breweries to the view
-            ViewData["Breweries"] = new SelectList(viewModel.Brewery, "Id", "Name");
-
-            return View(viewModel);
+            var breweries = _eshopDbContext.Breweries.ToList();
+            ViewBag.Breweries = new SelectList(breweries, "Id", "Name");
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(Product model)
+        {
+            _eshopDbContext.Products.Add(model);
+            _eshopDbContext.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
 
 
@@ -99,92 +61,6 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
             else
                 return NotFound();
         }
-
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            // Get the existing product for the given id
-            Product existingProduct = _productAppService.GetProductById(id);
-
-            if (existingProduct == null)
-            {
-                return NotFound(); // or handle appropriately
-            }
-
-            // Assuming CarouselProductViewModel has a property named Breweries to populate the dropdown
-            CarouselProductViewModel viewModel = new CarouselProductViewModel
-            {
-                Products = new List<Product> { existingProduct },
-                Brewery = _breweryAppService.GetBreweries()?.ToList() ?? new List<Brewery>(),
-                SelectedBreweryId = existingProduct.BreweryId.HasValue ? (int)existingProduct.BreweryId : 0 // Set the default selected value based on existing product
-            };
-            ViewData["Breweries"] = new SelectList(viewModel.Brewery, "Id", "Name", viewModel.SelectedBreweryId);
-
-            return View(viewModel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CarouselProductViewModel viewModel)
-        {
-            // Validate the model
-            if (!ModelState.IsValid)
-            {
-                // If the model is not valid, return to the view with validation errors
-                viewModel.Brewery = _breweryAppService.GetBreweries()?.ToList() ?? new List<Brewery>();
-                return View(viewModel);
-            }
-
-            // Get the existing product for the given id
-            Product existingProduct = _productAppService.GetProductById(viewModel.Products[0].Id);
-
-            if (existingProduct == null)
-            {
-                return NotFound(); // or handle appropriately
-            }
-
-            // Update other properties
-            existingProduct.Name = viewModel.Products[0].Name;
-            existingProduct.Description = viewModel.Products[0].Description;
-            existingProduct.Price = viewModel.Products[0].Price;
-            existingProduct.BreweryId = viewModel.Products[0].BreweryId;
-
-            // If a new image is provided, upload and update the image source
-            if (viewModel.Products[0].Image != null)
-            {
-                string newImageSrc = await _fileUploadService.FileUploadAsync(viewModel.Products[0].Image, Path.Combine("img", "products"));
-                existingProduct.ImageSrc = newImageSrc;
-            }
-
-            try
-            {
-                // Save changes to the database
-                await _productAppService.Edit(existingProduct);
-
-                // Redirect to the Index action
-                return RedirectToAction(nameof(Index));
-            }
-            catch (Exception ex)
-            {
-                foreach (var modelStateEntry in ModelState)
-                {
-                    var key = modelStateEntry.Key;
-                    var errors = modelStateEntry.Value.Errors;
-
-                    foreach (var error in errors)
-                    {
-                        Console.WriteLine($"ModelState Error for {key}: {error.ErrorMessage}");
-                    }
-                }
-
-                // Log the exception or handle it appropriately
-                ModelState.AddModelError(string.Empty, "Error updating product.");
-                viewModel.Brewery = _breweryAppService.GetBreweries()?.ToList() ?? new List<Brewery>();
-                return View(viewModel);
-            }
-        }
-
-
 
 
     }

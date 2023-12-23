@@ -17,10 +17,6 @@ namespace BistroWeb.Application.Implementation
         {
             _eshopDbContext = eshopDbContext;
         }
-        public IEnumerable<Brewery> GetAllBreweries()
-        {
-            return _eshopDbContext.Brewery.ToList();
-        }
         
     }
 }

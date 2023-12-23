@@ -11,19 +11,23 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace BistroWeb.Domain.Entities
 {
-    public class Product : Entity<int>
+    public class Product
     {
         [Required]
         [StringLength(70)]
+        [Key]
+        public int Id { get; set; } 
         public string? Name { get; set; }
-        public int? BreweryId { get; set; }
-        public Brewery Brewery { get; set; }
         public string? Description { get; set; }
         public double Price { get; set; }
         public string? ImageSrc { get; set; }
-
+        [ForeignKey("Breweries")]
+        public int? BreweryId { get; set; }
+        public virtual Brewery Breweries { get; set; }
         [NotMapped]
         [FileContent("image")]
         public IFormFile? Image { get; set; }
+
+
     }
 }

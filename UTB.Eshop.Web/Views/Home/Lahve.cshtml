@@ -1,4 +1,4 @@
-﻿@model CarouselProductViewModel
+﻿@model IEnumerable<Product>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -10,43 +10,35 @@
 
 
 @{
-    if (Model != null && Model.Products != null && Model.Products.Count > 0)
+    if (Model != null && Model.Any())
     {
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-start">
 
-                    @foreach (var product in Model.Products)
-                    {
-                        <div class="col mb-5">
-                            <div class="card h-100">
-                                <!-- Product image-->
-                                <img class="card-img-top" src="@product.ImageSrc" alt="..." />
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name-->
-                                        <h5 class="fw-bolder">@product.Name</h5>
-                                        <!-- Product reviews-->
-                                        <div class="d-flex justify-content-center small text-warning mb-2">
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
-                                        </div>
-                                        <!-- Product price-->
-                                        @product.Price CZK
-                                    </div>
-                                </div>
-                                <!-- Product actions-->
-                                
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-        </section>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => product.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => product.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => product.Breweries.Name)
+                </td>
+
+
+                <th class="text-end">
+                    <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
+                </th>
+                <th class="text-start">
+                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@product.Id" onclick="return ConfirmDelete();">Del</a>
+                </th>
+            </tr>
+        }
+
     }
 }
 
