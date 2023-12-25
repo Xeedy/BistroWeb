@@ -5,66 +5,31 @@ using BistroWeb.Infrastructure.Database;
 using Microsoft.AspNetCore.Authorization;
 using BistroWeb.Infrastructure.Identity.Enums;
 using BistroWeb.Application.Implementation;
+using BistroWeb.Application.ViewModels;
 
 namespace BistroWeb.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = nameof(Roles.Admin) + ", " + nameof(Roles.Manager))]
-    public class MenuItemController : Controller
+    public class BreweryController : Controller
     {
-        IMenuItemAppService _menuitemAppService;
+        IBreweryAppService _breweryAppService;
         EshopDbContext _eshopDbContext;
         private readonly IFileUploadService _fileUploadService;
-        public Item GetItemById(int id)
+        public Brewery GetBreweryById(int id)
         {
-            return _eshopDbContext.Items.Find(id);
+            return _eshopDbContext.Breweries.Find(id);
         }
-        public MenuItemController(IMenuItemAppService menuitemAppService, EshopDbContext eshopDbContext, IFileUploadService fileUploadService)
+        public BreweryController(IBreweryAppService breweryAppService, IFileUploadService fileUploadService)
         {
-            _menuitemAppService = menuitemAppService;
-            _eshopDbContext = eshopDbContext;
+            _breweryAppService = breweryAppService;
             _fileUploadService = fileUploadService;
         }
 
-        public IActionResult Index(string sortOrder)
+        public IActionResult Index()
         {
-            ViewData["IDSortParm"] = string.IsNullOrEmpty(sortOrder) ? "ID_desc" : "";
-            ViewData["NameSortParm"] = sortOrder == "Name" ? "Name_desc" : "Name";
-            ViewData["SectionSortParm"] = sortOrder == "Section" ? "Section_desc" : "Section";
-            ViewData["DescriptionSortParm"] = sortOrder == "Description" ? "Description_desc" : "Description";
-            ViewData["PriceSortParm"] = sortOrder == "Price" ? "Price_desc" : "Price";
-
-            var items = _menuitemAppService.Select();
-
-            switch (sortOrder)
-            {
-                case "ID_desc":
-                    items = items.OrderByDescending(i => i.Id).ToList();
-                    break;
-                case "Name":
-                    items = items.OrderBy(i => i.Name).ToList();
-                    break;
-                case "Name_desc":
-                    items = items.OrderByDescending(i => i.Name).ToList();
-                    break;
-                case "Section":
-                    items = items.OrderBy(i => i.Section).ToList();
-                    break;
-                case "Section_desc":
-                    items = items.OrderByDescending(i => i.Section).ToList();
-                    break;
-                case "Price":
-                    items = items.OrderBy(i => i.Price).ToList();
-                    break;
-                case "Price_desc":
-                    items = items.OrderByDescending(i => i.Price).ToList();
-                    break;
-                default:
-                    items = items.OrderBy(i => i.Id).ToList();
-                    break;
-            }
-
-            return View(items);
+            IList<Brewery> brewery = _breweryAppService.Select();
+            return View(brewery);
         }
 
         [HttpGet]
@@ -74,27 +39,26 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Item item)
+        public async Task<IActionResult> Create(Brewery brewery)
         {
             if (ModelState.IsValid)
             {
-                await _menuitemAppService.Create(item);
+                string imageSrc = await _fileUploadService.FileUploadAsync(brewery.Image, Path.Combine("img", "brewery"));
+                brewery.ImageSrc = imageSrc;
+                await _breweryAppService.Create(brewery);
+                return RedirectToAction(nameof(Index));
+            }
 
-                return RedirectToAction(nameof(MenuItemController.Index));
-            }
-            else
-            {
-                return View(item);
-            }
+            return View(brewery);
         }
 
         public IActionResult Delete(int id)
         {
-            bool deleted = _menuitemAppService.Delete(id);
+            bool deleted = _breweryAppService.Delete(id);
 
             if (deleted)
             {
-                return RedirectToAction(nameof(MenuItemController.Index));
+                return RedirectToAction(nameof(BreweryController.Index));
             }
             else
                 return NotFound();
@@ -102,47 +66,44 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Item item = _menuitemAppService.GetItemById(id);
+            Brewery brewery = _breweryAppService.GetBreweryById(id);
 
-            if (item == null)
+            if (brewery == null)
             {
                 return NotFound(); // or handle appropriately
             }
 
-            return View(item);
+            return View(brewery);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Item editedItem)
+        public async Task<IActionResult> Edit(Brewery editedBrewery)
         {
-            if (ModelState.IsValid)
+            // Retrieve the existing product from the database
+            Brewery existingBrewery = _breweryAppService.GetBreweryById(editedBrewery.Id);
+
+            if (existingBrewery != null)
             {
-                // Retrieve the existing product from the database
-                Item existingItem = _eshopDbContext.Items.Find(editedItem.Id);
-
-                if (existingItem != null)
+                // Update other properties
+                existingBrewery.Name = editedBrewery.Name;
+                existingBrewery.Description = editedBrewery.Description;
+                // Check if a new image is provided
+                if (editedBrewery.Image != null)
                 {
-                    // Update other properties
-                    existingItem.Name = editedItem.Name;
-                    existingItem.Description = editedItem.Description;
-                    existingItem.Price = editedItem.Price;
-                    existingItem.Section = editedItem.Section;
-                    existingItem.Price2 = editedItem.Price2;
-
-                    // Save changes to the database
-                    await _eshopDbContext.SaveChangesAsync(); // Use SaveChangesAsync if your _eshopDbContext supports it
-
-                    return RedirectToAction(nameof(Index));
+                    // Upload and update the image source
+                    string newImageSrc = await _fileUploadService.FileUploadAsync(editedBrewery.Image, Path.Combine("img", "brewery"));
+                    existingBrewery.ImageSrc = newImageSrc;
                 }
-                else
-                {
-                    return NotFound(); // or handle appropriately
-                }
+
+                // Save the changes to the database
+                await _breweryAppService.Edit(existingBrewery);
+
+                return RedirectToAction(nameof(Index));
             }
-
             // If the model state is not valid, return to the edit view with the current model
-            return View(editedItem);
+            return View(editedBrewery);
         }
+
     }
 }
