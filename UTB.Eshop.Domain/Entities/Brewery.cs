@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BistroWeb.Domain.Implementation.Validations;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Text.Json.Serialization;
 
 namespace BistroWeb.Domain.Entities
 {
@@ -24,6 +25,7 @@ namespace BistroWeb.Domain.Entities
         [NotMapped]
         [FileContent("image")]
         public IFormFile? Image { get; set; }
+        [JsonIgnore]
         public ICollection<Product>? Products { get; set; }
     }
 }

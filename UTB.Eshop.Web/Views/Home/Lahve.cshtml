@@ -22,23 +22,27 @@
                         {
                             <div class="col mb-5">
                                 <div class="card h-100">
-                                    <!-- Product image-->
+                                    <!-- Product image -->
                                     <img class="card-img-top" src="@product.ImageSrc" alt="..." />
-                                    <!-- Product details-->
+                                    <!-- Product details -->
                                     <div class="card-body p-4">
                                         <div class="text-center">
-                                            <!-- Product name-->
+                                            <!-- Product name -->
                                             <h5 class="fw-bolder">@product.Name</h5>
-                                            <!-- Product reviews-->
-                                            <h5 class="fw-lighter">@product.Breweries</h5>
-                                            <!-- Product price-->
-                                            @product.Price CZK
+                                            <!-- Product description -->
+                                            <p class="fw-light">@product.Description</p>
+                                            <!-- Product price -->
+                                            <p>@product.Price CZK</p>
+                                            <!-- Brewery name -->
+                                            <p class="fw-bolder">@product.Breweries?.Name</p>
                                         </div>
                                     </div>
-                                    <!-- Product actions-->
-                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" onclick="Info">Info</a></div>
+                                    <!-- Product actions -->
+                                    <div class="text-center">
+                                        <!-- Info button -->
+                                        <a class="btn btn-outline-dark mt-auto" href="@Url.Action("Details", "ProductDetail", new { id = product.Id })">Info</a>
                                     </div>
+
                                 </div>
                             </div>
                         }
@@ -46,6 +50,7 @@
                 </div>
             </section>
         }
+
 
     }
     catch (Exception ex)

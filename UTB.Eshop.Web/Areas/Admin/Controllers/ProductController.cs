@@ -18,18 +18,20 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
         IProductAppService _productAppService;
         EshopDbContext _eshopDbContext;
         private readonly IFileUploadService _fileUploadService;
-        public ProductController(IFileUploadService fileUploadService, EshopDbContext eshopDbContext)
+        public ProductController(IFileUploadService fileUploadService, EshopDbContext eshopDbContext, IProductAppService productAppService)
         {
             _fileUploadService = fileUploadService;
             _eshopDbContext = eshopDbContext;
+            _productAppService = productAppService;
         }
 
         public IActionResult Index()
         {
-            var products = _eshopDbContext.Products.Include("Breweries");
+            var products = _eshopDbContext.Products.Include(p => p.Breweries).ToList();
 
             return View(products);
         }
+
         [HttpGet]
         public IActionResult Create()
         {

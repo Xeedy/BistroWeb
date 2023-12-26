@@ -2,6 +2,7 @@
 using BistroWeb.Application.ViewModels;
 using BistroWeb.Domain.Entities;
 using BistroWeb.Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace BistroWeb.Application.Implementation
 {
@@ -21,7 +22,7 @@ namespace BistroWeb.Application.Implementation
         }
         public IEnumerable<Product> GetProducts()
         {
-            return _eshopDbContext.Products.ToList();
+            return _eshopDbContext.Products.Include(p => p.Breweries).ToList();
         }
         public MenuItemViewModel GetIndexViewModel2()
         {
