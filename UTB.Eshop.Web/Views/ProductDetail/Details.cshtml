@@ -1,0 +1,50 @@
+﻿@model BistroWeb.Domain.Entities.Product
+
+<style>
+    .brewery-container {
+        max-height: 100px; /* Set the maximum height for the brewery image */
+        max-width: 100px; /* Set the maximum width for the brewery image */
+        position: absolute;
+        bottom: 10;
+        end: 0;
+    }
+
+    .brewery-image {
+        max-height: 100%;
+        max-width: 100%;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 position-relative">
+            <!-- Display the product image -->
+            <img class="img-fluid product-image" src="@Model.ImageSrc" alt="Beer Image" />
+
+            <!-- Container for the brewery image -->
+            <div class="brewery-container">
+                <!-- Display the brewery image -->
+                <img class="img-fluid brewery-image" src="@Model.Breweries?.ImageSrc" alt="Brewery Image" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h1 class="display-4">@Model.Name</h1>
+
+            <h4>Popisek piva:</h4>
+            <p>@Model.Description</p>
+
+            <h4>Cena:</h4>
+            <p>@Model.Price CZK</p>
+
+            <h4>Pivovar:</h4>
+            <p>@Model.Breweries?.Name</p>
+
+            <h4>Popis pivovaru:</h4>
+            <p>@Model.Breweries?.Description</p>
+
+            <!-- You can add more details as needed -->
+            <!-- Add a back button to go back to the list -->
+            <a class="btn btn-primary" href="@Url.Action("Index", "Lahve")">Back to List</a>
+        </div>
+    </div>
+</div>
