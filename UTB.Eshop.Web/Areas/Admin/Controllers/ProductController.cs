@@ -43,12 +43,15 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
             ViewBag.Breweries = new SelectList(breweries, "Id", "Name");
         }
         [HttpPost]
-        public IActionResult Create(Product model)
+        public async Task<IActionResult> Create(Product model)
         {
+            string imageSrc = await _fileUploadService.FileUploadAsync(model.Image, Path.Combine("img", "model"));
+            model.ImageSrc = imageSrc;
             _eshopDbContext.Products.Add(model);
-            _eshopDbContext.SaveChanges();
+            await _eshopDbContext.SaveChangesAsync(); // Use async SaveChangesAsync
             return RedirectToAction(nameof(Index));
         }
+
 
         public IActionResult Delete(int id)
         {
@@ -83,17 +86,28 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Product model)
+        public async Task<IActionResult> Edit(Product model)
         {
             ModelState.Remove("Breweries");
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
+                // Check if a new image is provided
+                if (model.Image != null)
+                {
+                    // Upload and update the image source
+                    string newImageSrc = await _fileUploadService.FileUploadAsync(model.Image, Path.Combine("img", "model"));
+                    model.ImageSrc = newImageSrc;
+                }
+
                 _eshopDbContext.Products.Update(model);
-                _eshopDbContext.SaveChanges();
+                await _eshopDbContext.SaveChangesAsync(); // Use async SaveChangesAsync
                 return RedirectToAction(nameof(Index));
             }
-            return View();
+
+            LoadBreweries(); // Ensure that breweries are loaded for the view
+            return View(model);
         }
+
 
 
     }
