@@ -1,30 +1,70 @@
 ﻿@model IEnumerable<BistroWeb.Domain.Entities.Product>
 
 <!-- Rest of your view code remains the same -->
-@if (Model != null && Model.Any())
-{
-    @foreach (var product in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(model => product.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(model => product.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(model => product.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(model => product.Breweries.Name)
-            </td>
+@{
+    ViewData["Title"] = "Láhvová piva";
+}
 
-            <th class="text-end">
-                <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
-            </th>
-            <th class="text-start">
-                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@product.Id" onclick="return ConfirmDelete();">Del</a>
-            </th>
-        </tr>
+<div class="text-center">
+    <h1 class="display-4">Eshop</h1>
+</div>
+
+@{
+    try
+    {
+        @if (Model != null && Model.Any())
+        {
+            <section class="py-5">
+                <div class="container px-4 px-lg-5 mt-5">
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-start">
+
+                        @foreach (var product in Model)
+                        {
+                            <div class="col mb-5">
+                                <div class="card h-100">
+                                    <!-- Product image-->
+                                    <img class="card-img-top" src="@product.ImageSrc" alt="..." />
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h5 class="fw-bolder">@product.Name</h5>
+                                            <!-- Product reviews-->
+                                            <h5 class="fw-lighter">@product.Breweries</h5>
+                                            <!-- Product price-->
+                                            @product.Price CZK
+                                        </div>
+                                    </div>
+                                    <!-- Product actions-->
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" onclick="Info">Info</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+        }
+
     }
+    catch (Exception ex)
+    {
+        <p>Error: @ex.Message</p>
+    }
+}
+
+@section Styles
+    {
+    <link rel="stylesheet" href="~/css/shop_home.css" asp-append-version="true" />
+}
+
+@section Scripts
+    {
+    <environment include="Development">
+        <script src="~/js/product.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/product.min.js"></script>
+    </environment>
 }

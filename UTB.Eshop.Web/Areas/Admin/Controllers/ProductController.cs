@@ -33,6 +33,7 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            LoadBreweries();
             return View();
         }
         [NonAction]
@@ -42,39 +43,45 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
             ViewBag.Breweries = new SelectList(breweries, "Id", "Name");
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Product model)
+        public IActionResult Create(Product model)
         {
-            if (ModelState.IsValid)
-            {
-                 _eshopDbContext.Products.Add(model);
-                 _eshopDbContext.SaveChanges();
-                 return RedirectToAction(nameof(Index));
-            }
-            return View(model);
+            _eshopDbContext.Products.Add(model);
+            _eshopDbContext.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
 
-
         public IActionResult Delete(int id)
+        {
+            bool deleted = _productAppService.Delete(id);
+
+            if (deleted)
+            {
+                return RedirectToAction(nameof(ProductController.Index));
+            }
+            else
+                return NotFound();
+        }
+        [HttpGet]
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 NotFound();
             }
+
             LoadBreweries();
-            var product = _eshopDbContext.Products.Find(id);
-            return View(product);
-        }
-        [HttpGet]
-        public IActionResult Edit(int? id)
-        {
-            if(id == null)
+
+            // Eager load Breweries
+            var product = _eshopDbContext.Products.Include(p => p.Breweries).FirstOrDefault(p => p.Id == id);
+
+            if (product == null)
             {
                 NotFound();
             }
-            LoadBreweries();
-            var product = _eshopDbContext.Products.Find(id);
+
             return View(product);
         }
+
         [HttpPost]
         public IActionResult Edit(Product model)
         {

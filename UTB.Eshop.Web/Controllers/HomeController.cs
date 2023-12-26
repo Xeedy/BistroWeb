@@ -39,10 +39,6 @@ namespace BistroWeb.Web.Controllers
         public IActionResult Lahve()
         {
             IEnumerable<Product> products = _homeService.GetProducts();
-
-            // Add debug output
-            Debug.WriteLine($"Number of products: {products.Count()}");
-
             return View(products);
         }
 

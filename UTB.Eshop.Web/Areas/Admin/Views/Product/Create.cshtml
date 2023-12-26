@@ -15,18 +15,13 @@
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label class="form-label" asp-for="Price">Název</label>
+            <label class="form-label" asp-for="Price">Cena</label>
             <input class="form-control" asp-for="Price">
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label class="form-label" asp-for="Description">Název</label>
+            <label class="form-label" asp-for="Description">Popisek</label>
             <input class="form-control" asp-for="Description">
-        </div>
-        <div class="mb-3">
-            <label class="form-label" asp-for="Name">Název</label>
-            <input class="form-control" asp-for="Name">
-            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="mb-3">
             <label class="control-label">Brewery</label>
@@ -34,7 +29,13 @@
                 <option>--Vyberte Pivovar--</option>
             </select>
         </div>
-    }
+
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="Image">Obrázek</label>
+            <input id="fileupload" class="form-control-file" asp-for="Image" type="file">
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
 
     <button type="submit" class="btn btn-primary">Potvrdit</button>
 </form>

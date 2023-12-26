@@ -14,9 +14,9 @@ namespace BistroWeb.Domain.Entities
     public class Brewery
     {
         [Required]
-        [StringLength(70)]
         [Key]
         public int Id { get; set; }
+        [StringLength(70)]
         public string? Name { get; set; }
         public string? Description { get; set; }
         public string? ImageSrc { get; set; }
