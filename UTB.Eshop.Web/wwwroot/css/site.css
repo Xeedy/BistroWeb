@@ -56,12 +56,12 @@ body {
     height:50px;
 }
 .footer {
-    height:20vh;
-    position: fixed;
+    min-height: 20vh; /* Use min-height instead of fixed height */
     background-color: black;
     padding: 10px;
     color: white;
 }
+
     .footer h4 {
         font-size: 17px;
         text-transform: capitalize;
@@ -103,7 +103,7 @@ body {
         background-color: white;
         text-align: center;
         line-height: 40px;
-        margin: 0 12px 12px 0;
+        margin: 0 12px 60px 0;
         color: brown;
         border-radius: 50%;
         transition: .4s;
@@ -113,6 +113,22 @@ body {
             transform: scale(1.2);
             color: orange;
         }
+
+.author {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 60px; /* Keep a fixed height for the author section */
+    width: 100%;
+    text-align: center;
+    background-color: red;
+}
+
+    .author p {
+        color: white;
+        font-size: 14px;
+        margin: 0;
+    }
 
 .author {
     position: absolute;
@@ -130,6 +146,13 @@ body {
         margin: 0;
     }
 
-.body-section{
-    margin-bottom:20vh;
+.body-section {
+    margin-bottom: 20vh;
+}
+
+/* Media query for smaller screens (e.g., phones) */
+@media (max-width: 767px) {
+    .body-section {
+        margin-bottom: 70vh;
+    }
 }
