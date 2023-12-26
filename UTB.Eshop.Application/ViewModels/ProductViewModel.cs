@@ -9,7 +9,7 @@ namespace BistroWeb.Application.ViewModels
 {
     public class ProductViewModel
     {
-        public Product Product { get; set; }
+        public List<Product> Product { get; set; }
         public List<Brewery> Breweries { get; set; }
         public ProductViewModel()
         {

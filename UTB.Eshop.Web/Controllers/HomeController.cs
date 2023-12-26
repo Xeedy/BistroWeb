@@ -38,12 +38,12 @@ namespace BistroWeb.Web.Controllers
         }
         public IActionResult Lahve()
         {
-            CarouselProductViewModel viewModel = _homeService.GetIndexViewModel();
+            IEnumerable<Product> products = _homeService.GetProducts();
 
             // Add debug output
-            Debug.WriteLine($"Number of products: {viewModel.Products.Count}");
+            Debug.WriteLine($"Number of products: {products.Count()}");
 
-            return View(viewModel);
+            return View(products);
         }
 
         public IActionResult HookahMenu()

@@ -1,59 +1,30 @@
-﻿@model IEnumerable<Product>
+﻿@model IEnumerable<BistroWeb.Domain.Entities.Product>
 
-@{
-    ViewData["Title"] = "Home Page";
-}
-
-<div class="text-center">
-    <h1 class="display-4">Eshop</h1>
-</div>
-
-
-@{
-    if (Model != null && Model.Any())
+<!-- Rest of your view code remains the same -->
+@if (Model != null && Model.Any())
+{
+    @foreach (var product in Model)
     {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(model => product.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(model => product.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(model => product.Breweries.Name)
+            </td>
 
-        @foreach (var product in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => product.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => product.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => product.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => product.Breweries.Name)
-                </td>
-
-
-                <th class="text-end">
-                    <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
-                </th>
-                <th class="text-start">
-                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@product.Id" onclick="return ConfirmDelete();">Del</a>
-                </th>
-            </tr>
-        }
-
+            <th class="text-end">
+                <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
+            </th>
+            <th class="text-start">
+                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@product.Id" onclick="return ConfirmDelete();">Del</a>
+            </th>
+        </tr>
     }
-}
-
-@section Styles
-    {
-    <link rel="stylesheet" href="~/css/shop_home.css" asp-append-version="true" />
-}
-
-
-@section Scripts
-    {
-    <environment include="Development">
-        <script src="~/js/product.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="~/js/product.min.js"></script>
-    </environment>
 }
