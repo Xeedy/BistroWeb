@@ -16,7 +16,7 @@ namespace BistroWeb.Domain.Entities
         [Required]
         [Key]
         public int Id { get; set; }
-        [StringLength(70)]
+        [StringLength(90)]
         public string? Name { get; set; }
         public string? Description { get; set; }
         public double Price { get; set; }
