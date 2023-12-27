@@ -1,7 +1,7 @@
 ﻿@model MenuItemViewModel
 
 @{
-    ViewData["Title"] = "Láhvová piva";
+    ViewData["Title"] = "Menu";
 }
 
 <div class="text-center">
@@ -18,8 +18,8 @@
     };
     var secondContainerSections = new List<List<string>>
     {
-        new List<string> { "Palačinky", "Sendviče", "Pity" },
-        new List<string> { "Speciality", "Dezerty", "Doplňky", "Čaje" }
+        new List<string> { "Palačinky", "Sendviče", "Pity", "Speciality" },
+        new List<string> { "Dezerty", "Doplňky", "Čaje" }
     };
 
     // Group items by section
@@ -80,7 +80,7 @@
                 </div>
             </div>
         </section>
-
+        <h1>Jídelní lístek</h1>
         <!-- Second Container -->
         <section class="py-1">
             <div class="container px-4 px-lg-5 mt-0">

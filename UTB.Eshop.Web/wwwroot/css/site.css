@@ -4,7 +4,9 @@ html {
 }
 
 body {
-    margin-bottom: 60px;
+    margin-bottom: 0; /* or adjust it to a smaller value */
+    overflow-x: hidden;
+    background-color:yellowgreen;
 }
 
 .navbar-nav .nav-link,
@@ -40,7 +42,7 @@ body {
 footer {
     background-color: black;
     color: white;
-    padding: 30px 0;
+    padding: 0;
 }
 
     footer h4 {
@@ -117,4 +119,9 @@ footer {
     font-size: 14px;
     margin: 0;
     text-align: center;
+}
+@media (max-width: 767px) {
+    body {
+        overflow-x: hidden; /* Or visible, depending on your design */
+    }
 }

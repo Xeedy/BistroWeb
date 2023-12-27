@@ -1,30 +1,50 @@
 ﻿@model BistroWeb.Domain.Entities.Product
 
 <style>
-    .brewery-container {
-        max-height: 100px; /* Set the maximum height for the brewery image */
-        max-width: 100px; /* Set the maximum width for the brewery image */
-        position: absolute;
-        bottom: 10;
-        end: 0;
+    /* Add styles for the container holding both images */
+    .image-container {
+        position: relative;
+        display: inline-block;
     }
 
-    .brewery-image {
-        max-height: 100%;
+    /* Add styles for the product image */
+    .product-image {
         max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Add styles for the brewery container */
+    .brewery-container {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        max-height: 100px;
+        max-width: 90px;
+        z-index: 1; /* Set a higher z-index to ensure it appears on top */
+    }
+
+    /* Add styles for the brewery image */
+    .brewery-image {
+        max-width: 80%;
+        height: auto;
+        display: block;
     }
 </style>
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-md-6 position-relative">
-            <!-- Display the product image -->
-            <img class="img-fluid product-image" src="@Model.ImageSrc" alt="Beer Image" />
+        <div class="col-md-6">
+            <!-- Use the image-container class to wrap both images -->
+            <div class="image-container">
+                <!-- Display the product image -->
+                <img class="img-fluid product-image" src="@Model.ImageSrc" alt="Beer Image" />
 
-            <!-- Container for the brewery image -->
-            <div class="brewery-container">
-                <!-- Display the brewery image -->
-                <img class="img-fluid brewery-image" src="@Model.Breweries?.ImageSrc" alt="Brewery Image" />
+                <!-- Container for the brewery image -->
+                <div class="brewery-container">
+                    <!-- Display the brewery image -->
+                    <img class="img-fluid brewery-image" src="@Model.Breweries?.ImageSrc" alt="Brewery Image" />
+                </div>
             </div>
         </div>
         <div class="col-md-6">
