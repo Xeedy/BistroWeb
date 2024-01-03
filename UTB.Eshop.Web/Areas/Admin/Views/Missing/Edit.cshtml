@@ -1,0 +1,50 @@
+﻿@model Brewery
+
+@{
+    ViewData["Title"] = "Edit Brewery";
+}
+
+<h1>@ViewData["Title"]</h1>
+<form asp-action="Edit" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All"></div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Name">Název</label>
+        <input class="form-control" asp-for="Name" value="@Model.Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Description">Popisek</label>
+        <input class="form-control" asp-for="Description" value="@Model.Description">
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Image">Obrázek</label>
+        <input id="fileupload" class="form-control-file" asp-for="Image">
+
+        <!-- Display validation error only if the Image is required and the model does not have a current image -->
+        @if (ViewData.ModelState.TryGetValue("Image", out var imageError) && !string.IsNullOrEmpty(Model.ImageSrc))
+        {
+            <span class="text-danger">@imageError.Errors.FirstOrDefault()?.ErrorMessage</span>
+        }
+    </div>
+
+    <!-- Display the current image if it exists -->
+    @if (!string.IsNullOrEmpty(Model.ImageSrc))
+    {
+        <div class="mb-3">
+            <label class="form-label">Aktuální obrázek</label>
+            <img src="@Model.ImageSrc" alt="Current Image" class="img-thumbnail" />
+        </div>
+    }
+
+    <!-- Hidden input for ImageSrc to trick the validation -->
+    <input type="hidden" asp-for="ImageSrc" />
+
+    <button type="submit" class="btn btn-primary">Potvrdit</button>
+</form>
+
+@section Scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/Validations/FileValidationEdit.js"></script>
+}
