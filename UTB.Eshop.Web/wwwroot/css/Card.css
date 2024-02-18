@@ -1,0 +1,59 @@
+﻿.product-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    height: 100%; /* Set card height to 100% of its container */
+}
+
+    .product-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .product-card .card-img-top {
+        width: 100%;
+        height: auto; /* Let the image adjust its height according to the aspect ratio */
+        object-fit: cover;
+        border-bottom: 1px solid #ddd;
+    }
+
+.product-details {
+    padding: 15px;
+    height: calc(100% - 150px); /* Adjust height of card body (100% - image height) */
+}
+
+    .product-details h5 {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+    }
+
+    .product-details p {
+        margin-bottom: 10px;
+    }
+
+    .product-details .price {
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .product-details .brewery {
+        font-style: italic;
+    }
+
+.info-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 0 0 10px 10px;
+    transition: background-color 0.3s ease;
+}
+
+    .info-button:hover {
+        background-color: #0056b3;
+    }

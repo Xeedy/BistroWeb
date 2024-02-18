@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BistroWeb.Infrastructure.Migrations
 {
     [DbContext(typeof(EshopDbContext))]
-    [Migration("20231227005216_New")]
+    [Migration("20240103222443_New")]
     partial class New
     {
         /// <inheritdoc />
@@ -769,6 +769,39 @@ namespace BistroWeb.Infrastructure.Migrations
                             Name = "Zázvorový čaj s medem (konvička cca 4dcl)",
                             Price = 80.0,
                             Section = "Čaje"
+                        });
+                });
+
+            modelBuilder.Entity("BistroWeb.Domain.Entities.Missing", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(110)
+                        .HasColumnType("varchar(110)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Missings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Testovací sada",
+                            Name = "Testovci pivovar"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Sth",
+                            Name = "Testingy"
                         });
                 });
 

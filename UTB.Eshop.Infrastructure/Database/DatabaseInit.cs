@@ -32,6 +32,25 @@ namespace BistroWeb.Infrastructure.Database
 
             return breweries;
         }
+        public List<Missing> GetMissing()
+        {
+            List<Missing> missings = new List<Missing>();
+
+            missings.Add(new Missing
+            {
+                Id = 1,
+                Name = "Rajčata",
+                Description = "",
+            });
+            missings.Add(new Missing
+            {
+                Id = 2,
+                Name = "Cibule",
+                Description = "Poslední",
+            });
+
+            return missings;
+        }
         public IList<Product> GetProducts(IList<Brewery> breweries)
         {
             IList<Product> products = new List<Product>();

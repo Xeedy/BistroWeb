@@ -769,6 +769,39 @@ namespace BistroWeb.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("BistroWeb.Domain.Entities.Missing", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(110)
+                        .HasColumnType("varchar(110)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Missings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Testovací sada",
+                            Name = "Testovci pivovar"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Sth",
+                            Name = "Testingy"
+                        });
+                });
+
             modelBuilder.Entity("BistroWeb.Domain.Entities.Product", b =>
                 {
                     b.Property<int>("Id")

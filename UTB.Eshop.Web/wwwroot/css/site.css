@@ -4,9 +4,9 @@ html {
 }
 
 body {
-    margin-bottom: 0; /* or adjust it to a smaller value */
+    margin-bottom: 0;
     overflow-x: hidden;
-    background-color:yellowgreen;
+    background-color: yellowgreen;
 }
 
 .navbar-nav .nav-link,
@@ -37,8 +37,7 @@ body {
         color: red !important;
     }
 
-/* Footer Styles */
-/* Custom Footer Styles */
+
 footer {
     background-color: black;
     color: white;
@@ -94,7 +93,7 @@ footer {
     height: 40px;
     margin: 5px;
     transition: transform 0.3s ease-in-out;
-    text-decoration: none; /* Remove underline */
+    text-decoration: none;
 }
 
     .social-btn:hover {
@@ -103,13 +102,14 @@ footer {
 
     .social-btn i {
         color: orange;
-        font-size: 20px; /* Adjust the icon size as needed */
+        font-size: 20px;
     }
 
 .www-link a {
     color: orange !important;
     text-decoration: none;
 }
+
 .footer hr {
     background-color: white;
 }
@@ -119,9 +119,4 @@ footer {
     font-size: 14px;
     margin: 0;
     text-align: center;
-}
-@media (max-width: 767px) {
-    body {
-        overflow-x: hidden; /* Or visible, depending on your design */
-    }
 }

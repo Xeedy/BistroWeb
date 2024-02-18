@@ -9,31 +9,29 @@ using BistroWeb.Infrastructure.Database;
 
 namespace BistroWeb.Application.Implementation
 {
-    public class MenuItemAppService : IMenuItemAppService
+    public class MissingAppService : IMissingAppService
     {
-        IFileUploadService _fileUploadService;
         EshopDbContext _eshopDbContext;
 
-        public MenuItemAppService(IFileUploadService fileUploadService, EshopDbContext eshopDbContext)
+        public MissingAppService(EshopDbContext eshopDbContext)
         {
-            _fileUploadService = fileUploadService;
             _eshopDbContext = eshopDbContext;
         }
-        public Item GetItemById(int id)
+        public Missing GetMissingById(int id)
         {
-            return _eshopDbContext.Items.Find(id);
+            return _eshopDbContext.Missings.Find(id);
         }
 
-        public IList<Item> Select()
+        public IList<Missing> Select()
         {
-            return _eshopDbContext.Items.ToList();
+            return _eshopDbContext.Missings.ToList();
         }
 
-        public async Task Create(Item item)
+        public async Task Create(Missing missing)
         {
-            if (_eshopDbContext.Items != null)
+            if (_eshopDbContext.Missings != null)
             {
-                _eshopDbContext.Items.Add(item);
+                _eshopDbContext.Missings.Add(missing);
                 _eshopDbContext.SaveChanges();
             }
         }
@@ -42,29 +40,26 @@ namespace BistroWeb.Application.Implementation
         {
             bool deleted = false;
 
-            Item? item
-                = _eshopDbContext.Items.FirstOrDefault(prod => prod.Id == id);
+            Missing? missing
+                = _eshopDbContext.Missings.FirstOrDefault(prod => prod.Id == id);
 
-            if (item != null)
+            if (missing != null)
             {
-                _eshopDbContext.Items.Remove(item);
+                _eshopDbContext.Missings.Remove(missing);
                 _eshopDbContext.SaveChanges();
                 deleted = true;
             }
             return deleted;
         }
-        public async Task Edit(Item editedItem)
+        public async Task Edit(Missing editedMissing)
         {
-            Item existingItem = _eshopDbContext.Items.Find(editedItem.Id);
+            Missing existingMissing = _eshopDbContext.Missings.Find(editedMissing.Id);
 
-            if (existingItem != null)
+            if (existingMissing != null)
             {
                 // Update the properties of the existing product with the edited values
-                existingItem.Name = editedItem.Name;
-                existingItem.Description = editedItem.Description;
-                existingItem.Price = editedItem.Price;
-                existingItem.Section = editedItem.Section;
-                existingItem.Price2 = editedItem.Price2;
+                existingMissing.Name = editedMissing.Name;
+                existingMissing.Description = editedMissing.Description;
                 // ... (update other properties as needed)
 
                 // If a new image is provided, upload and update the image source

@@ -1,11 +1,11 @@
-﻿@model IList<Brewery>
+﻿@model IList<Missing>
 
 @{
-    ViewData["Title"] = "Administrace pivovarů";
+    ViewData["Title"] = "Administrace chybějících položek";
 }
 <h1>@ViewData["Title"]</h1>
 
-<a class="btn btn-success" asp-action="Create">Přidat pivovar</a>
+<a class="btn btn-success" asp-action="Create">Přidat položku</a>
 
 @{
     if (Model != null && Model.Any())
@@ -21,16 +21,16 @@
             </thead>
             <tbody>
 
-                @foreach (var brewery in Model)
+                @foreach (var missing in Model)
                 {
                     <tr>
-                        <td>@brewery.Id</td>
-                        <td><span class="fade-overflow">@brewery.Name</span></td>
+                        <td>@missing.Id</td>
+                        <td><span class="fade-overflow">@missing.Name</span></td>
                         <th class="text-end">
-                            <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@brewery.Id">Edit</a>
+                            <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@missing.Id">Edit</a>
                         </th>
                         <th class="text-start">
-                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@brewery.Id" onclick="return ConfirmDelete();">Del</a>
+                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@missing.Id" onclick="return ConfirmDelete();">Del</a>
                         </th>
                     </tr>
                 }

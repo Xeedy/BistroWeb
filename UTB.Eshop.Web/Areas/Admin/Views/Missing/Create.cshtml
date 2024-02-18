@@ -1,7 +1,7 @@
-﻿@model Brewery
+﻿@model Missing
 
 @{
-    ViewData["Title"] = "Vytvoření pivovaru";
+    ViewData["Title"] = "Vytvoření Cyhbějící položky";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -17,11 +17,6 @@
         <label class="form-label" asp-for="Description">Popisek pivovaru</label>
         <input class="form-control" asp-for="Description">
         <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" asp-for="Image">Obrázek</label>
-        <input id="fileupload" class="form-control-file" asp-for="Image" type="file">
-        <span asp-validation-for="Image" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Potvrdit</button>
 </form>

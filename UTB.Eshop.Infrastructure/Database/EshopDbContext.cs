@@ -17,6 +17,7 @@ namespace BistroWeb.Infrastructure.Database
         public DbSet<Product> Products { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Brewery> Breweries { get; set; }
+        public DbSet<Missing> Missings { get; set; }
 
         public EshopDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
         {
@@ -32,6 +33,7 @@ namespace BistroWeb.Infrastructure.Database
             modelBuilder.Entity<Item>().HasData(dbInit.GetItems());
             modelBuilder.Entity<Carousel>().HasData(dbInit.GetCarousels());
             modelBuilder.Entity<Brewery>().HasData(dbInit.GetBrewery());
+            modelBuilder.Entity<Missing>().HasData(dbInit.GetMissing());
 
             //Identity - User and Role initialization
             //roles must be added first

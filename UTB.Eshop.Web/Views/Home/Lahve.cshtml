@@ -1,74 +1,84 @@
 ﻿@model IEnumerable<BistroWeb.Domain.Entities.Product>
 
-<!-- Rest of your view code remains the same -->
 @{
     ViewData["Title"] = "Láhvová piva";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Eshop</h1>
+    <h1 class="display-4">Naše pifka</h1>
 </div>
 
-@{
-    try
+<div>
+    <label>Select Brewery:</label><br />
+    <input type="radio" name="breweryFilter" value="" checked /> Show All <!-- Added Show All option -->
+    <br />
+    @{
+        // Get distinct breweries and sort them alphabetically
+        var sortedBreweries = Model.Select(p => p.Breweries)
+        .Distinct()
+        .OrderBy(brewery => brewery.Name);
+    }
+    @foreach (var brewery in sortedBreweries)
     {
-        @if (Model != null && Model.Any())
-        {
-            <section class="py-5">
-                <div class="container px-4 px-lg-5 mt-5">
-                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-start">
+        <input type="radio" name="breweryFilter" value="@brewery.Name" /> @brewery.Name
+        <br />
+    }
+</div>
 
-                        @foreach (var product in Model)
-                        {
-                            <div class="col mb-5">
-                                <div class="card h-100">
-                                    <!-- Product image -->
-                                    <img class="card-img-top" src="@product.ImageSrc" alt="..." />
-                                    <!-- Product details -->
-                                    <div class="card-body p-4">
-                                        <div class="text-center">
-                                            <!-- Product name -->
-                                            <h5 class="fw-bolder">@product.Name</h5>
-                                            <!-- Product description -->
-                                            <p class="fw-light">@product.Description</p>
-                                            <!-- Product price -->
-                                            <p>@product.Price CZK</p>
-                                            <!-- Brewery name -->
-                                            <p class="fw-bolder">@product.Breweries?.Name</p>
-                                        </div>
-                                    </div>
-                                    <!-- Product actions -->
-                                    <div class="text-center">
-                                        <!-- Info button -->
-                                        <a class="btn btn-outline-dark mt-auto" href="@Url.Action("Details", "ProductDetail", new { id = product.Id })">Info</a>
-                                    </div>
 
-                                </div>
+<section class="py-5" id="productContainer">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-start">
+            @foreach (var product in Model)
+            {
+                <div class="col mb-5 breweryItem" data-brewery="@product.Breweries?.Name">
+                    <div class="product-card h-100">
+                        <!-- Changed class name to product-card -->
+                        <!-- Product image -->
+                        <img class="card-img-top" src="@product.ImageSrc" alt="..." />
+                        <!-- Product details -->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <h5 class="fw-bolder">@product.Name</h5>
+                                <p class="fw-light">@product.Description</p>
+                                <p>@product.Price CZK</p>
+                                <!-- Display brewery name -->
+                                <p class="fw-bolder brewery">@product.Breweries?.Name</p>
                             </div>
-                        }
+                        </div>
+                        <!-- Product actions -->
+                        <div class="text-center">
+                            <!-- Info button -->
+                            <a class="btn btn-outline-dark mt-auto" href="@Url.Action("Details", "ProductDetail", new { id = product.Id })">Info</a>
+                        </div>
                     </div>
                 </div>
-            </section>
-        }
-
-
-    }
-    catch (Exception ex)
-    {
-        <p>Error: @ex.Message</p>
-    }
-}
+            }
+        </div>
+    </div>
+</section>
 
 @section Styles
     {
+    <!-- Include Card.css -->
+    <link rel="stylesheet" href="~/css/Card.css" asp-append-version="true" />
 }
 
 @section Scripts
     {
-    <environment include="Development">
-        <script src="~/js/product.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="~/js/product.min.js"></script>
-    </environment>
+    <script>
+        document.querySelectorAll('input[name="breweryFilter"]').forEach(item => {
+            item.addEventListener('change', event => {
+                const selectedBrewery = event.target.value;
+                document.querySelectorAll('.breweryItem').forEach(product => {
+                    const breweryName = product.getAttribute('data-brewery');
+                    if (selectedBrewery === breweryName || selectedBrewery === "") {
+                        product.style.display = "block";
+                    } else {
+                        product.style.display = "none";
+                    }
+                });
+            });
+        });
+    </script>
 }

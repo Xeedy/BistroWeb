@@ -10,61 +10,25 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = nameof(Roles.Admin) + ", " + nameof(Roles.Manager))]
-    public class MenuItemController : Controller
+    public class MissingController : Controller
     {
-        IMenuItemAppService _menuitemAppService;
+        IMissingAppService _missingAppService;
         EshopDbContext _eshopDbContext;
-        private readonly IFileUploadService _fileUploadService;
-        public Item GetItemById(int id)
+        public Missing GetMissingById(int id)
         {
-            return _eshopDbContext.Items.Find(id);
+            return _eshopDbContext.Missings.Find(id);
         }
-        public MenuItemController(IMenuItemAppService menuitemAppService, EshopDbContext eshopDbContext, IFileUploadService fileUploadService)
+        public MissingController(IMissingAppService missingAppService, EshopDbContext eshopDbContext)
         {
-            _menuitemAppService = menuitemAppService;
+            _missingAppService = missingAppService;
             _eshopDbContext = eshopDbContext;
-            _fileUploadService = fileUploadService;
         }
 
         public IActionResult Index(string sortOrder)
         {
-            ViewData["IDSortParm"] = string.IsNullOrEmpty(sortOrder) ? "ID_desc" : "";
-            ViewData["NameSortParm"] = sortOrder == "Name" ? "Name_desc" : "Name";
-            ViewData["SectionSortParm"] = sortOrder == "Section" ? "Section_desc" : "Section";
-            ViewData["DescriptionSortParm"] = sortOrder == "Description" ? "Description_desc" : "Description";
-            ViewData["PriceSortParm"] = sortOrder == "Price" ? "Price_desc" : "Price";
+            var missing = _missingAppService.Select();
 
-            var items = _menuitemAppService.Select();
-
-            switch (sortOrder)
-            {
-                case "ID_desc":
-                    items = items.OrderByDescending(i => i.Id).ToList();
-                    break;
-                case "Name":
-                    items = items.OrderBy(i => i.Name).ToList();
-                    break;
-                case "Name_desc":
-                    items = items.OrderByDescending(i => i.Name).ToList();
-                    break;
-                case "Section":
-                    items = items.OrderBy(i => i.Section).ToList();
-                    break;
-                case "Section_desc":
-                    items = items.OrderByDescending(i => i.Section).ToList();
-                    break;
-                case "Price":
-                    items = items.OrderBy(i => i.Price).ToList();
-                    break;
-                case "Price_desc":
-                    items = items.OrderByDescending(i => i.Price).ToList();
-                    break;
-                default:
-                    items = items.OrderBy(i => i.Id).ToList();
-                    break;
-            }
-
-            return View(items);
+            return View(missing);
         }
 
         [HttpGet]
@@ -74,27 +38,27 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Item item)
+        public async Task<IActionResult> Create(Missing missing)
         {
             if (ModelState.IsValid)
             {
-                await _menuitemAppService.Create(item);
+                await _missingAppService.Create(missing);
 
-                return RedirectToAction(nameof(MenuItemController.Index));
+                return RedirectToAction(nameof(MissingController.Index));
             }
             else
             {
-                return View(item);
+                return View(missing);
             }
         }
 
         public IActionResult Delete(int id)
         {
-            bool deleted = _menuitemAppService.Delete(id);
+            bool deleted = _missingAppService.Delete(id);
 
             if (deleted)
             {
-                return RedirectToAction(nameof(MenuItemController.Index));
+                return RedirectToAction(nameof(MissingController.Index));
             }
             else
                 return NotFound();
@@ -102,33 +66,30 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Item item = _menuitemAppService.GetItemById(id);
+            Missing missing = _missingAppService.GetMissingById(id);
 
-            if (item == null)
+            if (missing == null)
             {
                 return NotFound(); // or handle appropriately
             }
 
-            return View(item);
+            return View(missing);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Item editedItem)
+        public async Task<IActionResult> Edit(Missing editedMissing)
         {
             if (ModelState.IsValid)
             {
                 // Retrieve the existing product from the database
-                Item existingItem = _eshopDbContext.Items.Find(editedItem.Id);
+                Missing existingMissing = _eshopDbContext.Missings.Find(editedMissing.Id);
 
-                if (existingItem != null)
+                if (existingMissing != null)
                 {
                     // Update other properties
-                    existingItem.Name = editedItem.Name;
-                    existingItem.Description = editedItem.Description;
-                    existingItem.Price = editedItem.Price;
-                    existingItem.Section = editedItem.Section;
-                    existingItem.Price2 = editedItem.Price2;
+                    existingMissing.Name = editedMissing.Name;
+                    existingMissing.Description = editedMissing.Description;
 
                     // Save changes to the database
                     await _eshopDbContext.SaveChangesAsync(); // Use SaveChangesAsync if your _eshopDbContext supports it
@@ -142,7 +103,7 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
             }
 
             // If the model state is not valid, return to the edit view with the current model
-            return View(editedItem);
+            return View(editedMissing);
         }
     }
 }
