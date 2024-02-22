@@ -8,22 +8,20 @@
     <h1 class="display-4">Naše pifka</h1>
 </div>
 
-<div>
+<div id="breweryFilterContainer" class="brewery-filter-container">
     <label>Select Brewery:</label><br />
-    <input type="radio" name="breweryFilter" value="" checked /> Show All <!-- Added Show All option -->
-    <br />
+    <button class="brewery-filter-button active" data-value="">Show All</button>
     @{
-        // Get distinct breweries and sort them alphabetically
         var sortedBreweries = Model.Select(p => p.Breweries)
-        .Distinct()
-        .OrderBy(brewery => brewery.Name);
+            .Distinct()
+            .OrderBy(brewery => brewery.Name);
     }
     @foreach (var brewery in sortedBreweries)
     {
-        <input type="radio" name="breweryFilter" value="@brewery.Name" /> @brewery.Name
-        <br />
+        <button class="brewery-filter-button" data-value="@brewery.Name">@brewery.Name</button>
     }
 </div>
+
 
 
 <section class="py-5" id="productContainer">
@@ -67,18 +65,33 @@
 @section Scripts
     {
     <script>
-        document.querySelectorAll('input[name="breweryFilter"]').forEach(item => {
-            item.addEventListener('change', event => {
-                const selectedBrewery = event.target.value;
-                document.querySelectorAll('.breweryItem').forEach(product => {
-                    const breweryName = product.getAttribute('data-brewery');
-                    if (selectedBrewery === breweryName || selectedBrewery === "") {
-                        product.style.display = "block";
-                    } else {
-                        product.style.display = "none";
-                    }
-                });
+        document.addEventListener("DOMContentLoaded", function () {
+    const breweryButtons = document.querySelectorAll(".brewery-filter-button");
+    
+    breweryButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            // Remove "active" class from all buttons
+            breweryButtons.forEach(btn => btn.classList.remove("active"));
+            
+            // Add "active" class to the clicked button
+            button.classList.add("active");
+            
+            // Get the value of the clicked button
+            const selectedBrewery = button.getAttribute("data-value");
+            
+            // Filter products based on the selected brewery
+            const products = document.querySelectorAll('.breweryItem');
+            products.forEach(product => {
+                const breweryName = product.getAttribute('data-brewery');
+                if (selectedBrewery === breweryName || selectedBrewery === "") {
+                    product.style.display = "block";
+                } else {
+                    product.style.display = "none";
+                }
             });
         });
+    });
+});
+
     </script>
 }

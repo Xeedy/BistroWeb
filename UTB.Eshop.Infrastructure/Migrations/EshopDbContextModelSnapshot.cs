@@ -43,16 +43,184 @@ namespace BistroWeb.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Testovací sada",
-                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Description = "Only for developement",
+                            ImageSrc = "/img/brewery/Developement.jpg",
                             Name = "Testovci pivovar"
                         },
                         new
                         {
                             Id = 2,
                             Description = "Sth",
-                            ImageSrc = "/img/products/produkty-01.jpg",
-                            Name = "Testingy"
+                            ImageSrc = "/img/brewery/Belgium.png",
+                            Name = "Belgická piva"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/Beskyd.png",
+                            Name = "Beskydský pivovárek"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/CernyPotoka.jpg",
+                            Name = "Černý potoka"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/Cestmir.jpg",
+                            Name = "Cestmir"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/Clock.jpg",
+                            Name = "Clock"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/Cobolis.jpg",
+                            Name = "Cobolis"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/Dejf.jpg",
+                            Name = "Dejf"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/Haksna.png",
+                            Name = "Haksna"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/Holland.png",
+                            Name = "Holandská piva"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/Chroust.jpeg",
+                            Name = "Chroust"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/Kamenice.png",
+                            Name = "Kamenice"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/Konicek.png",
+                            Name = "Koníček"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/Matuska.png",
+                            Name = "Matuška"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/Mazak.png",
+                            Name = "Mazák"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/NachmelenaOpice.jpg",
+                            Name = "Nachmelená opice"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/Ogar.jpg",
+                            Name = "Ogar"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/Raven.png",
+                            Name = "Raven"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/Rotor.jpg",
+                            Name = "Rotor"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/Sibeeria.png",
+                            Name = "Sibeeria"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/USAUK.jpg",
+                            Name = "Americká / Anglická piva"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/Valasek.jpg",
+                            Name = "Valášek"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/Volt.jpg",
+                            Name = "Volt"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/wildcock.png",
+                            Name = "WildCock"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/WildCreatures.jpg",
+                            Name = "Wild Creatures"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Description = "Sth",
+                            ImageSrc = "/img/brewery/Zichovec.png",
+                            Name = "Zichovec"
                         });
                 });
 
@@ -791,14 +959,14 @@ namespace BistroWeb.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Testovací sada",
-                            Name = "Testovci pivovar"
+                            Description = "",
+                            Name = "Rajčata"
                         },
                         new
                         {
                             Id = 2,
-                            Description = "Sth",
-                            Name = "Testingy"
+                            Description = "Poslední",
+                            Name = "Cibule"
                         });
                 });
 

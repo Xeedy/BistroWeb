@@ -19,15 +19,183 @@ namespace BistroWeb.Infrastructure.Database
             {
                 Id = 1,
                 Name = "Testovci pivovar",
-                Description = "Testovací sada",
-                ImageSrc = "/img/products/produkty-01.jpg"
+                Description = "Only for developement",
+                ImageSrc = "/img/brewery/Developement.jpg"
             });
             breweries.Add(new Brewery
             {
                 Id = 2,
-                Name = "Testingy",
+                Name = "Belgická piva",
                 Description = "Sth",
-                ImageSrc = "/img/products/produkty-01.jpg"
+                ImageSrc = "/img/brewery/Belgium.png"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 3,
+                Name = "Beskydský pivovárek",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/Beskyd.png"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 4,
+                Name = "Černý potoka",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/CernyPotoka.jpg"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 5,
+                Name = "Cestmir",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/Cestmir.jpg"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 6,
+                Name = "Clock",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/Clock.jpg"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 7,
+                Name = "Cobolis",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/Cobolis.jpg"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 8,
+                Name = "Dejf",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/Dejf.jpg"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 9,
+                Name = "Haksna",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/Haksna.png"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 10,
+                Name = "Holandská piva",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/Holland.png"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 11,
+                Name = "Chroust",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/Chroust.jpeg"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 12,
+                Name = "Kamenice",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/Kamenice.png"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 13,
+                Name = "Koníček",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/Konicek.png"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 14,
+                Name = "Matuška",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/Matuska.png"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 15,
+                Name = "Mazák",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/Mazak.png"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 16,
+                Name = "Nachmelená opice",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/NachmelenaOpice.jpg"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 17,
+                Name = "Ogar",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/Ogar.jpg"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 18,
+                Name = "Raven",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/Raven.png"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 19,
+                Name = "Rotor",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/Rotor.jpg"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 20,
+                Name = "Sibeeria",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/Sibeeria.png"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 21,
+                Name = "Americká / Anglická piva",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/USAUK.jpg"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 22,
+                Name = "Valášek",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/Valasek.jpg"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 23,
+                Name = "Volt",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/Volt.jpg"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 24,
+                Name = "WildCock",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/wildcock.png"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 25,
+                Name = "Wild Creatures",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/WildCreatures.jpg"
+            });
+            breweries.Add(new Brewery
+            {
+                Id = 26,
+                Name = "Zichovec",
+                Description = "Sth",
+                ImageSrc = "/img/brewery/Zichovec.png"
             });
 
             return breweries;

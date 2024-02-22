@@ -1,1 +1,38 @@
-﻿
+﻿.beercontainer {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    --text-font-size: 4%; /* For .content */
+    --text-top: 77%;
+    --text-left: 80%;
+    --logo-font-size: 3%; /* Example for another element */
+    --logo-top: 10%;
+    --logo-left: 10%;
+}
+
+    .beercontainer img {
+        width: 100%;
+        height: auto;
+    }
+
+.content {
+    position: absolute;
+    top: var(--text-top);
+    left: var(--text-left);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: black;
+    font-size: calc(var(--text-font-size) * 1em);
+}
+
+.logo { /* Example for another element */
+    position: absolute;
+    top: var(--logo-top);
+    left: var(--logo-left);
+    transform: translate(-50%, -50%);
+    font-size: calc(var(--logo-font-size) * 1em);
+    color: white; /* Example style */
+    /* Additional styling as needed */
+}
+
+/* Repeat for other elements, defining and using new variables */

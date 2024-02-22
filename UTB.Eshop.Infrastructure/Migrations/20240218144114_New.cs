@@ -321,8 +321,32 @@ namespace BistroWeb.Infrastructure.Migrations
                 columns: new[] { "Id", "Description", "ImageSrc", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Testovací sada", "/img/products/produkty-01.jpg", "Testovci pivovar" },
-                    { 2, "Sth", "/img/products/produkty-01.jpg", "Testingy" }
+                    { 1, "Only for developement", "/img/brewery/Developement.jpg", "Testovci pivovar" },
+                    { 2, "Sth", "/img/brewery/Belgium.png", "Belgická piva" },
+                    { 3, "Sth", "/img/brewery/Beskyd.png", "Beskydský pivovárek" },
+                    { 4, "Sth", "/img/brewery/CernyPotoka.jpg", "Černý potoka" },
+                    { 5, "Sth", "/img/brewery/Cestmir.jpg", "Cestmir" },
+                    { 6, "Sth", "/img/brewery/Clock.jpg", "Clock" },
+                    { 7, "Sth", "/img/brewery/Cobolis.jpg", "Cobolis" },
+                    { 8, "Sth", "/img/brewery/Dejf.jpg", "Dejf" },
+                    { 9, "Sth", "/img/brewery/Haksna.png", "Haksna" },
+                    { 10, "Sth", "/img/brewery/Holland.png", "Holandská piva" },
+                    { 11, "Sth", "/img/brewery/Chroust.jpeg", "Chroust" },
+                    { 12, "Sth", "/img/brewery/Kamenice.png", "Kamenice" },
+                    { 13, "Sth", "/img/brewery/Konicek.png", "Koníček" },
+                    { 14, "Sth", "/img/brewery/Matuska.png", "Matuška" },
+                    { 15, "Sth", "/img/brewery/Mazak.png", "Mazák" },
+                    { 16, "Sth", "/img/brewery/NachmelenaOpice.jpg", "Nachmelená opice" },
+                    { 17, "Sth", "/img/brewery/Ogar.jpg", "Ogar" },
+                    { 18, "Sth", "/img/brewery/Raven.png", "Raven" },
+                    { 19, "Sth", "/img/brewery/Rotor.jpg", "Rotor" },
+                    { 20, "Sth", "/img/brewery/Sibeeria.png", "Sibeeria" },
+                    { 21, "Sth", "/img/brewery/USAUK.jpg", "Americká / Anglická piva" },
+                    { 22, "Sth", "/img/brewery/Valasek.jpg", "Valášek" },
+                    { 23, "Sth", "/img/brewery/Volt.jpg", "Volt" },
+                    { 24, "Sth", "/img/brewery/wildcock.png", "WildCock" },
+                    { 25, "Sth", "/img/brewery/WildCreatures.jpg", "Wild Creatures" },
+                    { 26, "Sth", "/img/brewery/Zichovec.png", "Zichovec" }
                 });
 
             migrationBuilder.InsertData(
@@ -427,8 +451,8 @@ namespace BistroWeb.Infrastructure.Migrations
                 columns: new[] { "Id", "Description", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Testovací sada", "Testovci pivovar" },
-                    { 2, "Sth", "Testingy" }
+                    { 1, "", "Rajčata" },
+                    { 2, "Poslední", "Cibule" }
                 });
 
             migrationBuilder.InsertData(

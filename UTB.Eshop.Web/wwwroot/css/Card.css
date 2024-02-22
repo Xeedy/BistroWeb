@@ -1,4 +1,5 @@
-﻿.product-card {
+﻿/* Product card design */
+.product-card {
     border: 1px solid #ddd;
     border-radius: 10px;
     overflow: hidden;
@@ -56,4 +57,27 @@
 
     .info-button:hover {
         background-color: #0056b3;
+    }
+/* Filtering design */
+.brewery-filter-container {
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.brewery-filter-button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    .brewery-filter-button.active {
+        background-color: #007bff;
+        color: #fff;
     }
