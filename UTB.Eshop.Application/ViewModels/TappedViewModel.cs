@@ -7,12 +7,12 @@ using BistroWeb.Domain.Entities;
 
 namespace BistroWeb.Application.ViewModels
 {
-    public class ProductViewModel
+    public class TappedViewModel
     {
-        public List<Product> Product { get; set; }
+        public List<Product> Tapped { get; set; }
         public List<Brewery> Breweries { get; set; }
         public List<Typee> Typees { get; set; }
-        public ProductViewModel()
+        public TappedViewModel()
         {
             // Initialize Breweries to an empty list
             Breweries = new List<Brewery>();

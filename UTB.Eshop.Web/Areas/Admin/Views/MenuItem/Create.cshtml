@@ -1,7 +1,7 @@
 ﻿@model Item
 
 @{
-    ViewData["Title"] = "Vytvoření itemu";
+    ViewData["Title"] = "Vytvoření položky";
 }
 <h1>@ViewData["Title"]</h1>
 
@@ -41,7 +41,7 @@
         <span asp-validation-for="Price" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label class="form-label" asp-for="Price2">Cena</label>
+        <label class="form-label" asp-for="Price2">Druhá Cena (nevyplňovat pokud nejsou dvě ceny)</label>
         <input class="form-control" asp-for="Price2">
         <span asp-validation-for="Price2" class="text-danger"></span>
     </div>

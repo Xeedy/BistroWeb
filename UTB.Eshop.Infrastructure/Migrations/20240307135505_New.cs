@@ -150,6 +150,23 @@ namespace BistroWeb.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Typees",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "varchar(70)", maxLength: 70, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Description = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Typees", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -271,6 +288,32 @@ namespace BistroWeb.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Tappeds",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "varchar(90)", maxLength: 90, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Description = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    MainPrice = table.Column<double>(type: "double", nullable: false),
+                    OtherPrice = table.Column<double>(type: "double", nullable: false),
+                    BreweryId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tappeds", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tappeds_Breweries_BreweryId",
+                        column: x => x.BreweryId,
+                        principalTable: "Breweries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -283,7 +326,8 @@ namespace BistroWeb.Infrastructure.Migrations
                     Price = table.Column<double>(type: "double", nullable: false),
                     ImageSrc = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    BreweryId = table.Column<int>(type: "int", nullable: false)
+                    BreweryId = table.Column<int>(type: "int", nullable: false),
+                    TypeeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -292,6 +336,12 @@ namespace BistroWeb.Infrastructure.Migrations
                         name: "FK_Products_Breweries_BreweryId",
                         column: x => x.BreweryId,
                         principalTable: "Breweries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Products_Typees_TypeeId",
+                        column: x => x.TypeeId,
+                        principalTable: "Typees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -456,6 +506,15 @@ namespace BistroWeb.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Typees",
+                columns: new[] { "Id", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Only for developement", "IPA" },
+                    { 2, "Only for developement", "APA" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
@@ -469,11 +528,20 @@ namespace BistroWeb.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "BreweryId", "Description", "ImageSrc", "Name", "Price" },
+                columns: new[] { "Id", "BreweryId", "Description", "ImageSrc", "Name", "Price", "TypeeId" },
                 values: new object[,]
                 {
-                    { 1, 1, "Testovací sada", "/img/products/produkty-01.jpg", "Test", 999.0 },
-                    { 2, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", 10.0 }
+                    { 1, 1, "Testovací sada", "/img/products/produkty-01.jpg", "Test", 999.0, 1 },
+                    { 2, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", 10.0, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Tappeds",
+                columns: new[] { "Id", "BreweryId", "Description", "MainPrice", "Name", "OtherPrice" },
+                values: new object[,]
+                {
+                    { 1, 1, "Testovací sada", 999.0, "Test", 0.0 },
+                    { 2, 2, "Cosik", 10.0, "Testovacka", 0.0 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -517,6 +585,16 @@ namespace BistroWeb.Infrastructure.Migrations
                 name: "IX_Products_BreweryId",
                 table: "Products",
                 column: "BreweryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_TypeeId",
+                table: "Products",
+                column: "TypeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tappeds_BreweryId",
+                table: "Tappeds",
+                column: "BreweryId");
         }
 
         /// <inheritdoc />
@@ -550,10 +628,16 @@ namespace BistroWeb.Infrastructure.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
+                name: "Tappeds");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Typees");
 
             migrationBuilder.DropTable(
                 name: "Breweries");

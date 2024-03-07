@@ -74,6 +74,7 @@ namespace BistroWeb.Application.Implementation
 
                 // Set the BreweryId for the existing product
                 existingProduct.BreweryId = editedProduct.BreweryId;
+                existingProduct.TypeeId = editedProduct.TypeeId;
 
                 // If a new image is provided, upload and update the image source
                 if (editedProduct.Image != null)

@@ -73,6 +73,8 @@ builder.Services.AddLogging(builder =>
 });
 builder.Services.AddScoped<IFileUploadService, FileUploadService>(serviceProvider => new FileUploadService(serviceProvider.GetService<IWebHostEnvironment>().WebRootPath));
 builder.Services.AddScoped<IProductAppService, ProductAppService>();
+builder.Services.AddScoped<ITappedAppService, TappedAppService>();
+builder.Services.AddScoped<ITypeeAppService, TypeeAppService>();
 builder.Services.AddScoped<IMenuItemAppService, MenuItemAppService>();
 builder.Services.AddScoped<IBreweryAppService, BreweryAppService>();
 

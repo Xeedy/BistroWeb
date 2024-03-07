@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 using BistroWeb.Domain.Implementation.Validations;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
+
 namespace BistroWeb.Domain.Entities
 {
-    public class Product
+    public class Tapped
     {
         [Required]
         [Key]
@@ -19,18 +20,14 @@ namespace BistroWeb.Domain.Entities
         [StringLength(90)]
         public string? Name { get; set; }
         public string? Description { get; set; }
-        public double Price { get; set; }
-        public string? ImageSrc { get; set; }
+        public double MainPrice { get; set; }
+        public double OtherPrice { get; set; }
         [ForeignKey("Breweries")]
         public int? BreweryId { get; set; }
         public virtual Brewery Breweries { get; set; }
         [ForeignKey("Typees")]
         public int? TypeeId { get; set; }
         public virtual Typee Typees { get; set; }
-        [NotMapped]
-        [FileContent("image")]
-        public IFormFile? Image { get; set; }
-
 
     }
 }

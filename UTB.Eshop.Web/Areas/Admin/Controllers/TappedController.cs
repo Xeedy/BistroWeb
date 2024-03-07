@@ -13,23 +13,21 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = nameof(Roles.Admin) + ", " + nameof(Roles.Manager))]
-    public class ProductController : Controller
+    public class TappedController : Controller
     { 
-        IProductAppService _productAppService;
+        ITappedAppService _tappedAppService;
         EshopDbContext _eshopDbContext;
-        private readonly IFileUploadService _fileUploadService;
-        public ProductController(IFileUploadService fileUploadService, EshopDbContext eshopDbContext, IProductAppService productAppService)
+        public TappedController(EshopDbContext eshopDbContext, ITappedAppService tappedAppService)
         {
-            _fileUploadService = fileUploadService;
             _eshopDbContext = eshopDbContext;
-            _productAppService = productAppService;
+            _tappedAppService = tappedAppService;
         }
 
         public IActionResult Index()
         {
-            var products = _eshopDbContext.Products.Include(p => p.Breweries).Include(p => p.Typees).ToList();
+            var tappeds = _eshopDbContext.Tappeds.Include(p => p.Breweries).Include(p => p.Typees).ToList();
 
-            return View(products);
+            return View(tappeds);
         }
 
         [HttpGet]
@@ -51,11 +49,9 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
             ViewBag.Typees = new SelectList(typees, "Id", "Name");
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Product model)
+        public async Task<IActionResult> Create(Tapped model)
         {
-            string imageSrc = await _fileUploadService.FileUploadAsync(model.Image, Path.Combine("img", "model"));
-            model.ImageSrc = imageSrc;
-            _eshopDbContext.Products.Add(model);
+            _eshopDbContext.Tappeds.Add(model);
             await _eshopDbContext.SaveChangesAsync(); // Use async SaveChangesAsync
             return RedirectToAction(nameof(Index));
         }
@@ -63,11 +59,11 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
 
         public IActionResult Delete(int id)
         {
-            bool deleted = _productAppService.Delete(id);
+            bool deleted = _tappedAppService.Delete(id);
 
             if (deleted)
             {
-                return RedirectToAction(nameof(ProductController.Index));
+                return RedirectToAction(nameof(TappedController.Index));
             }
             else
                 return NotFound();
@@ -84,40 +80,30 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
             LoadTypees();
 
             // Eager load Breweries
-            var product = _eshopDbContext.Products.Include(p => p.Breweries).Include(p => p.Typees).FirstOrDefault(p => p.Id == id);
+            var tapped = _eshopDbContext.Tappeds.Include(p => p.Breweries).Include(p => p.Typees).FirstOrDefault(p => p.Id == id);
 
-            if (product == null)
+            if (tapped == null)
             {
                 NotFound();
             }
 
-            return View(product);
+            return View(tapped);
         }
-
         [HttpPost]
-        public async Task<IActionResult> Edit(Product model)
+        public async Task<IActionResult> Edit(Tapped model)
         {
             ModelState.Remove("Breweries");
+            ModelState.Remove("Typees");
             if (ModelState.IsValid)
             {
-                // Check if a new image is provided
-                if (model.Image != null)
-                {
-                    // Upload and update the image source
-                    string newImageSrc = await _fileUploadService.FileUploadAsync(model.Image, Path.Combine("img", "model"));
-                    model.ImageSrc = newImageSrc;
-                }
-
-                _eshopDbContext.Products.Update(model);
+                
+                _eshopDbContext.Tappeds.Update(model);
                 await _eshopDbContext.SaveChangesAsync(); // Use async SaveChangesAsync
                 return RedirectToAction(nameof(Index));
             }
-
-            LoadBreweries(); // Ensure that breweries are loaded for the view
+            LoadBreweries();
+            LoadTypees();
             return View(model);
         }
-
-
-
     }
 }

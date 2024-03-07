@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BistroWeb.Infrastructure.Migrations
 {
     [DbContext(typeof(EshopDbContext))]
-    [Migration("20240218144114_New")]
+    [Migration("20240307135505_New")]
     partial class New
     {
         /// <inheritdoc />
@@ -996,9 +996,15 @@ namespace BistroWeb.Infrastructure.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("double");
 
+                    b.Property<int?>("TypeeId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BreweryId");
+
+                    b.HasIndex("TypeeId");
 
                     b.ToTable("Products");
 
@@ -1010,7 +1016,8 @@ namespace BistroWeb.Infrastructure.Migrations
                             Description = "Testovací sada",
                             ImageSrc = "/img/products/produkty-01.jpg",
                             Name = "Test",
-                            Price = 999.0
+                            Price = 999.0,
+                            TypeeId = 1
                         },
                         new
                         {
@@ -1019,7 +1026,91 @@ namespace BistroWeb.Infrastructure.Migrations
                             Description = "Cosik",
                             ImageSrc = "/img/products/produkty-01.jpg",
                             Name = "Testovacka",
-                            Price = 10.0
+                            Price = 10.0,
+                            TypeeId = 2
+                        });
+                });
+
+            modelBuilder.Entity("BistroWeb.Domain.Entities.Tapped", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BreweryId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<double>("MainPrice")
+                        .HasColumnType("double");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(90)
+                        .HasColumnType("varchar(90)");
+
+                    b.Property<double>("OtherPrice")
+                        .HasColumnType("double");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BreweryId");
+
+                    b.ToTable("Tappeds");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BreweryId = 1,
+                            Description = "Testovací sada",
+                            MainPrice = 999.0,
+                            Name = "Test",
+                            OtherPrice = 0.0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            MainPrice = 10.0,
+                            Name = "Testovacka",
+                            OtherPrice = 0.0
+                        });
+                });
+
+            modelBuilder.Entity("BistroWeb.Domain.Entities.Typee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("varchar(70)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Typees");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Only for developement",
+                            Name = "IPA"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Only for developement",
+                            Name = "APA"
                         });
                 });
 
@@ -1316,6 +1407,25 @@ namespace BistroWeb.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BistroWeb.Domain.Entities.Typee", "Typees")
+                        .WithMany("Products")
+                        .HasForeignKey("TypeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Breweries");
+
+                    b.Navigation("Typees");
+                });
+
+            modelBuilder.Entity("BistroWeb.Domain.Entities.Tapped", b =>
+                {
+                    b.HasOne("BistroWeb.Domain.Entities.Brewery", "Breweries")
+                        .WithMany()
+                        .HasForeignKey("BreweryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Breweries");
                 });
 
@@ -1371,6 +1481,11 @@ namespace BistroWeb.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("BistroWeb.Domain.Entities.Brewery", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("BistroWeb.Domain.Entities.Typee", b =>
                 {
                     b.Navigation("Products");
                 });

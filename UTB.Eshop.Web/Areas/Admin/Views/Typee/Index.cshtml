@@ -1,0 +1,47 @@
+﻿@model IList<Typee>
+
+@{
+    ViewData["Title"] = "Administrace typů piva";
+}
+<h1>@ViewData["Title"]</h1>
+
+<a class="btn btn-success" asp-action="Create">Přidat typ piva</a>
+
+@{
+    if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><a asp-action="Index" asp-route-sortOrder="@("Name")">Název typu</a></th>
+                    <th class="text-end"></th>
+                    <th class="text-end"></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var typee in Model)
+                {
+                    <tr>
+                        <td><span class="fade-overflow">@typee.Name</span></td>
+                        <th class="text-end">
+                            <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@typee.Id">Edit</a>
+                        </th>
+                        <th class="text-start">
+                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@typee.Id" onclick="return ConfirmDelete();">Del</a>
+                        </th>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+}
+@section Styles
+    {
+    <link rel="stylesheet" href="~/css/menu.css" asp-append-version="true" />
+}
+@section Scripts
+    {
+    <script src="~/js/dialogs.js"></script>
+}

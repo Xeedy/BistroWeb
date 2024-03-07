@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Tapped>
+
+@{
+    ViewData["Title"] = "Administrace čepu";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<a class="btn btn-success" asp-action="Create">Přidat čepované pifko</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Název</th>
+            <th>Typ</th>
+            <th>Cena(0,5 L)</th>
+            <th>Cena(0,3 L)</th>
+            <th>Pivovar</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tapped in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(model => tapped.Name)</td>
+                <td>@Html.DisplayFor(model => tapped.Typees.Name)</td>
+                <td>@Html.DisplayFor(model => tapped.MainPrice)</td>
+                <td>@Html.DisplayFor(model => tapped.OtherPrice)</td>
+                <td>@Html.DisplayFor(model => tapped.Breweries.Name)</td>
+                <td class="text-end">
+                    <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@tapped.Id">Edit</a>
+                </td>
+                <td class="text-start">
+                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@tapped.Id" onclick="return ConfirmDelete();">Del</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Styles
+    {
+    <link rel="stylesheet" href="~/css/menu.css" asp-append-version="true" />
+}
+@section Scripts
+    {
+    <script src="~/js/dialogs.js"></script>
+}

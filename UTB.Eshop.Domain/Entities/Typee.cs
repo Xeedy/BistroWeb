@@ -12,15 +12,14 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace BistroWeb.Domain.Entities
 {
-    public class Item : Entity<int>
+    public class Typee
     {
         [Required]
-        [StringLength(110)]
+        [Key]
+        public int Id { get; set; }
+        [StringLength(70)]
         public string Name { get; set; }
         public string? Description { get; set; }
-        public double Price { get; set; }
-        public string Section { get; set; }
-        public double? Price2 { get; set; }
-
+        public ICollection<Product>? Products { get; set; }
     }
 }

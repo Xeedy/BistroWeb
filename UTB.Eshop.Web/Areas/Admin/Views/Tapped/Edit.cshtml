@@ -1,0 +1,52 @@
+﻿@model Tapped
+
+@{
+    ViewData["Title"] = "Editace čepice";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id"/>
+    <div asp-validation-summary="All"></div>
+    <div class="container"></div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Name">Název</label>
+        <input class="form-control" asp-for="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="MainPrice">Cena(0,5 L)</label>
+        <input class="form-control" asp-for="MainPrice">
+        <span asp-validation-for="MainPrice" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="OtherPrice">Cena(0,3 L)</label>
+        <input class="form-control" asp-for="OtherPrice">
+        <span asp-validation-for="OtherPrice" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Description">Popisek</label>
+        <input class="form-control" asp-for="Description">
+    </div>
+    <div class="mb-3">
+        <label class="control-label">Pivovar</label>
+        <select asp-for="BreweryId" class="form-control" asp-items="ViewBag.Breweries">
+            <option>--VYBERTE PIVOVAR--</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="control-label">Typ pifka</label>
+        <select asp-for="TypeeId" class="form-control" asp-items="ViewBag.Typees">
+            <option>--VYBERTE TYP PIVA--</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Potvrdit</button>
+</form>
+
+@section Scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/Validations/FileContentValidation.js"></script>
+}

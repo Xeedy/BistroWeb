@@ -18,13 +18,13 @@ namespace BistroWeb.Web.Controllers
 
         public IActionResult Index()
         {
-            var products = _eshopDbContext.Products.Include(p => p.Breweries).ToList();
+            var products = _eshopDbContext.Products.Include(p => p.Breweries).Include(p => p.Typees).ToList();
 
             return View(products);
         }
         public IActionResult Details(int id)
         {
-            var product = _eshopDbContext.Products.Include(p => p.Breweries).FirstOrDefault(p => p.Id == id);
+            var product = _eshopDbContext.Products.Include(p => p.Breweries).Include(p => p.Typees).FirstOrDefault(p => p.Id == id);
 
             if (product == null)
             {

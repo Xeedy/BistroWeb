@@ -47,44 +47,48 @@
                                 </li>
                             </ul>
                         </li>
-                        @if (User.Identity.IsAuthenticated == true && (User.IsInRole(nameof(Roles.Admin))))
+                        @if (User.Identity.IsAuthenticated == true)
                         {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-light" id="navbarDropdownCustomer" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Správa</a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownCustomer">
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Product" asp-action="Index">Láhve</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="MenuItem" asp-action="Index">Položky</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Brewery" asp-action="Index">Pivovary</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Missing" asp-action="Index">Chybějící položky</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        }
-                        @if (User.Identity.IsAuthenticated == true && (User.IsInRole(nameof(Roles.Manager))))
-                        {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-light" id="navbarDropdownCustomer" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Správa</a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownCustomer">
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Missing" asp-action="Index">Chybějící položky</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        }
-                        @if (User.Identity.IsAuthenticated == true && (User.IsInRole(nameof(Roles.Customer))))
-                        {
-                            <!--
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Domů</a>
-                            </li>
-                            -->
+                            if (User.IsInRole(nameof(Roles.Admin)) || User.IsInRole(nameof(Roles.Manager)))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-light" id="navbarDropdownCustomer" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Správa</a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownCustomer">
+                                        @if (User.IsInRole(nameof(Roles.Admin)))
+                                        {
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Tapped" asp-action="Index">Čep</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Product" asp-action="Index">Láhve</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="MenuItem" asp-action="Index">Položky</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Brewery" asp-action="Index">Pivovary</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Typee" asp-action="Index">Typy pivka</a>
+                                            </li>
+                                        }
+                                        @if (User.IsInRole(nameof(Roles.Manager)))
+                                        {
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Missing" asp-action="Index">Chybějící položky</a>
+                                            </li>
+                                        }
+                                        @if (User.Identity.IsAuthenticated == true && (User.IsInRole(nameof(Roles.Customer))))
+                                        {
+                                            <!--
+                                            <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Domů</a>
+                                            </li>
+                                            -->
+                                        }
+                                    </ul>
+                                </li>
+                            }
                         }
                     </ul>
                     @{
@@ -101,6 +105,7 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle text-light" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person"></i>Přihlášen @User.Identity.Name</a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item text-dark" asp-area="Security" asp-controller="Account" asp-action="Profile"><i class="bi bi-person"></i> Profil</a></li>
                                         <li><a class="dropdown-item text-dark" asp-area="Security" asp-controller="Account" asp-action="Logout"><i class="bi bi-person-slash me-1"></i> Odhlásit se</a></li>
                                     </ul>
                                 </li>
