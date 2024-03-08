@@ -1,11 +1,20 @@
-﻿
-/* sign in FORM */
+﻿@import url('https://fonts.googleapis.com/css?family=Poppins:300');
+
+body, html {
+    margin: 0;
+    font-family: 'Poppins', sans-serif; /* Poppins font */
+    background: linear-gradient(#30142b, #2772a1);
+}
+
+/* Container holding the form */
 #logreg-forms {
-    width: 412px;
-    margin: 10vh auto;
-    background-color: #f3f3f3;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    width: 500px;
+    margin: 8vh auto;
+    background-color: #333; /* Darker shade for the form background */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    border-radius: 10px;
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    color: #FFF; /* Text color */
 }
 
     #logreg-forms form {
@@ -16,82 +25,176 @@
     }
 
     #logreg-forms .form-control {
-        position: relative;
-        box-sizing: border-box;
-        height: auto;
-        padding: 10px;
-        font-size: 16px;
+        background-color: rgba(255,255,255,0); /* Transparent background */
+        margin-bottom: 20px;
+        border: none; /* No border */
+        border-bottom: 1px solid #FFF; /* White underline */
+        border-radius: 0; /* No border radius */
+        font-family: 'Poppins', sans-serif; /* Poppins font */
+        font-weight: 300; /* The weight you chose */
+        color: #FFF; /* White text */
+        padding: 10px 0px; /* Padding adjusted to remove from sides */
     }
 
         #logreg-forms .form-control:focus {
-            z-index: 2;
+            outline: none; /* Removes the outline on focus */
+            border-bottom: 2px solid #76BFFF; /* Changes the underline color on focus */
+            box-shadow: none; /* Removes any box shadows */
         }
 
-    #logreg-forms .form-signin input[type="email"] {
-        margin-bottom: -1px;
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
+    /* Adjusting the style for different input types could be done as well if needed */
+
+    #logreg-forms button[type="submit"] {
+        margin-top: 10px;
+        background-color: #4CAF50; /* Example button color */
+        border: none;
+        border-radius: 4px;
+        padding: 10px;
+        color: #FFF;
+        width: 100%;
+        cursor: pointer;
     }
 
-    #logreg-forms .form-signin input[type="password"] {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-    }
-
-    #logreg-forms .social-login {
-        width: 390px;
-        margin: 0 auto;
-        margin-bottom: 14px;
-    }
-
-    #logreg-forms .social-btn {
-        font-weight: 100;
-        color: white;
-        width: 190px;
-        font-size: 0.9rem;
-    }
+        #logreg-forms button[type="submit"]:hover {
+            background-color: #45a049; /* Darker shade when hovering */
+        }
 
     #logreg-forms a {
+        color: #ddd; /* Example link color */
+        text-decoration: none; /* No underline */
+    }
+
+        #logreg-forms a:hover {
+            color: #fff; /* Brighter shade when hovering */
+        }
+    #logreg-forms .form-control::placeholder {
+        color: #FFF; /* Pure white color */
+        opacity: 1; /* Full opacity */
+    }
+
+    /* For cross-browser compatibility, you might want to include vendor prefixes */
+    #logreg-forms .form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        color: #FFF;
+    }
+
+    #logreg-forms .form-control::-moz-placeholder { /* Firefox 19+ */
+        color: #FFF;
+        opacity: 1;
+    }
+
+    #logreg-forms .form-control:-ms-input-placeholder { /* IE 10+ */
+        color: #FFF;
+    }
+
+    #logreg-forms .form-control:-moz-placeholder { /* Firefox 18- */
+        color: #FFF;
+        opacity: 1;
+    }
+
+
+.btn {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #289bb8;
+    font-size: 16px;
+    text-decoration: none;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 15px;
+    letter-spacing: 2px
+}
+
+    .btn:hover {
+        background: #289bb8;
+        color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 5px #289bb8, 0 0 25px #289bb8, 0 0 50px #289bb8, 0 0 100px #289bb8;
+    }
+
+    .btn span {
+        position: absolute;
         display: block;
-        padding-top: 10px;
-        color: lightseagreen;
     }
 
-#logreg-form .lines {
-    width: 200px;
-    border: 1px solid red;
-}
+        .btn span:nth-child(1) {
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #289bb8);
+            animation: btn-anim1 1s linear infinite;
+        }
 
-
-#logreg-forms button[type="submit"] {
-    margin-top: 10px;
-}
-
-#logreg-forms .facebook-btn {
-    background-color: #3C589C;
-}
-
-#logreg-forms .google-btn {
-    background-color: #DF4B3B;
-}
-
-#logreg-forms #logreg-forms {
-    display: none;
-}
-
-    #logreg-forms .form-signup .social-btn {
-        width: 210px;
+@keyframes btn-anim1 {
+    0% {
+        left: -100%;
     }
 
-    #logreg-forms .form-signup input {
-        margin-bottom: 2px;
+    50%,100% {
+        left: 100%;
     }
-
-.form-signup .social-login {
-    width: 210px !important;
-    margin: 0 auto;
 }
 
+.btn span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #289bb8);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+    0% {
+        top: -100%;
+    }
+
+    50%,100% {
+        top: 100%;
+    }
+}
+
+.btn span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #289bb8);
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+    0% {
+        right: -100%;
+    }
+
+    50%,100% {
+        right: 100%;
+    }
+}
+
+.btn span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #289bb8);
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+    0% {
+        bottom: -100%;
+    }
+
+    50%,100% {
+        bottom: 100%;
+    }
+}
 /* Mobile */
 
 @media screen and (max-width:500px) {
@@ -129,3 +232,31 @@
             content: 'Google+';
         }
 }
+.login-prompt {
+    display: flex;
+    align-items: center; /* Aligns items vertically in the center */
+    justify-content: center; /* Centers the items horizontally */
+    text-align: center;
+    gap: 5px; /* Adjusts the space between the two elements */
+}
+
+    .login-prompt p {
+        margin: 0; /* Resets any default margin */
+        line-height: 1.5; /* Ensures both elements have the same line height */
+        vertical-align: middle; /* Aligns elements to the middle line */
+        display: flex; /* Makes both elements flex items */
+        align-items: center; /* Aligns items vertically in the center */
+    }
+    .login-prompt a {
+        color: #FFA500; /* Example: This will set the text color to orange. Change it to whatever color you like */
+        background-color: #444; /* This will set the background color to a dark grey. Change it as desired */
+        padding: 5px 10px; /* Adjust padding to your liking */
+        text-decoration: none; /* Removes the underline from the link */
+        border-radius: 4px; /* Optional: rounds the corners of the link for a button-like appearance */
+        transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    }
+
+        .login-prompt a:hover {
+            background-color: #555; /* Darker grey on hover, change as needed */
+            color: #FFFFFF; /* Optional: change text color on hover */
+        }

@@ -98,6 +98,7 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(Product model)
         {
             ModelState.Remove("Breweries");
+            ModelState.Remove("Typees");
             if (ModelState.IsValid)
             {
                 // Check if a new image is provided
@@ -114,6 +115,7 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
             }
 
             LoadBreweries(); // Ensure that breweries are loaded for the view
+            LoadTypees(); // Ensure that breweries are loaded for the view
             return View(model);
         }
 

@@ -3,6 +3,7 @@ using System;
 using BistroWeb.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BistroWeb.Infrastructure.Migrations
 {
     [DbContext(typeof(EshopDbContext))]
-    partial class EshopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240307155841_Product update")]
+    partial class Productupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1039,9 +1042,6 @@ namespace BistroWeb.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<bool>("Active")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<int?>("BreweryId")
                         .IsRequired()
                         .HasColumnType("int");
@@ -1075,7 +1075,6 @@ namespace BistroWeb.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Active = true,
                             BreweryId = 1,
                             Description = "Testovací sada",
                             MainPrice = 999.0,
@@ -1086,7 +1085,6 @@ namespace BistroWeb.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            Active = true,
                             BreweryId = 2,
                             Description = "Cosik",
                             MainPrice = 10.0,

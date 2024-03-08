@@ -21,6 +21,7 @@ namespace BistroWeb.Domain.Entities
         public string? Description { get; set; }
         public double Price { get; set; }
         public string? ImageSrc { get; set; }
+        public bool Active { get; set; }
         [ForeignKey("Breweries")]
         public int? BreweryId { get; set; }
         public virtual Brewery Breweries { get; set; }

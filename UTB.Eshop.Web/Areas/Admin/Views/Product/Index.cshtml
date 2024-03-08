@@ -4,43 +4,49 @@
     ViewData["Title"] = "Administrace produktů";
 }
 
-<h1>@ViewData["Title"]</h1>
-
+<h1 style="color: white;">@ViewData["Title"]</h1>
+<div class="custom-form-container">
 <a class="btn btn-success" asp-action="Create">Přidat pivo</a>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Název</th>
-            <th>Cena</th>
-            <th>Popisek</th>
-            <th>Pivovar</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var product in Model)
-        {
+    <table class="table">
+        <thead>
             <tr>
-                <td>@Html.DisplayFor(model => product.Name)</td>
-                <td>@Html.DisplayFor(model => product.Price)</td>
-                <td>@Html.DisplayFor(model => product.Description)</td>
-                <td>@Html.DisplayFor(model => product.Breweries.Name)</td>
-                <td class="text-end">
-                    <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
-                </td>
-                <td class="text-start">
-                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@product.Id" onclick="return ConfirmDelete();">Del</a>
-                </td>
+                <th>Název</th>
+                <th>Cena</th>
+                <th class="hide-on-mobile">Popisek</th>
+                <th>Pivovar</th>
+                <th></th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
-
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => product.Name)</td>
+                    <td>@Html.DisplayFor(model => product.Price)</td>
+                    <td class="hide-on-mobile">@Html.DisplayFor(model => product.Description)</td>
+                    <td>@Html.DisplayFor(model => product.Breweries.Name)</td>
+                    <td colspan="2" style="text-align: right;">
+                        <div class="dropdown">
+                            <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@product.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+                            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@product.Id">
+                                <li>
+                                    <a class="dropdown-item" href="@Url.Action("Edit", new { id = product.Id })">Edit</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="@Url.Action("Delete", new { id = product.Id })" onclick="return ConfirmDelete();">Delete</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 @section Styles
     {
-    <link rel="stylesheet" href="~/css/menu.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/CreateBrewery.css" asp-append-version="true" />
 }
 @section Scripts
     {

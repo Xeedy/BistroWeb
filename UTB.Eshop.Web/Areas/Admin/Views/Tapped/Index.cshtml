@@ -4,47 +4,103 @@
     ViewData["Title"] = "Administrace čepu";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 style="color: white;">@ViewData["Title"]</h1>
 
-<a class="btn btn-success" asp-action="Create">Přidat čepované pifko</a>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Název</th>
-            <th>Typ</th>
-            <th>Cena(0,5 L)</th>
-            <th>Cena(0,3 L)</th>
-            <th>Pivovar</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var tapped in Model)
-        {
+<div class="custom-form-container">
+    <h2 style="color: black;">Aktivní čepovaná pifka</h2>
+    <table class="table">
+        <thead>
             <tr>
-                <td>@Html.DisplayFor(model => tapped.Name)</td>
-                <td>@Html.DisplayFor(model => tapped.Typees.Name)</td>
-                <td>@Html.DisplayFor(model => tapped.MainPrice)</td>
-                <td>@Html.DisplayFor(model => tapped.OtherPrice)</td>
-                <td>@Html.DisplayFor(model => tapped.Breweries.Name)</td>
-                <td class="text-end">
-                    <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@tapped.Id">Edit</a>
-                </td>
-                <td class="text-start">
-                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@tapped.Id" onclick="return ConfirmDelete();">Del</a>
-                </td>
+                <th>Název</th>
+                <th class="hide-on-mobile">Typ</th>
+                <th>0,5</th>
+                <th>0,3</th>
+                <th>Pivovar</th>
+                <th></th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var tapped in Model.Where(t => t.Active))
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => tapped.Name)</td>
+                    <td class="hide-on-mobile">@Html.DisplayFor(model => tapped.Typees.Name)</td>
+                    <td>@Html.DisplayFor(model => tapped.MainPrice)</td>
+                    <td>@Html.DisplayFor(model => tapped.OtherPrice)</td>
+                    <td>@Html.DisplayFor(model => tapped.Breweries.Name)</td>
+                    <td colspan="2" style="text-align: right;">
+                        <div class="dropdown">
+                            <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@tapped.Id" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@tapped.Id">
+                                <li>
+                                    <a class="dropdown-item" href="@Url.Action("Edit", new { id = tapped.Id })">Edit</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="@Url.Action("Delete", new { id = tapped.Id })" onclick="return ConfirmDelete();">Delete</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h2 style="color: black;">Všechna čepovaná pifka</h2>
+    <a class="btn btn-success" asp-action="Create">Přidat čepované pifko</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Název</th>
+                <th class="hide-on-mobile">Typ</th>
+                <th>0,5</th>
+                <th>0,3</th>
+                <th>Pivovar</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tapped in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => tapped.Name)</td>
+                    <td class="hide-on-mobile">@Html.DisplayFor(model => tapped.Typees.Name)</td>
+                    <td>@Html.DisplayFor(model => tapped.MainPrice)</td>
+                    <td>@Html.DisplayFor(model => tapped.OtherPrice)</td>
+                    <td>@Html.DisplayFor(model => tapped.Breweries.Name)</td>
+                    <td colspan="2" style="text-align: right;">
+                        <div class="dropdown">
+                            <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@tapped.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+                            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@tapped.Id">
+                                <li>
+                                    <a class="dropdown-item" href="@Url.Action("Edit", new { id = tapped.Id })">Edit</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="@Url.Action("Delete", new { id = tapped.Id })" onclick="return ConfirmDelete();">Delete</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 @section Styles
     {
-    <link rel="stylesheet" href="~/css/menu.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/CreateBrewery.css" asp-append-version="true" />
 }
+
 @section Scripts
     {
+    <script>
+        var activeTappedCount = @Model.Count(t => t.Active);
+        if (activeTappedCount > 4) {
+            alert("Pozor! Je aktivních více než 4 položky.");
+        }
+    </script>
     <script src="~/js/dialogs.js"></script>
 }

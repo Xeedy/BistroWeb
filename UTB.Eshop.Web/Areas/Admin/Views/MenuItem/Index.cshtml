@@ -3,48 +3,51 @@
 @{
     ViewData["Title"] = "Administrace položek nábidníku";
 }
-<h1>@ViewData["Title"]</h1>
+<h1 style="color: white;">@ViewData["Title"]</h1>
+<div class="custom-form-container">
+    <a class="btn btn-success" asp-action="Create">Přidat položku</a>
 
-<a class="btn btn-success" asp-action="Create">Přidat položku</a>
-
-@if (Model != null && Model.Any())
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th><a asp-action="Index" asp-route-sortOrder="@("ID")">ID</a></th>
-                <th><a asp-action="Index" asp-route-sortOrder="@("Name")">Název</a></th>
-                <th><a asp-action="Index" asp-route-sortOrder="@("Section")">Sekce</a></th>
-                <th><a asp-action="Index" asp-route-sortOrder="@("Price")">Cena</a></th>
-                <th class="text-end"></th>
-                <th class="text-end"></th>
-            </tr>
-        </thead>
-        <tbody>
-
-            @foreach (var item in Model)
-            {
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@item.Id</td>
-                    <td><span class="fade-overflow">@item.Name</span></td>
-                    <td>@item.Section</td>
-                    <td>@item.Price</td>
-                    <th class="text-end">
-                        <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    </th>
-                    <th class="text-start">
-                        <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id" onclick="return ConfirmDelete();">Del</a>
-                    </th>
+                    <th><a asp-action="Index" asp-route-sortOrder="@("Name")">Název</a></th>
+                    <th><a asp-action="Index" asp-route-sortOrder="@("Section")">Sekce</a></th>
+                    <th class="text-end"></th>
+                    <th class="text-end"></th>
                 </tr>
-            }
+            </thead>
+            <tbody>
 
-        </tbody>
-    </table>
-}
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><span class="fade-overflow">@item.Name</span></td>
+                        <td>@item.Section</td>
+                        <td colspan="2" style="text-align: right;">
+                            <div class="dropdown">
+                                <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@item.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+                                <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@item.Id">
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("Edit", new { id = item.Id })">Edit</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("Delete", new { id = item.Id })" onclick="return ConfirmDelete();">Delete</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
 
+            </tbody>
+        </table>
+    }
+</div>
 @section Styles
     {
-    <link rel="stylesheet" href="~/css/menu.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/CreateBrewery.css" asp-append-version="true" />
 }
 @section Scripts
     {

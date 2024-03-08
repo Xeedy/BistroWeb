@@ -38,7 +38,10 @@
         <br />
         <br />
         <hr>
-        <a asp-action="Login" class="btn btn-success btn-block text-white" type="button" id="btn-signin"><i class="fas fa-sign-in-alt"></i> Přihlásit se k existujícímu účtu </a>
+        <div class="login-prompt" style="text-align: center; display: flex; justify-content: center; align-items: center;">
+            <p>Máte už účet?</p>
+            <a asp-action="Login" class="login-button">Přihlásit se</a>
+        </div>
 
     </form>
 </div>

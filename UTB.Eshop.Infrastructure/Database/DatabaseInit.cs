@@ -282,6 +282,7 @@ namespace BistroWeb.Infrastructure.Database
                     Name = "Test",
                     BreweryId = breweries[0].Id,  // Use the actual Id of the first Brewery
                     TypeeId = typees[0].Id,
+                    Active = true,
                     Description = "Testovací sada",
                     MainPrice = 999,
                 });
@@ -292,6 +293,7 @@ namespace BistroWeb.Infrastructure.Database
                     Name = "Testovacka",
                     BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
                     TypeeId = typees[1].Id,
+                    Active = true,
                     Description = "Cosik",
                     MainPrice = 10,
                 });

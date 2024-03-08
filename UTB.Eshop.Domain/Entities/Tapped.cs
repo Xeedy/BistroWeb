@@ -22,6 +22,7 @@ namespace BistroWeb.Domain.Entities
         public string? Description { get; set; }
         public double MainPrice { get; set; }
         public double OtherPrice { get; set; }
+        public bool Active { get; set; }
         [ForeignKey("Breweries")]
         public int? BreweryId { get; set; }
         public virtual Brewery Breweries { get; set; }

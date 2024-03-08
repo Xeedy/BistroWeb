@@ -9,25 +9,29 @@
 </div>
 
 <div id="breweryFilterContainer" class="brewery-filter-container">
-    <label>Select Brewery:</label><br />
-    <button class="brewery-filter-button active" data-value="">Show All</button>
+    <label>Zvolte pivovar:</label><br />
     @{
-        var sortedBreweries = Model.Select(p => p.Breweries)
-            .Distinct()
-            .OrderBy(brewery => brewery.Name);
+        var breweriesWithActiveProducts = Model.Where(p => p.Active).Select(p => p.Breweries).Distinct();
     }
-    @foreach (var brewery in sortedBreweries)
+    @if (Model.Any(p => p.Active))
     {
-        <button class="brewery-filter-button" data-value="@brewery.Name">@brewery.Name</button>
+        <button class="brewery-filter-button active" data-value="">Zobrazit vše</button>
+    }
+    @foreach (var brewery in breweriesWithActiveProducts)
+    {
+        var breweryProducts = Model.Where(p => p.Breweries == brewery && p.Active).ToList();
+        if (breweryProducts.Any())
+        {
+            <button class="brewery-filter-button" data-value="@brewery.Name">@brewery.Name</button>
+        }
     }
 </div>
-
 
 
 <section class="py-5" id="productContainer">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-start">
-            @foreach (var product in Model)
+            @foreach (var product in Model.Where(p => p.Active))
             {
                 <div class="col mb-5 breweryItem" data-brewery="@product.Breweries?.Name">
                     <div class="product-card h-100">

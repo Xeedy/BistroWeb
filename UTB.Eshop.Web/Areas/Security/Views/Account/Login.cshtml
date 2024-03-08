@@ -10,7 +10,7 @@
 
 <div id="logreg-forms">
     <form asp-action="Login" method="post" class="form-signin">
-        <p style="text-align:center">Přihlásit se</p>
+        <h1 style="text-align:center">Přihlásit se</h1>
         <hr>
         @{
             if (Model?.LoginFailed == true)
@@ -30,12 +30,13 @@
         <div class="text-center">
             <button class="btn btn-success btn-block" type="submit"><i class="fas fa-sign-in-alt"></i> Přihlásit se </button>
         </div>
-
         <br />
         <br />
         <hr>
-        <!-- <p>Don't have an account!</p>  -->
-        <a asp-action="Register" class="btn btn-primary btn-block text-white" type="button" id="btn-signup"><i class="fas fa-user-plus"></i> Vytvořit nový účet </a>
+        <div class="login-prompt" style="text-align: center; display: flex; justify-content: center; align-items: center;">
+            <p>Ještě u nás nejsi?</p>
+            <a asp-action="Register" class="login-button">Zaregistrovat se</a>
+        </div>
 
     </form>
 </div>

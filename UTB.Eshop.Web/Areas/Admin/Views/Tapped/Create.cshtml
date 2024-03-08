@@ -3,12 +3,11 @@
 @{
     ViewData["Title"] = "Vytvoření čepu";
 }
-
-<h1>@ViewData["Title"]</h1>
-
-<form asp-action="Create" method="post" enctype="multipart/form-data">
-    <div asp-validation-summary="All"></div>
-    <div class="container"></div>
+<h1 style="color: white;">@ViewData["Title"]</h1>
+<div class="custom-form-container">
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="All"></div>
+        <div class="container"></div>
         <div class="mb-3">
             <label class="form-label" asp-for="Name">Název</label>
             <input class="form-control" asp-for="Name">
@@ -40,9 +39,20 @@
                 <option>--VYBERTE TYP PIVA--</option>
             </select>
         </div>
-    <button type="submit" class="btn btn-primary">Potvrdit</button>
-</form>
-
+        <div class="mb-3">
+            <label class="form-label" asp-for="Active">Aktivní položka?</label>
+            <select class="form-control" asp-for="Active">
+                <option value="true">Ano</option>
+                <option value="false">Ne</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Potvrdit</button>
+    </form>
+</div>
+@section Styles
+    {
+    <link rel="stylesheet" href="~/css/CreateBrewery.css" asp-append-version="true" />
+}
 @section Scripts
     {
     <partial name="_ValidationScriptsPartial" />

@@ -71,6 +71,7 @@ namespace BistroWeb.Application.Implementation
                 existingProduct.Name = editedProduct.Name;
                 existingProduct.Description = editedProduct.Description;
                 existingProduct.Price = editedProduct.Price;
+                existingProduct.Active = editedProduct.Active;
 
                 // Set the BreweryId for the existing product
                 existingProduct.BreweryId = editedProduct.BreweryId;

@@ -13,8 +13,8 @@
     // Define the order of sections for the first container
     var firstContainerSections = new List<List<string>>
     {
-        new List<string> { "Nápoje", "Pivo", "Vína", "Míchané" },
-        new List<string> { "Destiláty" }
+        new List<string> { "Nápoje", "Pivo", "Vína"},
+        new List<string> { "Míchané", "Destiláty" }
     };
     var secondContainerSections = new List<List<string>>
     {
@@ -26,7 +26,7 @@
     var itemsBySection = Model.Items.GroupBy(item => item.Section);
 
     <div class="container-wrapper border">
-        <h1>Nápojový lístek</h1>
+        <h1 class="section-header">Nápojový lístek</h1>
         <!-- First Container -->
         <section class="py-1 mt-3">
             <!-- Adjust mt-3 to set the top margin -->
@@ -54,19 +54,16 @@
                                                     <!-- Product price-->
                                                     @if (item.Price2 != null)
                                                     {
-                                                        <!-- Case 2: Price and price2 -->
                                                         <span>@item.Price2,- / @item.Price,-</span>
                                                     }
                                                     else
                                                     {
-                                                        <!-- Case 1: No price2 -->
                                                         <span>@item.Price,-</span>
                                                     }
                                                 </div>
                                                 <div class="d-flex justify-content-between">
                                                     @if (item.Description != null)
                                                     {
-                                                        <!-- Case 2: Price and price2 -->
                                                         <span>@item.Description</span>
                                                     }
                                                 </div>
@@ -80,7 +77,7 @@
                 </div>
             </div>
         </section>
-        <h1>Jídelní lístek</h1>
+        <h1 class="section-header">Jídelní lístek</h1>
         <!-- Second Container -->
         <section class="py-1">
             <div class="container px-4 px-lg-5 mt-0">

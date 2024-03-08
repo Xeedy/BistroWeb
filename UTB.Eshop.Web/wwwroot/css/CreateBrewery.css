@@ -1,0 +1,53 @@
+﻿.custom-form-container {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    background-color: white;
+    margin: auto;
+    max-width: auto; /* Adjust the width as needed */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow */
+}
+
+label {
+    font-weight: bold;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(#30142b, #2772a1);
+}
+
+body, html {
+    margin: 0;
+    font-family: 'Poppins', sans-serif; /* Poppins font */
+    background: linear-gradient(#30142b, #2772a1);
+}
+
+.custom-dropdown-menu {
+    position: absolute;
+    top: auto;
+    left: auto;
+    padding: 0;
+    margin: 0;
+    background-color: white;
+    border: 1px solid black; /* Add border */
+    box-shadow: none;
+}
+
+    .custom-dropdown-menu .dropdown-item {
+        color: black;
+        padding: 8px 12px;
+    }
+
+        .custom-dropdown-menu .dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
+
+@media (max-width: 767px) {
+    .hide-on-mobile {
+        display: none;
+    }
+}
+

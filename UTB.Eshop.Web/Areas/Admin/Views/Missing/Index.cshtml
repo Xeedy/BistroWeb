@@ -3,45 +3,46 @@
 @{
     ViewData["Title"] = "Administrace chybějících položek";
 }
-<h1>@ViewData["Title"]</h1>
+<h1 style="color: white;">@ViewData["Title"]</h1>
+<div class="custom-form-container">
+    <a class="btn btn-success" asp-action="Create">Přidat položku</a>
 
-<a class="btn btn-success" asp-action="Create">Přidat položku</a>
-
-@{
-    if (Model != null && Model.Any())
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th><a asp-action="Index" asp-route-sortOrder="@("ID")">ID</a></th>
-                    <th><a asp-action="Index" asp-route-sortOrder="@("Name")">Název</a></th>
-                    <th class="text-end"></th>
-                    <th class="text-end"></th>
-                </tr>
-            </thead>
-            <tbody>
-
-                @foreach (var missing in Model)
-                {
+    @{
+        if (Model != null && Model.Any())
+        {
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>@missing.Id</td>
-                        <td><span class="fade-overflow">@missing.Name</span></td>
-                        <th class="text-end">
-                            <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@missing.Id">Edit</a>
-                        </th>
-                        <th class="text-start">
-                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@missing.Id" onclick="return ConfirmDelete();">Del</a>
-                        </th>
+                        <th><a asp-action="Index" asp-route-sortOrder="@("ID")">ID</a></th>
+                        <th><a asp-action="Index" asp-route-sortOrder="@("Name")">Název</a></th>
+                        <th class="text-end"></th>
+                        <th class="text-end"></th>
                     </tr>
-                }
+                </thead>
+                <tbody>
 
-            </tbody>
-        </table>
+                    @foreach (var missing in Model)
+                    {
+                        <tr>
+                            <td>@missing.Id</td>
+                            <td><span class="fade-overflow">@missing.Name</span></td>
+                            <th class="text-end">
+                                <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@missing.Id">Edit</a>
+                            </th>
+                            <th class="text-start">
+                                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@missing.Id" onclick="return ConfirmDelete();">Del</a>
+                            </th>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        }
     }
-}
+</div>
 @section Styles
     {
-    <link rel="stylesheet" href="~/css/menu.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/CreateBrewery.css" asp-append-version="true" />
 }
 @section Scripts
     {
