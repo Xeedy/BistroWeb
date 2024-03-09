@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using BistroWeb.Application.ViewModels;
 using BistroWeb.Domain.Entities.Interfaces;
@@ -12,9 +13,9 @@ namespace BistroWeb.Application.Abstraction
         Task<string[]> Register(RegisterViewModel vm, Roles role);
         Task<bool> Login(LoginViewModel vm);
         Task Logout();
-        Task<IUser> GetCurrentUser();
-        Task<IEnumerable<IUser>> GetAllUsersForRole(Roles role);
-        Task<bool> Edit(User editedUser);
-        Task<IUser> GetUserById(int id);
+        Task<User> GetUserDetailsAsync(string username);
+        Task<User> GetCurrentUser(ClaimsPrincipal principal);
+        Task<IEnumerable<string>> ChangePassword(ChangePasswordViewModel model, User user);
+
     }
 }

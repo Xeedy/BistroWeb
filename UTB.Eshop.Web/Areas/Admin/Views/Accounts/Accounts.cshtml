@@ -1,0 +1,115 @@
+﻿@using BistroWeb.Application.ViewModels
+@model IList<UserListViewModel>
+@{
+    ViewData["Title"] = "Správa uživatelů";
+}
+
+<h1 style="color: white;">@ViewData["Title"]</h1>
+<div class="custom-form-container">
+    <h2>Admin Users</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <!-- Add more columns as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Where(u => u.Roles.Contains("Admin")))
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td colspan="2" style="text-align: right;">
+                        <div class="dropdown">
+                            <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@user.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+                            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@user.Id">
+                                <li>
+                                    <a class="dropdown-item" href="@Url.Action("Edit", new { id = user.Id })">Editovat</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#" onclick="confirmDelete('@user.Id', '@user.UserName')">Smazat</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h2>Manager Users</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <!-- Add more columns as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Where(u => u.Roles.Contains("Manager")))
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td colspan="2" style="text-align: right;">
+                        <div class="dropdown">
+                            <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@user.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+                            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@user.Id">
+                                <li>
+                                    <a class="dropdown-item" href="@Url.Action("Edit", new { id = user.Id })">Editovat</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#" onclick="confirmDelete('@user.Id', '@user.UserName')">Smazat</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h2>Customer Users</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <!-- Add more columns as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Where(u => u.Roles.Contains("Customer")))
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td colspan="2" style="text-align: right;">
+                        <div class="dropdown">
+                            <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@user.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+                            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@user.Id">
+                                <li>
+                                    <a class="dropdown-item" href="@Url.Action("Edit", new { id = user.Id })">Editovat</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#" onclick="confirmDelete('@user.Id', '@user.UserName')">Smazat</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section Styles
+    {
+    <link rel="stylesheet" href="~/css/CreateBrewery.css" asp-append-version="true" />
+}
+@section Scripts
+    {
+    <script>
+        function confirmDelete(id, username) {
+            if (confirm(`Do you really want to delete user ${username}?`)) {
+                window.location.href = `@Url.Action("Delete", "Accounts")?id=${id}`;
+            }
+        }
+    </script>
+    }

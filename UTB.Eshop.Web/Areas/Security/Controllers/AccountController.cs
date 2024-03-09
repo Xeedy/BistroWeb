@@ -1,15 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BistroWeb.Application.ViewModels;
-using BistroWeb.Web.Controllers;
-using BistroWeb.Application.Abstraction;
-using BistroWeb.Infrastructure.Identity.Enums;
 using Microsoft.AspNetCore.Authorization;
+using BistroWeb.Application.Abstraction;
+using BistroWeb.Application.ViewModels;
+using BistroWeb.Infrastructure.Identity.Enums;
+using BistroWeb.Web.Controllers;
+using BistroWeb.Infrastructure.Identity;
 
-namespace BistroWeb.Web.Areas.Security.Controllers
+namespace Portal.Web.Areas.Security.Controllers
 {
     [Area("Security")]
     public class AccountController : Controller
@@ -19,15 +16,6 @@ namespace BistroWeb.Web.Areas.Security.Controllers
         public AccountController(IAccountService security)
         {
             this.accountService = security;
-        }
-        [Authorize]
-        public async Task<IActionResult> Profile()
-        {
-            // Retrieve the current user details from your service or repository
-            var user = await accountService.GetCurrentUser();
-
-            // Pass the user details to the view
-            return View(user);
         }
 
 
@@ -93,6 +81,55 @@ namespace BistroWeb.Web.Areas.Security.Controllers
             await accountService.Logout();
             return RedirectToAction(nameof(Login));
         }
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            var username = User.Identity.Name; // Get the current logged-in user's username
+            var user = await accountService.GetUserDetailsAsync(username); // Implement this method in your account service
 
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var model = new UserProfileViewModel
+            {
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber
+            };
+
+            return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = await accountService.GetCurrentUser(User);
+                var result = await accountService.ChangePassword(model, user); // update his odl information with the new one
+
+                if (result == null)
+                {
+                    // Uložení proběhlo úspěšně, přesměrujte na seznam uživatelů nebo jinam.
+                    return RedirectToAction(nameof(Profile));
+                }
+
+                // Přidání chybových zpráv do ModelState
+                foreach (var error in result)
+                {
+                    ModelState.AddModelError(string.Empty, error);
+                }
+            }
+
+            return View(model);
+        }
     }
 }

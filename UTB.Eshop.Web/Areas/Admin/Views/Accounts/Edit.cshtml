@@ -1,0 +1,81 @@
+﻿@using BistroWeb.Application.ViewModels
+@model EditUserViewModel
+
+@{
+    ViewData["Title"] = "Editace uživatele s ID: " + Model.Id;
+}
+
+<h1 style="color: white;">@ViewData["Title"]</h1>
+
+<div class="custom-form-container">
+
+    <form id="editForm" asp-action="Edit" method="post">
+
+        <div class="mb-3">
+            <label asp-for="UserName" class="fw-bold">Username</label>
+            <input asp-for="UserName" class="form-control" />
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label asp-for="FirstName" class="fw-bold">First Name</label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label asp-for="LastName" class="fw-bold">Last Name</label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label asp-for="Email" class="fw-bold">Email</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="PhoneNumber" class="fw-bold">Phone Number</label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Roles</label>
+            <br />
+            @foreach (var role in Model.Roles)
+            {
+                var isChecked = Model.SelectedRoles.Contains(role);
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" name="SelectedRoles" value="@role" @(isChecked ? "checked" : "") />
+                    <label class="form-check-label">@role</label>
+                </div>
+            }
+            <span asp-validation-for="SelectedRoles" class="text-danger"></span>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="confirmChanges()">Save Changes</button>
+    </form>
+</div>
+
+@section Styles
+    {
+    <link rel="stylesheet" href="~/css/CreateBrewery.css" asp-append-version="true" />
+}
+@section Scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/Validations/FileValidationEdit.js"></script>
+    <script>
+        function confirmChanges() {
+            if (confirm("Are you sure you want to save changes?")) {
+                document.getElementById("editForm").submit();
+            }
+        }
+    </script>
+}

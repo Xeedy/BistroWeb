@@ -1,15 +1,15 @@
 ﻿using System;
-using Microsoft.AspNetCore.Identity;
 using BistroWeb.Application.Abstraction;
 using BistroWeb.Application.ViewModels;
-using BistroWeb.Infrastructure.Identity;
 using BistroWeb.Infrastructure.Identity.Enums;
-using BistroWeb.Domain.Entities.Interfaces;
+using BistroWeb.Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace BistroWeb.Application.Implementation
 {
-	public class AccountIdentityService : IAccountService
-	{
+    public class AccountIdentityService : IAccountService
+    {
         UserManager<User> userManager;
         SignInManager<User> sigInManager;
 
@@ -66,44 +66,44 @@ namespace BistroWeb.Application.Implementation
 
             return errors;
         }
-        public async Task<IUser> GetCurrentUser()
+        public async Task<User> GetUserDetailsAsync(string username)
         {
-            // Retrieve the current user from the user manager
-            var currentUser = await userManager.GetUserAsync(sigInManager.Context.User);
-
-            return currentUser;
-        }
-        public async Task<IEnumerable<IUser>> GetAllUsersForRole(Roles role)
-        {
-            // Retrieve users with the specified role from the database
-            var users = await userManager.GetUsersInRoleAsync(role.ToString());
-
-            // Convert the list of User objects to IUser interface
-            var userList = users.Cast<IUser>().ToList();
-
-            return userList;
-        }
-        public async Task<IUser> GetUserById(int id)
-        {
-            // Retrieve the user by id from the user manager
-            var user = await userManager.FindByIdAsync(id.ToString());
-
-            return user;
-        }
-        public async Task<bool> Edit(User editedUser)
-        {
-            try
+            // Assuming 'User' is your user entity class and it includes the properties needed by UserProfileViewModel
+            var user = await userManager.FindByNameAsync(username);
+            if (user != null)
             {
-                // Update user information
-                await userManager.UpdateAsync(editedUser);
-                return true; // Indicate success
+                // If you need to transform 'User' entity to a different type before returning, do it here
+                // For example, if you need to return a DTO or ViewModel instead of the User entity directly
+                // This is just returning the user entity as-is for simplicity
+                return user;
             }
-            catch (Exception ex)
+            else
             {
-                // Handle any exceptions or errors here
-                // Log the exception if necessary
-                return false; // Indicate failure
+                // Handle the case where the user is not found
+                // You might want to return null or throw an exception depending on your application's needs
+                return null;
             }
+        }
+        public Task<User> GetCurrentUser(ClaimsPrincipal principal)
+        {
+            return userManager.GetUserAsync(principal);
+        }
+        public async Task<IEnumerable<string>> ChangePassword(ChangePasswordViewModel model, User user)
+        {
+            if (user == null)
+            {
+                return new List<string> { "User not found." };
+            }
+
+            var result = await userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+
+            if (result.Succeeded)
+            {
+                return null; // Úspěšně aktualizováno
+            }
+
+            return result.Errors.Select(error => error.Description);
+
         }
     }
 }

@@ -1,5 +1,6 @@
 /* Base Styles */
 @import url('https://fonts.googleapis.com/css?family=Poppins:300');
+
 html {
     font-size: 16px;
 }
@@ -8,6 +9,8 @@ body, html {
     margin: 0;
     font-family: 'Poppins', sans-serif; /* Poppins font */
     background: linear-gradient(#30142b, #2772a1);
+    position: relative;
+    min-height: 100%;
 }
 
 .navbar-nav .nav-link,
@@ -38,12 +41,11 @@ body, html {
         color: red !important;
     }
 
-
 footer {
     background-color: black;
     color: white;
     padding: 0;
-    margin-top: auto; /* Pushes the footer to the bottom */
+    margin-top: auto;
 }
 
     footer h4 {
@@ -118,16 +120,7 @@ footer {
 
 .footer p {
     color: white;
-    font-size: 14px;
+    font-size: 5px;
     margin: 0;
     text-align: center;
-}
-body.d-flex.flex-column.min-vh-100 {
-    min-height: 100vh; /* This makes sure the body is at least the height of the viewport */
-    display: flex; /* Enables flexbox for children */
-    flex-direction: column; /* Stacks children vertically */
-}
-
-.container.body-section.flex-grow-1 {
-    flex-grow: 1; /* This will make the main content area grow and take up any available space */
 }

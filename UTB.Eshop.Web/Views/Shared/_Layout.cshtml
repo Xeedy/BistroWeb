@@ -13,7 +13,7 @@
 
     @await RenderSectionAsync("Styles", required: false)
 </head>
-<body class ="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -72,7 +72,7 @@
                                                 <a class="nav-link text-dark" asp-area="Admin" asp-controller="Typee" asp-action="Index">Typy pivka</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Users" asp-action="Index">Správa uživatelů</a>
+                                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Accounts" asp-action="Accounts">Uživatelé</a>
                                             </li>
                                         }
                                         @if (User.IsInRole(nameof(Roles.Manager)))
@@ -120,29 +120,29 @@
         </nav>
     </header>
 
-    <div class="container body-section flex-grow-1">
+    <div class="container body-section flex-grow-2">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-    <footer class="footer bg-dark text-light py-3">
-        <div class="container">
+    <footer class="text-light bg-dark">
+        <div class="container py-4">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3 mb-3 mb-md-0">
                     <h4>Adresa</h4>
                     <ul>
                         <li class="list">Bistro Stars Hollow</li>
                         <li class="list www-link"><a href="https://www.google.com/maps/place/Doln%C3%AD+494,+744+01+Fren%C5%A1t%C3%A1t+pod+Radho%C5%A1t%C4%9Bm/@(49.5487195),@(18.2064625),17z/data=!3m1!4b1!4m6!3m5!1s0x47138cbede496753:0xb8088cd4316e07cb!8m2!3d49.548716!4d18.2090374!16s%2Fg%2F11c5my1jk4?entry=ttu" class="www-link">Dolní 492, Frenštát pod Radhoštěm</a></li>
                     </ul>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 mb-3 mb-md-0">
                     <h4>Otevírací doba</h4>
                     <ul>
                         <li class="list"><a>NE - ČT: 15:00 - 21:00</a></li>
                         <li class="list"><a>PÁ - SO: 15:00 - 22:00</a></li>
                     </ul>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 mb-3 mb-md-0">
                     <h4>Kontakt</h4>
                     <ul>
                         <li class="list"><a>info@bistroacajovnafrenstat.cz</a></li>
@@ -157,9 +157,57 @@
                     </div>
                 </div>
             </div>
+            <div class="border-top mt-3">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start">
+                        <small>&copy; 2024 Michal Těšík</small>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <small>S láskou k pivu</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!--
+    <footer class="footer bg-dark text-light py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3">
+                    <h4>Adresa</h4>
+                    <ul>
+                        <li class="list">Bistro Stars Hollow</li>
+                        <li class="list www-link"><a href="https://www.google.com/maps/place/Doln%C3%AD+494,+744+01+Fren%C5%A1t%C3%A1t+pod+Radho%C5%A1t%C4%9Bm/@(49.5487195),@(18.2064625),17z/data=!3m1!4b1!4m6!3m5!1s0x47138cbede496753:0xb8088cd4316e07cb!8m2!3d49.548716!4d18.2090374!16s%2Fg%2F11c5my1jk4?entry=ttu" class="www-link">Dolní 492, Frenštát pod Radhoštěm</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <h4>Otevírací doba</h4>
+                    <ul>
+                        <li class="list"><a>NE - ČT: 15:00 - 21:00</a></li>
+                        <li class="list"><a>PÁ - SO: 15:00 - 22:00</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <h4>Kontakt</h4>
+                    <ul>
+                        <li class="list"><a>info@bistroacajovnafrenstat.cz</a></li>
+                        <li class="list"><a>+420 608 970 999</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <h4>Sledujte nás</h4>
+                    <div class="social">
+                        <a href="https://www.instagram.com/bistrostarshollow/" class="social-btn"><i class="ri-instagram-fill"></i></a>
+                        <a href="https://www.facebook.com/bistroStarsHollow" class="social-btn"><i class="ri-facebook-fill"></i></a>
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="text-center">Copyright ©2023 Michal Těšík</p>
     </footer>
+    -->
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
