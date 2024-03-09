@@ -20,6 +20,15 @@ namespace BistroWeb.Web.Areas.Security.Controllers
         {
             this.accountService = security;
         }
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            // Retrieve the current user details from your service or repository
+            var user = await accountService.GetCurrentUser();
+
+            // Pass the user details to the view
+            return View(user);
+        }
 
 
         public IActionResult Register()

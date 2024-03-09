@@ -30,10 +30,10 @@
                                 <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@item.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
                                 <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@item.Id">
                                     <li>
-                                        <a class="dropdown-item" href="@Url.Action("Edit", new { id = item.Id })">Edit</a>
+                                        <a class="dropdown-item" href="@Url.Action("Edit", new { id = item.Id })">Editovat</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="@Url.Action("Delete", new { id = item.Id })" onclick="return ConfirmDelete();">Delete</a>
+                                        <a class="dropdown-item" href="@Url.Action("Delete", new { id = item.Id })" onclick="return ConfirmDelete();">Smazat</a>
                                     </li>
                                 </ul>
                             </div>

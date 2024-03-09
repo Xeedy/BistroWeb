@@ -71,6 +71,9 @@
                                             <li class="nav-item">
                                                 <a class="nav-link text-dark" asp-area="Admin" asp-controller="Typee" asp-action="Index">Typy pivka</a>
                                             </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Users" asp-action="Index">Správa uživatelů</a>
+                                            </li>
                                         }
                                         @if (User.IsInRole(nameof(Roles.Manager)))
                                         {

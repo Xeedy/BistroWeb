@@ -32,10 +32,10 @@
                                     <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@brewery.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
                                     <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@brewery.Id">
                                         <li>
-                                            <a class="dropdown-item" href="@Url.Action("Edit", new { id = brewery.Id })">Edit</a>
+                                            <a class="dropdown-item" href="@Url.Action("Edit", new { id = brewery.Id })">Editovat</a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="@Url.Action("Delete", new { id = brewery.Id })" onclick="return ConfirmDelete();">Delete</a>
+                                            <a class="dropdown-item" href="@Url.Action("Delete", new { id = brewery.Id })" onclick="return ConfirmDelete();">Smazat</a>
                                         </li>
                                     </ul>
                                 </div>
