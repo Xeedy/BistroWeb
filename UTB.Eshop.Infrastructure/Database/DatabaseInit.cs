@@ -237,6 +237,35 @@ namespace BistroWeb.Infrastructure.Database
 
             return missings;
         }
+        public IList<Rating> GetRatings()
+        {
+            IList<Rating> ratings = new List<Rating>();
+
+            // Dummy data for demonstration purposes
+            var product1 = new Product { Id = 1 };
+            var product2 = new Product { Id = 2 };
+
+            var user1 = new User { Id = 1 };
+            var user2 = new User { Id = 2 };
+
+            ratings.Add(new Rating
+            {
+                Id = 1,
+                ProductId = product1.Id,
+                UserId = user1.Id,
+                RatingValue = 4
+            });
+
+            ratings.Add(new Rating
+            {
+                Id = 2,
+                ProductId = product2.Id,
+                UserId = user2.Id,
+                RatingValue = 3
+            });
+
+            return ratings;
+        }
         public IList<Product> GetProducts(IList<Brewery> breweries, IList<Typee> typees)
         {
             IList<Product> products = new List<Product>();

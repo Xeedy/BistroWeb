@@ -20,6 +20,8 @@ namespace BistroWeb.Infrastructure.Database
         public DbSet<Missing> Missings { get; set; }
         public DbSet<Tapped> Tappeds { get; set; }
         public DbSet<Typee> Typees { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+
 
         public EshopDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
         {
@@ -36,9 +38,10 @@ namespace BistroWeb.Infrastructure.Database
             IList<Brewery> brewery = dbInit.GetBrewery();
             IList<Typee> typee = dbInit.GetTypee();
 
+
             // Seed Products using Brewery and Typee
             modelBuilder.Entity<Product>().HasData(dbInit.GetProducts(brewery, typee));
-
+            modelBuilder.Entity<Rating>().Ignore(r => r.User);
             // Seed other entities
             modelBuilder.Entity<Tapped>().HasData(dbInit.GetTappeds(brewery, typee));
             modelBuilder.Entity<Item>().HasData(dbInit.GetItems());

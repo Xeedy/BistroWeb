@@ -77,6 +77,7 @@ builder.Services.AddScoped<ITappedAppService, TappedAppService>();
 builder.Services.AddScoped<ITypeeAppService, TypeeAppService>();
 builder.Services.AddScoped<IMenuItemAppService, MenuItemAppService>();
 builder.Services.AddScoped<IBreweryAppService, BreweryAppService>();
+builder.Services.AddScoped<IRatingTableAppService, RatingTableAppService>();
 
 builder.Services.AddScoped<IHomeService, HomeService>();
 

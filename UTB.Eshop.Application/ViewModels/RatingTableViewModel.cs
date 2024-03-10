@@ -15,7 +15,7 @@ public class RatingTableViewModel
     public List<IUser> Users { get; set; }
     public RatingTableViewModel()
     {
-        // Initialize Breweries to an empty list
+        Rating = new List<Rating>();
         Products = new List<Product>();
         Users = new List<IUser>();
     }

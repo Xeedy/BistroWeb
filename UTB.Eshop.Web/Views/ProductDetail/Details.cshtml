@@ -1,4 +1,5 @@
 ﻿@model BistroWeb.Domain.Entities.Product
+@Html.AntiForgeryToken()
 
 <style>
     /* Add styles for the container holding both images */
@@ -65,10 +66,56 @@
 
             <h4>O pivovaru:</h4>
             <p>@Model.Breweries?.Description</p>
-
+            <h4>Rate this product:</h4>
+            <div class="rating-buttons">
+                <button class="btn btn-outline-primary rate-button" data-value="1">1</button>
+                <button class="btn btn-outline-primary rate-button" data-value="2">2</button>
+                <button class="btn btn-outline-primary rate-button" data-value="3">3</button>
+                <button class="btn btn-outline-primary rate-button" data-value="4">4</button>
+                <button class="btn btn-outline-primary rate-button" data-value="5">5</button>
+            </div>
             <!-- You can add more details as needed -->
             <!-- Add a back button to go back to the list -->
             <a class="btn btn-primary" href="@Url.Action("Index", "Lahve")">Back to List</a>
         </div>
     </div>
 </div>
+@section Scripts{
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const rateButtons = document.querySelectorAll('.rate-button');
+            rateButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    const ratingValue = this.getAttribute('data-value');
+                    const productId = '@Model.Id'; // Assuming your product model has an Id field
+                    const data = { productId: productId, ratingValue: ratingValue };
+
+                    // Check if user is logged in (example: check if there's a user cookie, or use another method)
+                    // if (isLoggedIn) {
+                    fetch('/Customer/Rating/RateProduct', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            // Correct the header name below:
+                            'RequestVerificationToken': document.querySelector('[name=__RequestVerificationToken]').value
+                        },
+                        body: JSON.stringify(data)
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Success:', data);
+                            // Handle success (e.g., show a thank you message)
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                            // Handle errors here
+                        });
+                    // } else {
+                    //     alert("Please log in to rate products.");
+                    // }
+                });
+            });
+        });
+    </script>
+
+}

@@ -33,5 +33,6 @@ namespace BistroWeb.Web.Controllers
 
             return View(product);
         }
+
     }
 }

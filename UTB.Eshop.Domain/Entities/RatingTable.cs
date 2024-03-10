@@ -18,7 +18,8 @@ namespace BistroWeb.Domain.Entities
 
         [ForeignKey("User")]
         public int? UserId { get; set; }
-        public virtual IUser User { get; set; } // Use IUser interface instead of User class
+        [NotMapped] // This tells EF Core to ignore the User property
+        public virtual IUser User { get; set; }
 
         public int RatingValue { get; set; }
     }
