@@ -53,11 +53,12 @@ namespace BistroWeb.Web.Controllers
                 // Corrected variable name here
                 userRating = await _ratingService.GetUserRatingForProduct(id, userId);
             }
-
+            double averageRating = await _ratingService.GetAverageRatingForProductAsync(id);
             var viewModel = new ProductDetailViewModel
             {
                 Product = product,
-                UserRating = userRating
+                UserRating = userRating,
+                AverageRating = averageRating
             };
 
             return View(viewModel);
@@ -85,8 +86,6 @@ namespace BistroWeb.Web.Controllers
             TempData["SuccessMessage"] = "Rating submitted successfully!";
             return RedirectToAction("Details", new { id = productId });
         }
-
-
 
     }
 }

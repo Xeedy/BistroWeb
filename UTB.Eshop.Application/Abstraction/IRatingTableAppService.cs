@@ -13,5 +13,8 @@ namespace BistroWeb.Application.Abstraction
         Rating GetRatingById(int id); // Method signature already there
         Task<int?> GetUserRatingForProduct(int productId, string userId); // Add this signature
         Task CreateOrUpdateRating(Rating rating);
+        Task<double> GetAverageRatingForProductAsync(int productId);
+        Task<List<Rating>> GetRatingsAsync();
+        string GetProductNameById(int productId);
     }
 }

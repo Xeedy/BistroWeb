@@ -22,5 +22,17 @@ namespace BistroWeb.Domain.Entities
         public virtual IUser User { get; set; }
 
         public int RatingValue { get; set; }
+        public static double CalculateAverageRating(IEnumerable<Rating> ratings)
+        {
+            // Check if there are any ratings for the product
+            if (ratings == null || !ratings.Any())
+            {
+                return 0; // If no ratings, return 0
+            }
+
+            // Calculate the average rating
+            double averageRating = ratings.Average(r => r.RatingValue);
+            return averageRating;
+        }
     }
 }

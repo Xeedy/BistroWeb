@@ -16,11 +16,13 @@ namespace BistroWeb.Application.Implementation
     {
         IFileUploadService _fileUploadService;
         EshopDbContext _eshopDbContext;
+        private readonly IRatingTableAppService _ratingService;
 
-        public ProductAppService(IFileUploadService fileUploadService, EshopDbContext eshopDbContext)
+        public ProductAppService(IFileUploadService fileUploadService, EshopDbContext eshopDbContext, IRatingTableAppService ratingService)
         {
             _fileUploadService = fileUploadService;
             _eshopDbContext = eshopDbContext;
+            _ratingService = ratingService;
         }
         public Product GetProductById(int id)
         {

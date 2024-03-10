@@ -4,7 +4,9 @@ using BistroWeb.Application.Abstraction;
 using BistroWeb.Application.ViewModels;
 using BistroWeb.Web.Models;
 using BistroWeb.Domain.Entities;
-using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore;
+using BistroWeb.Application.Implementation;
+using BistroWeb.Infrastructure.Database;
 
 namespace BistroWeb.Web.Controllers
 {
@@ -13,12 +15,19 @@ namespace BistroWeb.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         IHomeService _homeService;
         IBreweryAppService _breweryAppService;
-
+        private readonly IRatingTableAppService _ratingTableAppService;
+        private readonly IProductAppService _productAppService;
+        private readonly EshopDbContext _eshopDbContext;
         public HomeController(ILogger<HomeController> logger,
-                                IHomeService homeService)
+                                IHomeService homeService,
+                                IProductAppService productAppService,
+                                IRatingTableAppService ratingTableAppService,
+                                EshopDbContext eshopDbContext)
         {
             _logger = logger;
+            _eshopDbContext = eshopDbContext;
             _homeService = homeService;
+            _ratingTableAppService = ratingTableAppService;
         }
 
         public IActionResult Index()
@@ -54,6 +63,30 @@ namespace BistroWeb.Web.Controllers
         public IActionResult Accesories()
         {
             return View();
+        }
+
+        public async Task<IActionResult> AllProductRatings()
+        {
+            var products = await _eshopDbContext.Products
+                .Include(p => p.Breweries)
+                .Include(p => p.Typees)
+                .ToListAsync();
+
+            var productRatingsViewModels = new List<ProductDetailViewModel>();
+
+            foreach (var product in products)
+            {
+                double averageRating = await _ratingTableAppService.GetAverageRatingForProductAsync(product.Id);
+
+                productRatingsViewModels.Add(new ProductDetailViewModel
+                {
+                    Product = product,
+                    AverageRating = averageRating,
+                    UserRating = null // Since this is a general list, individual user ratings might not be applicable here
+                });
+            }
+
+            return View(productRatingsViewModels);
         }
     }
 }

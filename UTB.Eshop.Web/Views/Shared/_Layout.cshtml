@@ -47,6 +47,9 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="AllProductRatings">Síň slávy</a>
+                        </li>
                         @if (User.Identity.IsAuthenticated == true)
                         {
                             if (User.IsInRole(nameof(Roles.Admin)) || User.IsInRole(nameof(Roles.Manager)))

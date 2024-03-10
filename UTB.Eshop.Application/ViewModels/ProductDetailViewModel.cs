@@ -11,6 +11,8 @@ namespace BistroWeb.Application.ViewModels
     {
         public Product Product { get; set; }
         public int? UserRating { get; set; }
+        public double AverageRating { get; set; } // Add this property
+
     }
 }
 

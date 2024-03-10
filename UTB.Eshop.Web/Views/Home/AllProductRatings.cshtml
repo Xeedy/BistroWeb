@@ -1,0 +1,58 @@
+﻿@model IList<BistroWeb.Application.ViewModels.ProductDetailViewModel>
+
+@{
+    ViewData["Title"] = "Síň slávy";
+}
+<h1 style="color: white;">@ViewData["Title"]</h1>
+<div class="custom-form-container">
+    @{
+        if (Model != null && Model.Any())
+        {
+            var sortedModel = Model.OrderByDescending(x => x.AverageRating).Where(x => x.AverageRating != 0.00);
+            if (sortedModel.Any())
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Hodnocení</th>
+                                    <th>Název</th>
+                                    <th>Pivovar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var brewery in sortedModel)
+                                {
+                                    <tr>
+                                        <td>@brewery.AverageRating.ToString("F2")</td>
+                                        <td>@brewery.Product.Name</td>
+                                        <td>@brewery.Product.Breweries?.Name</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Blank column -->
+                    </div>
+                </div>
+            }
+            else
+            {
+                <p>No records found.</p>
+            }
+        }
+        else
+        {
+            <p>No records found.</p>
+        }
+    }
+</div>
+@section Styles
+    {
+    <link rel="stylesheet" href="~/css/CreateBrewery.css" asp-append-version="true" />
+}
+@section Scripts
+    {
+}

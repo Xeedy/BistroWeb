@@ -1,0 +1,20 @@
+﻿@model CalendarEventViewModel
+
+<div>
+    <h2>@Model.CurrentMonth/@Model.CurrentYear</h2>
+    <div>
+        <!-- Calendar grid here; iterate through days of the month -->
+        <!-- Example: -->
+        @for (int day = 1; day <= Model.NumberOfDaysInMonth; day++)
+        {
+            <div>
+                <span>@day</span>
+                @foreach (var event in Model.Events.Where(e => e.StartDate.Day <= day && e.EndDate.Day >= day))
+            {
+            <div>@event.Title</div>
+            <!-- Additional event details here -->
+        }
+        </div>
+    }
+    </div>
+</div>

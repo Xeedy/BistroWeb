@@ -1,74 +1,78 @@
 ﻿@model IEnumerable<BistroWeb.Domain.Entities.Product>
 
 @{
-    ViewData["Title"] = "Láhvová piva";
+    ViewData["Title"] = "Naše Pifka";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Naše pifka</h1>
-</div>
+<h1 style="color: white;">@ViewData["Title"]</h1>
+<div class="custom-form-container">
+    <div id="breweryFilterContainer" class="brewery-filter-container">
+        <label>Zvolte pivovar:</label><br />
+        @{
+            // Assuming "Zobrazit vše" is always displayed.
+            <button class="brewery-filter-button active" data-value="">Zobrazit vše</button>
+            // Add your logic for "Novinky" if applicable, similar to the button above.
+            <button class="brewery-filter-button" data-value="Novinky">Novinky</button>
+            var breweriesWithActiveProducts = Model
+            .Where(p => p.Active && p.Breweries != null)
+            .Select(p => p.Breweries)
+            .DistinctBy(b => b.Name)
+            .OrderBy(b => b.Name);
 
-<div id="breweryFilterContainer" class="brewery-filter-container">
-    <label>Zvolte pivovar:</label><br />
-    @{
-        var breweriesWithActiveProducts = Model.Where(p => p.Active).Select(p => p.Breweries).Distinct();
-    }
-    @if (Model.Any(p => p.Active))
-    {
-        <button class="brewery-filter-button active" data-value="">Zobrazit vše</button>
-    }
-    @foreach (var brewery in breweriesWithActiveProducts)
-    {
-        var breweryProducts = Model.Where(p => p.Breweries == brewery && p.Active).ToList();
-        if (breweryProducts.Any())
-        {
-            <button class="brewery-filter-button" data-value="@brewery.Name">@brewery.Name</button>
-        }
-    }
-</div>
-
-
-<section class="py-5" id="productContainer">
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-start">
-            @foreach (var product in Model.Where(p => p.Active))
+            foreach (var brewery in breweriesWithActiveProducts)
             {
-                <div class="col mb-5 breweryItem" data-brewery="@product.Breweries?.Name">
-                    <div class="product-card h-100 
-                    @if(product.New) 
-                    {
-                    <text>new-product</text>
-                    }">
-                        <!-- Changed class name to product-card -->
-                        <!-- Product image -->
-                        <img class="card-img-top" src="@product.ImageSrc" alt="..." />
-                        <!-- Product details -->
-                        <div class="card-body p-4">
+                var breweryProducts = Model.Where(p => p.Breweries == brewery && p.Active).ToList();
+                if (breweryProducts.Any())
+                {
+                    <button class="brewery-filter-button" data-value="@brewery.Name">@brewery.Name</button>
+                }
+            }
+        }
+    </div>
+
+
+    <section class="py-5" id="productContainer">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-start">
+                @foreach (var product in Model.Where(p => p.Active))
+                {
+                    <div class="col mb-5 breweryItem" data-brewery="@product.Breweries?.Name" data-new="@product.New.ToString().ToLower()">
+                        <div class="product-card h-100">
+                            <!-- "New" badge -->
+                            @if (product.New)
+                            {
+                                <div class="new-badge">Novinka</div>
+                            }
+                            <!-- Product image -->
+                            <img class="card-img-top" src="@product.ImageSrc" alt="..." />
+                            <!-- Product details -->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h5 class="fw-bolder">@product.Name</h5>
+                                    <p>@product.Price CZK</p>
+                                    <!-- Display brewery name -->
+                                    <p class="fw-bolder brewery">@product.Breweries?.Name</p>
+                                </div>
+                            </div>
+                            <!-- Product actions -->
                             <div class="text-center">
-                                <h5 class="fw-bolder">@product.Name</h5>
-                                <p class="fw-light">@product.Description</p>
-                                <p>@product.Price CZK</p>
-                                <!-- Display brewery name -->
-                                <p class="fw-bolder brewery">@product.Breweries?.Name</p>
+                                <!-- Info button -->
+                                <a class="btn btn-outline-dark mt-auto" href="@Url.Action("Details", "ProductDetail", new { id = product.Id })">Info</a>
                             </div>
                         </div>
-                        <!-- Product actions -->
-                        <div class="text-center">
-                            <!-- Info button -->
-                            <a class="btn btn-outline-dark mt-auto" href="@Url.Action("Details", "ProductDetail", new { id = product.Id })">Info</a>
-                        </div>
                     </div>
-                </div>
-            }
+                }
 
+
+            </div>
         </div>
-    </div>
-</section>
-
+    </section>
+</div>
 @section Styles
     {
     <!-- Include Card.css -->
     <link rel="stylesheet" href="~/css/Card.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/CreateBrewery.css" asp-append-version="true" />
 }
 
 @section Scripts

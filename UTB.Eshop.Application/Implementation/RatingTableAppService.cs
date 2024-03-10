@@ -102,6 +102,36 @@ namespace BistroWeb.Application.Implementation
 
             await _eshopDbContext.SaveChangesAsync();
         }
+        public async Task<double> GetAverageRatingForProductAsync(int productId)
+        {
+            var ratingsForProduct = await _eshopDbContext.Ratings
+                .Where(r => r.ProductId == productId)
+                .ToListAsync();
+
+            double averageRating = ratingsForProduct.Any() ? ratingsForProduct.Average(r => r.RatingValue) : 0;
+            return averageRating;
+        }
+        public async Task<List<Rating>> GetRatingsForProductAsync(int productId)
+        {
+            // Retrieve all ratings for the specified product
+            var ratingsForProduct = await _eshopDbContext.Ratings
+                .Where(r => r.ProductId == productId)
+                .ToListAsync();
+
+            return ratingsForProduct;
+        }
+        public async Task<List<Rating>> GetRatingsAsync()
+        {
+            // Retrieve all ratings from the database
+            return await _eshopDbContext.Ratings.ToListAsync();
+        }
+        public string GetProductNameById(int productId)
+        {
+            // Retrieve the name of the product by its ID
+            // Assuming Product has a Name property
+            var product = _eshopDbContext.Products.FirstOrDefault(p => p.Id == productId);
+            return product?.Name ?? "Unknown"; // If the product is null, return "Unknown"
+        }
     }
 
 

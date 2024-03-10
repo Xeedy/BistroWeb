@@ -61,16 +61,16 @@
 
 /* Filtering design */
 .brewery-filter-container {
-    margin-bottom: 20px;
-    background-color: #f0f0f0;
+    margin-bottom: 0px;
+    background-color: #30142b;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
+    border-radius: 12px;
+    padding: 15px;
 }
 
 .brewery-filter-button {
     margin-right: 10px;
-    padding: 5px 10px;
+    padding: 12px 10px;
     background-color: #f0f0f0;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -90,21 +90,19 @@
         max-width: 100%;
     }
 }
-.new-product {
-    position: relative;
-    margin-bottom: 20px; /* Adjust margin from the bottom */
+.new-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red; /* Match the active button color for consistency */
+    color: white;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    border-radius: 5px;
+    z-index: 1000; /* Ensure it's above other content */
 }
 
-    .new-product::before {
-        content: "New";
-        position: absolute;
-        top: 0px; /* Adjust the distance above the card */
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #ff0000; /* Background color for the "New" label */
-        color: #ffffff;
-        padding: 5px 10px;
-        border-radius: 5px;
-        font-weight: bold;
-        box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2); /* Add shadow */
-    }
+.product-card {
+    position: relative; /* Needed for absolute positioning of the badge */
+    /* existing styles... */
+}

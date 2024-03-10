@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using BistroWeb.Domain.Entities;
 using BistroWeb.Infrastructure.Identity;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace BistroWeb.Infrastructure.Database
 {
@@ -21,6 +22,7 @@ namespace BistroWeb.Infrastructure.Database
         public DbSet<Tapped> Tappeds { get; set; }
         public DbSet<Typee> Typees { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<CalendarEvent> CalendarEvents { get; set; }
 
 
         public EshopDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
@@ -49,6 +51,7 @@ namespace BistroWeb.Infrastructure.Database
             modelBuilder.Entity<Brewery>().HasData(brewery);
             modelBuilder.Entity<Typee>().HasData(typee);
             modelBuilder.Entity<Missing>().HasData(dbInit.GetMissing());
+            modelBuilder.Entity<CalendarEvent>().HasData(CalendarEvents);
 
             // Identity - User and Role initialization
             // Roles must be added first
