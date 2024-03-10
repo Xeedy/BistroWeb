@@ -1,23 +1,31 @@
 ﻿using BistroWeb.Application.Abstraction;
 using BistroWeb.Application.Implementation;
+using BistroWeb.Application.ViewModels;
 using BistroWeb.Infrastructure.Database;
+using BistroWeb.Infrastructure.Identity.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BistroWeb.Web.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize(Roles = nameof(Roles.Admin) + ", " + nameof(Roles.Manager))]
     public class CalendarController : Controller
     {
-        ICalendarAppService _calendarAppService;
-        EshopDbContext _eshopDbContext;
-        public CalendarController(ICalendarAppService calendarAppService, EshopDbContext eshopDbContext)
+        private readonly ICalendarAppService _calendarAppService;
+        public CalendarController(ICalendarAppService calendarAppService)
         {
             _calendarAppService = calendarAppService;
-            _eshopDbContext = eshopDbContext;
         }
-        public IActionResult Index(int? year, int? month)
+
+        public async Task<IActionResult> Index()
         {
-            var now = DateTime.Now;
-            var viewModel = _calendarAppService.GetCalendarEvents(year ?? now.Year, month ?? now.Month);
+            var viewModel = new CalendarViewModel
+            {
+                Calendars = await _calendarAppService.GetAllCalendarsAsync(),
+                Shifts = await _calendarAppService.GetAllShiftsAsync()
+            };
+
             return View(viewModel);
         }
     }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BistroWeb.Domain.Entities
 {
-    internal class Shifts
+    public class Shift
     {
         [Required]
         [Key]

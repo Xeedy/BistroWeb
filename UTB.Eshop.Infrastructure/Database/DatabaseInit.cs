@@ -11,6 +11,33 @@ namespace BistroWeb.Infrastructure.Database
 {
     internal class DatabaseInit
     {
+        public List<Calendar> GetCalendars()
+        {
+            List<Calendar> calendars = new List<Calendar>();
+
+            // Create sample calendars
+            calendars.Add(new Calendar
+            {
+                Id = 1,
+                Title = "Sample Calendar 1",
+                StartDate = new DateTime(2024, 3, 1), // Start date
+                EndDate = new DateTime(2024, 3, 31),   // End date
+                Description = "Description of Sample Calendar 1"
+            });
+
+            calendars.Add(new Calendar
+            {
+                Id = 2,
+                Title = "Sample Calendar 2",
+                StartDate = new DateTime(2024, 4, 1), // Start date
+                EndDate = new DateTime(2024, 4, 30),   // End date
+                Description = "Description of Sample Calendar 2"
+            });
+
+            // Add more calendars if needed
+
+            return calendars;
+        }
         public List<Typee> GetTypee()
         {
             List<Typee> typees = new List<Typee>();

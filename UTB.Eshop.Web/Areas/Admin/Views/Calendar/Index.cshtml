@@ -1,20 +1,135 @@
-﻿@model CalendarEventViewModel
+﻿@using BistroWeb.Application.ViewModels
+@model CalendarViewModel
 
-<div>
-    <h2>@Model.CurrentMonth/@Model.CurrentYear</h2>
-    <div>
-        <!-- Calendar grid here; iterate through days of the month -->
-        <!-- Example: -->
-        @for (int day = 1; day <= Model.NumberOfDaysInMonth; day++)
-        {
-            <div>
-                <span>@day</span>
-                @foreach (var event in Model.Events.Where(e => e.StartDate.Day <= day && e.EndDate.Day >= day))
-            {
-            <div>@event.Title</div>
-            <!-- Additional event details here -->
-        }
-        </div>
+@{
+    var currentYear = Model.CurrentYear;
+    var currentMonth = Model.CurrentMonth;
+
+    // Validate if the current year and month are within a valid range
+    if (currentYear < 1 || currentYear > 9999)
+    {
+        currentYear = DateTime.Now.Year;
     }
-    </div>
+
+    if (currentMonth < 1 || currentMonth > 12)
+    {
+        currentMonth = DateTime.Now.Month;
+    }
+
+    var firstDayOfMonth = new DateTime(currentYear, currentMonth, 1);
+    var daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth);
+}
+
+<style>
+    /* Styles for the calendar container */
+    .calendar-container {
+        background-color: #ffffff; /* White background */
+        border: 1px solid #ccc; /* Gray border */
+        border-radius: 5px; /* Rounded corners */
+        padding: 20px; /* Padding around the calendar */
+        max-width: 600px; /* Maximum width to keep it reasonably sized */
+        margin: 20px auto; /* Center the calendar horizontally with some margin */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+        overflow: hidden; /* Ensures no content can spill out */
+    }
+
+    /* Styles for the calendar table */
+    .calendar-table {
+        width: 100%; /* Full width */
+        border-collapse: collapse; /* Collapse borders */
+        table-layout: fixed; /* Fixed table layout */
+    }
+
+        /* Styles for table header */
+        .calendar-table th {
+            background-color: #f2f2f2; /* Light gray background */
+            border: 1px solid #ddd; /* Light gray border */
+            padding: 10px 0; /* Padding with zero horizontal padding */
+            text-align: center; /* Center-align text */
+            font-size: 16px; /* Adjust font size for headers */
+            width: 14.28%; /* Width for 7 columns */
+        }
+
+        /* Styles for table data */
+        .calendar-table td {
+            border: 1px solid #ddd; /* Light gray border */
+            vertical-align: top; /* Align content to the top of the cell */
+            height: 0; /* Height starts at zero */
+            padding-top: 14.28%; /* Padding top to maintain aspect ratio based on width */
+            position: relative; /* Make position relative for absolute positioning */
+        }
+
+    /* Style for day number */
+    .day-number {
+        position: absolute; /* Absolute positioning */
+        top: 5px; /* Adjust top position */
+        right: 5px; /* Adjust right position */
+        font-size: 16px; /* Adjust font size relative to the cell */
+    }
+
+    /* Style for past days */
+    .past-day {
+        background-color: #f5f5f5; /* Light gray background for past days */
+    }
+
+    /* Style for current day */
+    .current-day {
+        background-color: #9ecaed; /* Light blue background for current day */
+    }
+
+    /* Style for future days */
+    .future-day {
+        background-color: #c4e4b4; /* Green background for future days */
+    }
+</style>
+
+<div class="calendar-container">
+    <h1>Calendar</h1>
+    <table class="calendar-table">
+        <!-- Table header with day names -->
+        <thead>
+            <tr>
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Calendar grid -->
+            @for (int i = 0; i < 6; i++)
+            {
+                <tr>
+                    @for (int j = 0; j < 7; j++)
+                    {
+                        // Calculate the current day within the grid
+                        var currentDay = firstDayOfMonth.AddDays(i * 7 + j - (int)firstDayOfMonth.DayOfWeek);
+
+                        // Check if the current day is within the current month
+                        if (currentDay.Month == currentMonth)
+                        {
+                            // Determine the CSS class based on whether the day is past, current, or future
+                            var dayClass = currentDay < DateTime.Today ? "past-day" :
+                            currentDay.Date == DateTime.Today.Date ? "current-day" :
+                            "future-day";
+
+                            // Render the day tile with the appropriate CSS class
+                            <td class="@dayClass">
+                                <!-- Additional content for the day tile if needed -->
+                                <div class="day-number">@currentDay.Day</div>
+                            </td>
+                        }
+                        else
+                        {
+                            // Render an empty cell for days outside the month
+                            <td></td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

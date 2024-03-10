@@ -28,4 +28,8 @@
     <ProjectReference Include="..\UTB.Eshop.Web\BistroWeb.Web.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ApplicationLayer\" />
+  </ItemGroup>
+
 </Project>
