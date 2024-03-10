@@ -22,11 +22,22 @@ namespace BistroWeb.Application.Implementation
         {
             _eshopDbContext = eshopDbContext;
         }
-
-        public Rating GetRatingById(int id) // Corrected method name
+        public Rating GetRatingById(int id)
         {
             return _eshopDbContext.Ratings.FirstOrDefault(r => r.Id == id);
         }
+        // In your RatingTableAppService class that implements IRatingTableAppService
+        public async Task<int?> GetUserRatingForProduct(int productId, string userId)
+        {
+            int userIdInt = int.Parse(userId); // This is risky if userId isn't always an integer
+            var rating = await _eshopDbContext.Ratings
+                .Where(r => r.ProductId == productId && r.UserId == userIdInt)
+                .Select(r => r.RatingValue)
+                .FirstOrDefaultAsync();
+
+            return rating;
+        }
+
 
         public IList<Rating> Select()
         {
@@ -71,6 +82,25 @@ namespace BistroWeb.Application.Implementation
                 // Save changes to the database
                 await _eshopDbContext.SaveChangesAsync();
             }
+        }
+        public async Task CreateOrUpdateRating(Rating rating)
+        {
+            // Check if the rating already exists
+            var existingRating = await _eshopDbContext.Ratings
+                .FirstOrDefaultAsync(r => r.ProductId == rating.ProductId && r.UserId == rating.UserId);
+
+            if (existingRating != null)
+            {
+                // Update existing rating
+                existingRating.RatingValue = rating.RatingValue;
+            }
+            else
+            {
+                // Create new rating
+                _eshopDbContext.Ratings.Add(rating);
+            }
+
+            await _eshopDbContext.SaveChangesAsync();
         }
     }
 

@@ -34,7 +34,11 @@
             @foreach (var product in Model.Where(p => p.Active))
             {
                 <div class="col mb-5 breweryItem" data-brewery="@product.Breweries?.Name">
-                    <div class="product-card h-100">
+                    <div class="product-card h-100 
+                    @if(product.New) 
+                    {
+                    <text>new-product</text>
+                    }">
                         <!-- Changed class name to product-card -->
                         <!-- Product image -->
                         <img class="card-img-top" src="@product.ImageSrc" alt="..." />
@@ -56,6 +60,7 @@
                     </div>
                 </div>
             }
+
         </div>
     </div>
 </section>

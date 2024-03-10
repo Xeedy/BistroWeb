@@ -3,6 +3,7 @@ using System;
 using BistroWeb.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BistroWeb.Infrastructure.Migrations
 {
     [DbContext(typeof(EshopDbContext))]
-    partial class EshopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240310015021_RatingWorking")]
+    partial class RatingWorking
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -993,9 +996,6 @@ namespace BistroWeb.Infrastructure.Migrations
                         .HasMaxLength(90)
                         .HasColumnType("varchar(90)");
 
-                    b.Property<bool>("New")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<double>("Price")
                         .HasColumnType("double");
 
@@ -1020,7 +1020,6 @@ namespace BistroWeb.Infrastructure.Migrations
                             Description = "Testovací sada",
                             ImageSrc = "/img/products/produkty-01.jpg",
                             Name = "Test",
-                            New = false,
                             Price = 999.0,
                             TypeeId = 1
                         },
@@ -1032,7 +1031,6 @@ namespace BistroWeb.Infrastructure.Migrations
                             Description = "Cosik",
                             ImageSrc = "/img/products/produkty-01.jpg",
                             Name = "Testovacka",
-                            New = false,
                             Price = 10.0,
                             TypeeId = 2
                         });

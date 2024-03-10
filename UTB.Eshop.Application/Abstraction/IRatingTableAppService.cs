@@ -10,6 +10,8 @@ namespace BistroWeb.Application.Abstraction
         Task Create(Rating rating);
         bool Delete(int id);
         Task Edit(Rating editedRating);
-        Rating GetRatingById(int id); // Add this method to the interface
+        Rating GetRatingById(int id); // Method signature already there
+        Task<int?> GetUserRatingForProduct(int productId, string userId); // Add this signature
+        Task CreateOrUpdateRating(Rating rating);
     }
 }

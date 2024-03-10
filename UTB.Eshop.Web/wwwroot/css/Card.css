@@ -5,6 +5,7 @@
     overflow: hidden;
     transition: transform 0.3s ease;
     height: 100%; /* Set card height to 100% of its container */
+    margin-bottom: 20px; /* Add some bottom margin to create space between cards */
 }
 
     .product-card:hover {
@@ -57,6 +58,7 @@
     .info-button:hover {
         background-color: #0056b3;
     }
+
 /* Filtering design */
 .brewery-filter-container {
     margin-bottom: 20px;
@@ -79,4 +81,30 @@
     .brewery-filter-button.active {
         background-color: #007bff;
         color: #fff;
+    }
+
+/* Media query for mobile devices */
+@media (max-width: 767px) {
+    .row-cols-md-3 .col {
+        flex: 0 0 100%; /* Make each column take up 100% of the container width */
+        max-width: 100%;
+    }
+}
+.new-product {
+    position: relative;
+    margin-bottom: 20px; /* Adjust margin from the bottom */
+}
+
+    .new-product::before {
+        content: "New";
+        position: absolute;
+        top: 0px; /* Adjust the distance above the card */
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #ff0000; /* Background color for the "New" label */
+        color: #ffffff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-weight: bold;
+        box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2); /* Add shadow */
     }

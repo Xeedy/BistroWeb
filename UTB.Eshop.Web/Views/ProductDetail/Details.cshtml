@@ -1,121 +1,84 @@
-﻿@model BistroWeb.Domain.Entities.Product
+﻿@model BistroWeb.Application.ViewModels.ProductDetailViewModel
 @Html.AntiForgeryToken()
 
-<style>
-    /* Add styles for the container holding both images */
-    .image-container {
-        position: relative;
-        display: inline-block;
-    }
+<div class="custom-form-container">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Use the image-container class to wrap both images -->
+                <div class="image-container">
+                    <!-- Display the product image -->
+                    <img class="img-fluid product-image" src="@Model.Product.ImageSrc" alt="Beer Image" />
 
-    /* Add styles for the product image */
-    .product-image {
-        max-width: 100%;
-        height: auto;
-        display: block;
-    }
-
-    /* Add styles for the brewery container */
-    .brewery-container {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        max-height: 100px;
-        max-width: 90px;
-        z-index: 1; /* Set a higher z-index to ensure it appears on top */
-    }
-
-    /* Add styles for the brewery image */
-    .brewery-image {
-        max-width: 80%;
-        height: auto;
-        display: block;
-        margin-bottom: 20px;
-    }
-</style>
-
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-6">
-            <!-- Use the image-container class to wrap both images -->
-            <div class="image-container">
-                <!-- Display the product image -->
-                <img class="img-fluid product-image" src="@Model.ImageSrc" alt="Beer Image" />
-
-                <!-- Container for the brewery image -->
-                <div class="brewery-container">
-                    <!-- Display the brewery image -->
-                    <img class="img-fluid brewery-image" src="@Model.Breweries?.ImageSrc" alt="Brewery Image" />
+                    <!-- Container for the brewery image -->
+                    <div class="brewery-container">
+                        <!-- Display the brewery image -->
+                        <img class="img-fluid brewery-image" src="@Model.Product.Breweries?.ImageSrc" alt="Brewery Image" />
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <h1 class="display-4">@Model.Name</h1>
+            <div class="col-md-6">
+                <h1 class="display-4">@Model.Product.Name</h1>
 
-            <h4>Něco o pifku:</h4>
-            <p>@Model.Description</p>
+                <h4>Něco o pifku:</h4>
+                <p>@Model.Product.Description</p>
 
-            <h4>Cena:</h4>
-            <p>@Model.Price CZK</p>
-            
-            <h4>Něco o pivním stylu:</h4>
-            <p>@Model.Typees?.Description</p>
-            
-            <h4>Pivovar:</h4>
-            <p>@Model.Breweries?.Name</p>
+                <h4>Cena:</h4>
+                <p>@Model.Product.Price CZK</p>
 
-            <h4>O pivovaru:</h4>
-            <p>@Model.Breweries?.Description</p>
-            <h4>Rate this product:</h4>
-            <div class="rating-buttons">
-                <button class="btn btn-outline-primary rate-button" data-value="1">1</button>
-                <button class="btn btn-outline-primary rate-button" data-value="2">2</button>
-                <button class="btn btn-outline-primary rate-button" data-value="3">3</button>
-                <button class="btn btn-outline-primary rate-button" data-value="4">4</button>
-                <button class="btn btn-outline-primary rate-button" data-value="5">5</button>
+                <h4>Něco o pivním stylu:</h4>
+                <p>@Model.Product.Typees?.Description</p>
+
+                <h4>Pivovar:</h4>
+                <p>@Model.Product.Breweries?.Name</p>
+
+                <h4>O pivovaru:</h4>
+                <p>@Model.Product.Breweries?.Description</p>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <h4>Ohodnotit pivéčko:</h4>
+                    <div class="rating-buttons">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <form id="ratingForm_@i" method="post" action="@Url.Action("RateProduct", "ProductDetail")" class="d-inline">
+                                <input type="hidden" name="productId" value="@Model.Product.Id" />
+                                <input type="hidden" name="ratingValue" value="@i" />
+                                <button type="submit" class="btn btn-outline-primary rating-button @(Model.UserRating == i ? "rated" : "")">@i</button>
+                            </form>
+                        }
+                    </div>
+                }
+                <br />
+                <a class="btn btn-primary" href="@Url.Action("Lahve", "Home")">Zpět na lahváče</a>
             </div>
-            <!-- You can add more details as needed -->
-            <!-- Add a back button to go back to the list -->
-            <a class="btn btn-primary" href="@Url.Action("Index", "Lahve")">Back to List</a>
         </div>
     </div>
 </div>
-@section Scripts{
+@section Styles
+    {
+    <link rel="stylesheet" href="~/css/CreateBrewery.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Detail.css" asp-append-version="true" />
+}
+@section Scripts {
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const rateButtons = document.querySelectorAll('.rate-button');
-            rateButtons.forEach(button => {
-                button.addEventListener('click', function (e) {
-                    const ratingValue = this.getAttribute('data-value');
-                    const productId = '@Model.Id'; // Assuming your product model has an Id field
-                    const data = { productId: productId, ratingValue: ratingValue };
+        $(document).ready(function () {
+            $('.rating-button').click(function (e) {
+                e.preventDefault(); // Prevent the default form submission
 
-                    // Check if user is logged in (example: check if there's a user cookie, or use another method)
-                    // if (isLoggedIn) {
-                    fetch('/Customer/Rating/RateProduct', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            // Correct the header name below:
-                            'RequestVerificationToken': document.querySelector('[name=__RequestVerificationToken]').value
-                        },
-                        body: JSON.stringify(data)
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log('Success:', data);
-                            // Handle success (e.g., show a thank you message)
-                        })
-                        .catch((error) => {
-                            console.error('Error:', error);
-                            // Handle errors here
+                var form = $(this).closest('form');
+                $.post(form.attr('action'), form.serialize(), function () {
+                    // Show the thank you message
+                    var message = $('<div class="alert alert-success" role="alert">Děkujeme!</div>');
+                    form.parent().append(message); // Append message to the parent container of the rating buttons
+
+                    // Automatically hide the message after 3 seconds
+                    setTimeout(function () {
+                        message.fadeOut('slow', function () {
+                            $(this).remove();
                         });
-                    // } else {
-                    //     alert("Please log in to rate products.");
-                    // }
+                    }, 3000);
                 });
             });
         });
     </script>
-
 }

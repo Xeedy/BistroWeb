@@ -279,8 +279,9 @@ namespace BistroWeb.Infrastructure.Database
                     TypeeId = typees[0].Id,
                     Description = "Testovací sada",
                     Price = 999,
+                    New = false,
                     ImageSrc = "/img/products/produkty-01.jpg"
-                });
+                }); 
 
                 products.Add(new Product
                 {
@@ -290,6 +291,7 @@ namespace BistroWeb.Infrastructure.Database
                     TypeeId = typees[1].Id,
                     Description = "Cosik",
                     Price = 10,
+                    New = false,
                     ImageSrc = "/img/products/produkty-01.jpg"
                 });
 

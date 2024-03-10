@@ -43,6 +43,13 @@
             </select>
         </div>
         <div class="mb-3">
+            <label class="form-label" asp-for="New">Novinka</label>
+            <select class="form-control" asp-for="New">
+                <option value="true">Ano</option>
+                <option value="false">Ne</option>
+            </select>
+        </div>
+        <div class="mb-3">
             <label class="form-label" asp-for="Image">Obrázek</label>
             <input id="fileupload" class="form-control-file" asp-for="Image" type="file">
             <span asp-validation-for="Image" class="text-danger"></span>

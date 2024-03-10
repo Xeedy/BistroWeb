@@ -1,0 +1,40 @@
+﻿/* Add styles for the container holding both images */
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Add styles for the product image */
+.product-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Add styles for the brewery container */
+.brewery-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    max-height: 100px;
+    max-width: 90px;
+    z-index: 1; /* Set a higher z-index to ensure it appears on top */
+}
+
+/* Add styles for the brewery image */
+.brewery-image {
+    max-width: 80%;
+    height: auto;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.rating-button {
+    margin: 0 2px;
+}
+
+.rated {
+    background-color: #007bff !important; /* Bootstrap primary color */
+    color: white !important;
+}
+
