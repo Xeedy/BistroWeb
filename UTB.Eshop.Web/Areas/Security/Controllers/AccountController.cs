@@ -4,7 +4,11 @@ using BistroWeb.Application.Abstraction;
 using BistroWeb.Application.ViewModels;
 using BistroWeb.Infrastructure.Identity.Enums;
 using BistroWeb.Web.Controllers;
+using BistroWeb.Domain.Entities;
 using BistroWeb.Infrastructure.Identity;
+using Microsoft.EntityFrameworkCore;
+using BistroWeb.Infrastructure.Database;
+using Microsoft.AspNetCore.Identity;
 
 namespace Portal.Web.Areas.Security.Controllers
 {
@@ -12,12 +16,15 @@ namespace Portal.Web.Areas.Security.Controllers
     public class AccountController : Controller
     {
         IAccountService accountService;
+        EshopDbContext _eshopDbContext;
+        private readonly UserManager<User> _userManager;
 
-        public AccountController(IAccountService security)
+        public AccountController(IAccountService accountService, EshopDbContext eshopDbContext, UserManager<User> userManager)
         {
-            this.accountService = security;
+            this.accountService = accountService;
+            this._eshopDbContext = eshopDbContext;
+            this._userManager = userManager; // UserManager injection
         }
-
 
         public IActionResult Register()
         {
@@ -84,9 +91,7 @@ namespace Portal.Web.Areas.Security.Controllers
         [Authorize]
         public async Task<IActionResult> Profile()
         {
-            var username = User.Identity.Name; // Get the current logged-in user's username
-            var user = await accountService.GetUserDetailsAsync(username); // Implement this method in your account service
-
+            var user = await _userManager.GetUserAsync(User); // Get the current user
             if (user == null)
             {
                 return NotFound();
@@ -98,7 +103,11 @@ namespace Portal.Web.Areas.Security.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                PhoneNumber = user.PhoneNumber
+                PhoneNumber = user.PhoneNumber,
+                UpcomingShifts = await _eshopDbContext.Shifts
+                    .Where(s => s.UserId == user.Id && s.StartDate >= DateTime.Today) // Use user.Id for filtering
+                    .OrderBy(s => s.StartDate)
+                    .ToListAsync()
             };
 
             return View(model);

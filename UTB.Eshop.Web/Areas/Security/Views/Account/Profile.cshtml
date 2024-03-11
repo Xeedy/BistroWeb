@@ -1,5 +1,9 @@
 ﻿@model BistroWeb.Application.ViewModels.UserProfileViewModel
+@using Microsoft.AspNetCore.Authorization
 
+@{
+    bool isManager = User.IsInRole("Manager");
+}
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -36,3 +40,34 @@
         </div>
     </div>
 </div>
+@if (isManager)
+{
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Nadcházející směny</h2>
+                    </div>
+                    <div class="card-body">
+                        <!-- Render upcoming shifts here -->
+                        @if (Model.UpcomingShifts != null && Model.UpcomingShifts.Any())
+                        {
+                            <ul>
+                                @foreach (var shift in Model.UpcomingShifts)
+                                {
+                                    <li>@shift.StartDate - @shift.EndDate</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p>Žádné nadcházející směny.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

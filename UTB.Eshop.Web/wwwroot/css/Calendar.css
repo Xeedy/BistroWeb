@@ -128,3 +128,21 @@ button {
         margin-bottom: 10px; /* Add space between stacked containers */
     }
 }
+.calendar-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.month-name {
+    margin: 0;
+}
+
+.month-nav {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}

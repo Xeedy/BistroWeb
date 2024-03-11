@@ -19,9 +19,19 @@
     var firstDayOfMonth = new DateTime(currentYear, currentMonth, 1);
     var daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth);
 }
+@{
+    var firstOption = Model.Managers.FirstOrDefault(m => m.Id.ToString() == Model.CurrentUserId);
+    var otherOptions = Model.Managers.Where(m => m.Id.ToString() != Model.CurrentUserId);
+}
 <div class="main-container">
     <div class="calendar-container">
         <h1>Šichtovnica</h1>
+        <div class="calendar-navigation">
+            <a href="@Url.Action("Index", new { year = Model.PreviousMonthYear, month = Model.PreviousMonth })" class="month-nav">Předchozí</a>
+            <h2 class="month-name">@System.Globalization.DateTimeFormatInfo.CurrentInfo.GetMonthName(Model.CurrentMonth) @Model.CurrentYear</h2>
+            <a href="@Url.Action("Index", new { year = Model.NextMonthYear, month = Model.NextMonth })" class="month-nav">Následující</a>
+        </div>
+
         <table class="calendar-table">
             <!-- Table header with day names -->
             <thead>
@@ -72,12 +82,24 @@
     <!-- Roll-up container for assigning shifts -->
     <div id="assignShiftContainer" class="assign-shift-container">
         <h2>Vyber datum</h2>
-        <form asp-action="AssignShift">
+        <form asp-action="AssignShift" method="post">
             <h2>Kdo zabere směnu?</h2>
             <input type="hidden" id="selectedDate" name="Date" value="" />
-            <select name="UserId" asp-items="@(new SelectList(Model.Managers, "Id", "UserName"))"></select>
+            <input type="hidden" name="year" value="@Model.CurrentYear" />
+            <input type="hidden" name="month" value="@Model.CurrentMonth" />
+            <select name="UserId">
+                @if (firstOption != null)
+                {
+                    <option value="@firstOption.Id">@firstOption.UserName</option>
+                }
+                @foreach (var manager in otherOptions)
+                {
+                    <option value="@manager.Id">@manager.UserName</option>
+                }
+            </select>
             <button type="submit">Potvrdit</button>
         </form>
+
     </div>
 </div>
 @section Styles {

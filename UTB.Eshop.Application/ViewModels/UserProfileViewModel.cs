@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BistroWeb.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace BistroWeb.Application.ViewModels
         public string LastName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+        public List<Shift> UpcomingShifts { get; set; }
     }
 }
 
