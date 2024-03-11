@@ -19,92 +19,146 @@
     var firstDayOfMonth = new DateTime(currentYear, currentMonth, 1);
     var daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth);
 }
-
-<div class="calendar-container">
-    <h1>Calendar</h1>
-    <table class="calendar-table">
-        <!-- Table header with day names -->
-        <thead>
-            <tr>
-                <th>Sun</th>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
-                <th>Sat</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Calendar grid -->
-            @for (int i = 0; i < 6; i++)
-            {
+<div class="main-container">
+    <div class="calendar-container">
+        <h1>Šichtovnica</h1>
+        <table class="calendar-table">
+            <!-- Table header with day names -->
+            <thead>
                 <tr>
-                    @for (int j = 0; j < 7; j++)
-                    {
-                        var currentDay = firstDayOfMonth.AddDays(i * 7 + j - (int)firstDayOfMonth.DayOfWeek);
-
-                        // Determine the CSS class for the day
-                        var dayClass = currentDay < DateTime.Today ? "past-day" :
-                        currentDay.Date == DateTime.Today.Date ? "current-day" : "future-day";
-
-                        <td class="@dayClass" onclick="dayCellClick('@currentDay.ToString("yyyy-MM-dd")')">
-                            <div class="day-number">@currentDay.Day</div>
-                            @if (Model.ShiftAssignments.TryGetValue(currentDay, out var assignedUsers))
-                            {
-                                foreach (var user in assignedUsers)
-                                {
-                                    <div>@user.UserName</div>
-                                }
-                            }
-                        </td>
-                    }
+                    <th>Ne</th>
+                    <th>Po</th>
+                    <th>Út</th>
+                    <th>St</th>
+                    <th>Čt</th>
+                    <th>Pá</th>
+                    <th>So</th>
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @for (int i = 0; i < 6; i++)
+                {
+                    <tr>
+                        @for (int j = 0; j < 7; j++)
+                        {
+                            var currentDay = firstDayOfMonth.AddDays(i * 7 + j - (int)firstDayOfMonth.DayOfWeek);
+                            if (currentDay.Month == currentMonth && currentDay.Year == currentYear)
+                            {
+                                var dayClass = currentDay < DateTime.Today ? "past-day" :
+                                currentDay.Date == DateTime.Today.Date ? "current-day" : "future-day";
 
-        </tbody>
-    </table>
-</div>
-<div id="assignShiftModal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Assign Shift</h2>
+                                <td class="@dayClass" data-date="@currentDay.ToString("yyyy-MM-dd")">
+                                    <div class="day-number">@currentDay.Day</div>
+                                    @if (Model.ShiftAssignments.TryGetValue(currentDay, out var assignedUsers))
+                                    {
+                                        foreach (var user in assignedUsers)
+                                        {
+                                            <div class="user-name">@user.UserName</div>
+                                        }
+                                    }
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="empty-day"></td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Roll-up container for assigning shifts -->
+    <div id="assignShiftContainer" class="assign-shift-container">
+        <h2>Vyber datum</h2>
         <form asp-action="AssignShift">
-            <input type="hidden" id="selectedDate" name="Date">
+            <h2>Kdo zabere směnu?</h2>
+            <input type="hidden" id="selectedDate" name="Date" value="" />
             <select name="UserId" asp-items="@(new SelectList(Model.Managers, "Id", "UserName"))"></select>
-            <button type="submit">Assign</button>
+            <button type="submit">Potvrdit</button>
         </form>
     </div>
 </div>
-@section Styles
-    {
+@section Styles {
     <link rel="stylesheet" href="~/css/Calendar.css" asp-append-version="true" />
 }
+
 @section Scripts {
     <script>
-        var modal = document.getElementById("assignShiftModal");
+        document.addEventListener('DOMContentLoaded', (event) => {
+            var today = new Date();
+            today.setHours(0, 0, 0, 0); // Reset time to the start of the day for comparison
 
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
+            var dayCells = document.querySelectorAll('.calendar-table td:not(.empty-day)');
+            var lastActiveCell = null; // Keep track of the last active cell
+            var assignShiftContainer = document.getElementById("assignShiftContainer");
+            var selectedDateInput = document.getElementById('selectedDate'); // The hidden input for the date
 
-        // When the user clicks the day cell, open the modal
-        function dayCellClick(date) {
-            document.getElementById('selectedDate').value = date;
-            modal.style.display = "block";
-        }
-
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
+            // Function to clear active state from all cells
+            function clearActiveState() {
+                dayCells.forEach(function (c) {
+                    c.classList.remove('active-day');
+                });
+                assignShiftContainer.classList.remove("active");
+                if (lastActiveCell) {
+                    lastActiveCell.classList.remove('active-day');
+                    lastActiveCell = null;
+                }
             }
-        }
-    </script>
 
+            dayCells.forEach(function (cell) {
+                var cellDate = new Date(cell.getAttribute('data-date'));
+                if (cellDate >= today) { // Only add click listener if the cell date is not in the past
+                    cell.addEventListener('click', function () {
+                        // Check for existing assignment
+                        var hasAssignment = this.querySelector('.user-name') !== null;
+                        var overwriteConfirmed = true; // Assume true if no existing assignment
+
+                        // If there's an existing assignment, ask for confirmation
+                        if (hasAssignment) {
+                            overwriteConfirmed = confirm('Již je přiřazena směna pro tento den. Opravdu chcete přepsat stávající směnu?');
+                        }
+
+                        if (overwriteConfirmed) {
+                            // Clear active states
+                            clearActiveState();
+
+                            // Highlight the clicked cell
+                            this.classList.add('active-day');
+                            lastActiveCell = this;
+                            // Highlight the clicked cell
+                            this.classList.add('active-day');
+                            lastActiveCell = this;
+
+                            // Get the date from the cell's data attribute
+                            var date = this.getAttribute('data-date');
+                            selectedDateInput.value = date; // Update the hidden input with the new date
+
+                            // Parse the date string into a Date object for formatting
+                            var dateObj = new Date(date);
+
+                            // Format the date in Czech
+                            var formattedDate = new Intl.DateTimeFormat('cs-CZ', { day: 'numeric', month: 'numeric', weekday: 'long' }).format(dateObj);
+
+                            // Set the formatted date and day name in the header
+                            assignShiftContainer.querySelector('h2').textContent = `${formattedDate}`;
+
+                            // Show the assign shift container
+                            assignShiftContainer.classList.add("active");
+                        }
+                    });
+                }
+            });
+
+            // Listen for clicks outside of calendar cells to clear the active state
+            document.addEventListener('click', function (event) {
+                if (lastActiveCell && !lastActiveCell.contains(event.target) && !event.target.matches('#assignShiftContainer, #assignShiftContainer *')) {
+                    // Clear active states
+                    clearActiveState();
+                }
+            }, true); // Use capturing to ensure the document level event runs before the cell click
+        });
+
+    </script>
 }
