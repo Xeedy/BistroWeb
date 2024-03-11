@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using BistroWeb.Application.ViewModels;
 using BistroWeb.Domain.Entities;
+using BistroWeb.Infrastructure.Identity;
 
 namespace BistroWeb.Application.Abstraction
 {
@@ -19,5 +20,8 @@ namespace BistroWeb.Application.Abstraction
         Task AddShiftAsync(Shift shift);
         Task UpdateShiftAsync(Shift shift);
         Task DeleteShiftAsync(int id);
+        Task<CalendarViewModel> GetCalendarViewModelAsync(int year, int month);
+        Task<IEnumerable<User>> GetManagersAsync();
+        Task AssignOrUpdateShiftAsync(DateTime date, int userId);
     }
 }

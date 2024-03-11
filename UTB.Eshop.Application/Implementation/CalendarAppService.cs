@@ -6,17 +6,24 @@ using BistroWeb.Application.Abstraction;
 using BistroWeb.Application.ViewModels;
 using BistroWeb.Domain.Entities;
 using BistroWeb.Infrastructure.Database;
+using BistroWeb.Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace BistroWeb.Application.Implementation
 {
+    
     public class CalendarAppService : ICalendarAppService
     {
+        private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
         private readonly EshopDbContext _context;
 
-        public CalendarAppService(EshopDbContext context)
+        public CalendarAppService(EshopDbContext context, UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         // Calendar CRUD operations
@@ -64,6 +71,12 @@ namespace BistroWeb.Application.Implementation
 
         public async Task AddShiftAsync(Shift shift)
         {
+            if (shift.UserId == null)
+            {
+                // Handle the case where UserId is null, maybe log an error or throw an exception
+                throw new InvalidOperationException("UserId cannot be null when adding a shift.");
+            }
+
             _context.Shifts.Add(shift);
             await _context.SaveChangesAsync();
         }
@@ -78,6 +91,67 @@ namespace BistroWeb.Application.Implementation
         {
             var shift = await _context.Shifts.FindAsync(id);
             _context.Shifts.Remove(shift);
+            await _context.SaveChangesAsync();
+        }
+        public async Task<CalendarViewModel> GetCalendarViewModelAsync(int year, int month)
+        {
+            var firstDayOfMonth = new DateTime(year, month, 1);
+            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+            // Get all shifts within the month
+            var shifts = await _context.Shifts
+                .Where(s => s.StartDate >= firstDayOfMonth && s.EndDate <= lastDayOfMonth)
+                .ToListAsync();
+
+            // If you want to get Calendars as well, fetch them here similarly
+
+            var viewModel = new CalendarViewModel
+            {
+                CurrentYear = year,
+                CurrentMonth = month,
+                NumberOfDaysInMonth = DateTime.DaysInMonth(year, month),
+                Shifts = shifts,
+                ShiftAssignments = new Dictionary<DateTime, List<User>>()
+                // Populate Calendars if you fetched them above
+            };
+            foreach (var shift in shifts)
+            {
+                if (!viewModel.ShiftAssignments.ContainsKey(shift.StartDate))
+                {
+                    viewModel.ShiftAssignments[shift.StartDate] = new List<User>();
+                }
+                var user = await _userManager.FindByIdAsync(shift.UserId.ToString()); // Assuming UserId is not null
+                viewModel.ShiftAssignments[shift.StartDate].Add(user);
+            }
+
+            return viewModel;
+        }
+        public async Task<IEnumerable<User>> GetManagersAsync()
+        {
+            var users = await _userManager.GetUsersInRoleAsync("Manager");
+            return users;
+        }
+        public async Task AssignOrUpdateShiftAsync(DateTime date, int userId)
+        {
+            var shift = await _context.Shifts.FirstOrDefaultAsync(s => s.StartDate.Date == date.Date);
+
+            if (shift != null)
+            {
+                // If a shift for this date exists, update its UserId
+                shift.UserId = userId;
+            }
+            else
+            {
+                // If no shift exists for this date, create a new one
+                shift = new Shift
+                {
+                    StartDate = date,
+                    EndDate = date, // Assuming end date is the same for simplicity
+                    UserId = userId
+                };
+                _context.Shifts.Add(shift);
+            }
+
             await _context.SaveChangesAsync();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using BistroWeb.Domain.Entities;
+using BistroWeb.Infrastructure.Identity;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,8 @@ namespace BistroWeb.Application.ViewModels
         public int NumberOfDaysInMonth { get; set; }
         public int CurrentYear { get; set; }
         public int CurrentMonth { get; set; }
+        public IEnumerable<User> Managers { get; set; }
+        public int? UserId { get; set; }
+        public Dictionary<DateTime, List<User>> ShiftAssignments { get; set; } = new Dictionary<DateTime, List<User>>();
     }
 }
