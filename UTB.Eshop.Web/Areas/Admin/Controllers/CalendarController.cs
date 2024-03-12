@@ -79,6 +79,14 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index), new { year = redirectYear, month = redirectMonth });
         }
+        [HttpPost]
+        public async Task<IActionResult> DeleteShift(int id, int? year, int? month)
+        {
+            await _calendarAppService.DeleteShiftAsync(id);
+
+            // Redirect back to the calendar view with the appropriate year and month, if provided
+            return RedirectToAction(nameof(Index), new { year, month });
+        }
 
     }
 }

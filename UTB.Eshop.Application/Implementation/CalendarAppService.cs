@@ -95,37 +95,48 @@ namespace BistroWeb.Application.Implementation
         }
         public async Task<CalendarViewModel> GetCalendarViewModelAsync(int year, int month)
         {
+            // Assume existing logic to define the start and end of the month is here
             var firstDayOfMonth = new DateTime(year, month, 1);
             var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
 
-            // Get all shifts within the month
+            // Fetch shifts within the month
             var shifts = await _context.Shifts
                 .Where(s => s.StartDate >= firstDayOfMonth && s.EndDate <= lastDayOfMonth)
                 .ToListAsync();
 
-            // If you want to get Calendars as well, fetch them here similarly
-
             var viewModel = new CalendarViewModel
             {
+                // Initialize or set other properties of viewModel as needed
                 CurrentYear = year,
                 CurrentMonth = month,
-                NumberOfDaysInMonth = DateTime.DaysInMonth(year, month),
-                Shifts = shifts,
-                ShiftAssignments = new Dictionary<DateTime, List<User>>()
-                // Populate Calendars if you fetched them above
+                // Initialize ShiftAssignments as an empty dictionary
+                ShiftAssignments = new Dictionary<DateTime, List<ShiftAssignmentViewModel>>()
             };
+
+            // Transform shifts to ShiftAssignmentViewModels
             foreach (var shift in shifts)
             {
-                if (!viewModel.ShiftAssignments.ContainsKey(shift.StartDate))
+                var user = await _userManager.FindByIdAsync(shift.UserId.ToString());
+                if (user != null)
                 {
-                    viewModel.ShiftAssignments[shift.StartDate] = new List<User>();
+                    var assignment = new ShiftAssignmentViewModel
+                    {
+                        ShiftId = shift.Id,
+                        User = user
+                    };
+
+                    // Assuming you have a way to associate shifts with dates, e.g., using shift.StartDate
+                    if (!viewModel.ShiftAssignments.ContainsKey(shift.StartDate))
+                    {
+                        viewModel.ShiftAssignments[shift.StartDate] = new List<ShiftAssignmentViewModel>();
+                    }
+                    viewModel.ShiftAssignments[shift.StartDate].Add(assignment);
                 }
-                var user = await _userManager.FindByIdAsync(shift.UserId.ToString()); // Assuming UserId is not null
-                viewModel.ShiftAssignments[shift.StartDate].Add(user);
             }
 
             return viewModel;
         }
+
         public async Task<IEnumerable<User>> GetManagersAsync()
         {
             var users = await _userManager.GetUsersInRoleAsync("Manager");

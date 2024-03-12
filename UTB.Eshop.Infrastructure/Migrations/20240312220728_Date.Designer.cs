@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BistroWeb.Infrastructure.Migrations
 {
     [DbContext(typeof(EshopDbContext))]
-    [Migration("20240307155841_Product update")]
-    partial class Productupdate
+    [Migration("20240312220728_Date")]
+    partial class Date
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -224,6 +224,49 @@ namespace BistroWeb.Infrastructure.Migrations
                             Description = "Sth",
                             ImageSrc = "/img/brewery/Zichovec.png",
                             Name = "Zichovec"
+                        });
+                });
+
+            modelBuilder.Entity("BistroWeb.Domain.Entities.Calendar", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Calendars");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Description of Sample Calendar 1",
+                            EndDate = new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartDate = new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Sample Calendar 1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Description of Sample Calendar 2",
+                            EndDate = new DateTime(2024, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartDate = new DateTime(2024, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Sample Calendar 2"
                         });
                 });
 
@@ -996,6 +1039,9 @@ namespace BistroWeb.Infrastructure.Migrations
                         .HasMaxLength(90)
                         .HasColumnType("varchar(90)");
 
+                    b.Property<bool>("New")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<double>("Price")
                         .HasColumnType("double");
 
@@ -1020,6 +1066,7 @@ namespace BistroWeb.Infrastructure.Migrations
                             Description = "Testovací sada",
                             ImageSrc = "/img/products/produkty-01.jpg",
                             Name = "Test",
+                            New = false,
                             Price = 999.0,
                             TypeeId = 1
                         },
@@ -1031,9 +1078,56 @@ namespace BistroWeb.Infrastructure.Migrations
                             Description = "Cosik",
                             ImageSrc = "/img/products/produkty-01.jpg",
                             Name = "Testovacka",
+                            New = false,
                             Price = 10.0,
                             TypeeId = 2
                         });
+                });
+
+            modelBuilder.Entity("BistroWeb.Domain.Entities.Rating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int>("RatingValue")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Ratings");
+                });
+
+            modelBuilder.Entity("BistroWeb.Domain.Entities.Shift", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("UserId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Shifts");
                 });
 
             modelBuilder.Entity("BistroWeb.Domain.Entities.Tapped", b =>
@@ -1041,6 +1135,9 @@ namespace BistroWeb.Infrastructure.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int?>("BreweryId")
                         .IsRequired()
@@ -1075,6 +1172,7 @@ namespace BistroWeb.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
+                            Active = true,
                             BreweryId = 1,
                             Description = "Testovací sada",
                             MainPrice = 999.0,
@@ -1085,6 +1183,7 @@ namespace BistroWeb.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
+                            Active = true,
                             BreweryId = 2,
                             Description = "Cosik",
                             MainPrice = 10.0,
@@ -1429,6 +1528,28 @@ namespace BistroWeb.Infrastructure.Migrations
                     b.Navigation("Breweries");
 
                     b.Navigation("Typees");
+                });
+
+            modelBuilder.Entity("BistroWeb.Domain.Entities.Rating", b =>
+                {
+                    b.HasOne("BistroWeb.Domain.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("BistroWeb.Domain.Entities.Shift", b =>
+                {
+                    b.HasOne("BistroWeb.Infrastructure.Identity.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BistroWeb.Domain.Entities.Tapped", b =>

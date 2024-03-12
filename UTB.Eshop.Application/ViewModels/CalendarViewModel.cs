@@ -18,11 +18,12 @@ namespace BistroWeb.Application.ViewModels
         public int CurrentMonth { get; set; }
         public IEnumerable<User> Managers { get; set; }
         public int? UserId { get; set; }
-        public Dictionary<DateTime, List<User>> ShiftAssignments { get; set; } = new Dictionary<DateTime, List<User>>();
         public string CurrentUserId { get; set; }
         public int PreviousMonth { get; set; }
         public int PreviousMonthYear { get; set; }
         public int NextMonth { get; set; }
         public int NextMonthYear { get; set; }
+        public Dictionary<DateTime, List<ShiftAssignmentViewModel>> ShiftAssignments { get; set; } = new Dictionary<DateTime, List<ShiftAssignmentViewModel>>();
+
     }
 }
