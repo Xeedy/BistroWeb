@@ -24,6 +24,8 @@ namespace BistroWeb.Application.ViewModels
         public int NextMonth { get; set; }
         public int NextMonthYear { get; set; }
         public Dictionary<DateTime, List<ShiftAssignmentViewModel>> ShiftAssignments { get; set; } = new Dictionary<DateTime, List<ShiftAssignmentViewModel>>();
+        public int SelectedShiftId { get; set; }
+        public bool CurrentDateShiftAssigned { get; set; }
 
     }
 }

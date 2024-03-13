@@ -100,18 +100,29 @@
         </form>
 
         <!-- Delete Shift button -->
-        @foreach (var shiftAssignments in Model.ShiftAssignments.Values)
+        @foreach (var shiftAssignments in Model.ShiftAssignments)
         {
-            foreach (var assignment in shiftAssignments)
+            foreach (var shiftAssignment in shiftAssignments.Value)
             {
-                <form method="post" action="@Url.Action("DeleteShift")">
-                    <input type="hidden" name="id" value="@assignment.ShiftId" />
-                    <input type="hidden" name="year" value="@Model.CurrentYear" />
-                    <input type="hidden" name="month" value="@Model.CurrentMonth" />
-                    <button type="submit" class="delete-shift-button" onclick="return confirm('Are you sure you want to delete this shift?');">Delete Shift</button>
-                </form>
+                // Ensure that currentDay is defined within this loop
+                var currentDay = shiftAssignments.Key;
+
+                // Only generate delete button for the shift associated with the current cell
+                if (currentDay.Date == currentDay.Date)
+                {
+                    <form method="post" action="@Url.Action("DeleteShift")">
+                        <input type="hidden" name="id" value="@shiftAssignment.ShiftId" />
+                        <input type="hidden" name="year" value="@Model.CurrentYear" />
+                        <input type="hidden" name="month" value="@Model.CurrentMonth" />
+                        <button type="submit" class="delete-shift-button" onclick="return confirm('Are you sure you want to delete this shift?');">Delete Shift</button>
+                    </form>
+                }
             }
         }
+
+
+
+
     </div>
 </div>
 @section Styles {

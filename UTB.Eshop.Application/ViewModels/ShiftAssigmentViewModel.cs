@@ -11,5 +11,6 @@ namespace BistroWeb.Application.ViewModels
     {
         public int ShiftId { get; set; }
         public User User { get; set; }
+        public DateTime Date { get; set; } // Adding Date property
     }
 }
