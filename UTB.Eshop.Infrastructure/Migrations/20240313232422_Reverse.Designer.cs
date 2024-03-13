@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BistroWeb.Infrastructure.Migrations
 {
     [DbContext(typeof(EshopDbContext))]
-    [Migration("20240312220728_Date")]
-    partial class Date
+    [Migration("20240313232422_Reverse")]
+    partial class Reverse
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

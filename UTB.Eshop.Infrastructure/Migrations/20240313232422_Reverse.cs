@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BistroWeb.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Date : Migration
+    public partial class Reverse : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

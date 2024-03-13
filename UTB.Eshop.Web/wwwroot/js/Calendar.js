@@ -6,6 +6,7 @@
     let lastActiveCell = null;
     const assignShiftContainer = document.getElementById("assignShiftContainer");
     const selectedDateInput = document.getElementById('selectedDate');
+    const deleteShiftIdInput = document.getElementById('deleteShiftId');
 
     function clearActiveState() {
         dayCells.forEach((c) => {
@@ -40,10 +41,11 @@
 
                     const assignedUserNameElement = this.querySelector('.user-name');
                     if (assignedUserNameElement) {
-                        document.getElementById('assignedUserName').textContent = assignedUserNameElement.textContent;
-                        document.getElementById('assignedUserInfo').style.display = 'block';
+                        const assignedShiftId = assignedUserNameElement.getAttribute('data-shift-id');
+                        deleteShiftIdInput.value = assignedShiftId; // Store shift ID for deletion
+                        document.getElementById('deleteShiftContainer').style.display = 'block'; // Show the delete button
                     } else {
-                        document.getElementById('assignedUserInfo').style.display = 'none';
+                        document.getElementById('deleteShiftContainer').style.display = 'none'; // Hide the delete button if no shift is assigned
                     }
 
                     assignShiftContainer.classList.add("active");
@@ -55,27 +57,14 @@
 
                 const assignedUserNameElement = this.querySelector('.user-name');
                 if (assignedUserNameElement) {
+                    // Retrieve the stored shift ID
                     const assignedShiftId = assignedUserNameElement.getAttribute('data-shift-id');
                     const deleteConfirmed = confirm('Are you sure you want to delete the assigned shift for this day?');
                     if (deleteConfirmed) {
-                        // Send a request to delete the shift with the assignedShiftId
-                        fetch(`/Calendar/DeleteShift?id=${assignedShiftId}`, {
-                            method: 'POST'
-                        })
-                            .then(response => {
-                                if (response.ok) {
-                                    // Shift deleted successfully
-                                    this.removeChild(assignedUserNameElement); // Remove assigned user name from cell
-                                    alert('Shift deleted successfully.');
-                                } else {
-                                    // Error deleting shift
-                                    alert('Error deleting shift.');
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error deleting shift:', error);
-                                alert('Error deleting shift.');
-                            });
+                        // Use the retrieved shift ID to populate the hidden input in the delete form
+                        document.getElementById('deleteShiftId').value = assignedShiftId;
+                        // Submit the delete form
+                        document.getElementById('deleteShiftForm').submit();
                     }
                 }
             });
