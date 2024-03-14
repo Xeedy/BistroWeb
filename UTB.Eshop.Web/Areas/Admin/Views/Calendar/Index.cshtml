@@ -82,7 +82,7 @@
     <!-- Roll-up container for assigning shifts -->
     <div id="assignShiftContainer" class="assign-shift-container">
         <h2>Vyber datum</h2>
-        <form asp-action="AssignShift" method="post">
+        <form id="assignShiftForm" asp-action="AssignShift" method="post" style="display:none;">
             <h2>Kdo zabere směnu?</h2>
             <input type="hidden" id="selectedDate" name="Date" value="" />
             <input type="hidden" name="year" value="@Model.CurrentYear" />
@@ -106,7 +106,7 @@
                 <input type="hidden" id="deleteShiftId" name="id" value="" />
                 <input type="hidden" name="year" value="@Model.CurrentYear" />
                 <input type="hidden" name="month" value="@Model.CurrentMonth" />
-                <button type="submit" class="delete-shift-button" onclick="return confirm('Are you sure you want to delete this shift?');">Delete Shift</button>
+                <button type="submit" class="delete-shift-button" onclick="return confirm('Opravdu si přejete smazat směnu?');">Delete Shift</button>
             </form>
         </div>
 

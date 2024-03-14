@@ -12,6 +12,7 @@
         dayCells.forEach((c) => {
             c.classList.remove('active-day');
         });
+        document.getElementById('assignShiftForm').style.display = 'none';
         assignShiftContainer.classList.remove("active");
         if (lastActiveCell) {
             lastActiveCell.classList.remove('active-day');
@@ -25,8 +26,8 @@
         if (cellDate >= today) {
             cell.addEventListener('click', function () {
                 clearActiveState();
-
-                const overwriteConfirmed = this.querySelector('.user-name') ? confirm('A shift is already assigned for this day. Do you really want to overwrite the existing shift?') : true;
+                document.getElementById('assignShiftForm').style.display = 'block';
+                const overwriteConfirmed = this.querySelector('.user-name') ? confirm('Směna je obsazená jiným uživatelem. Opravdu si přejete změnit směnu?') : true;
 
                 if (overwriteConfirmed) {
                     this.classList.add('active-day');
@@ -37,7 +38,7 @@
 
                     const dateObj = new Date(date);
                     const formattedDate = new Intl.DateTimeFormat('cs-CZ', { day: 'numeric', month: 'long', year: 'numeric' }).format(dateObj);
-                    assignShiftContainer.querySelector('h2').textContent = `Select date: ${formattedDate}`;
+                    assignShiftContainer.querySelector('h2').textContent = `${formattedDate}`;
 
                     const assignedUserNameElement = this.querySelector('.user-name');
                     if (assignedUserNameElement) {
