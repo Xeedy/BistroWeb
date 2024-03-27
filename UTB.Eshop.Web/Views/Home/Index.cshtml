@@ -31,20 +31,26 @@
         <!-- Column for text -->
         <div class="col-md-8 order-md-1">
             <div class="beercontainer">
-                <h1>O nás</h1>
+                <h1>Vítejte v naší pivotéce</h1>
                 <p>
-                    Pivotéka a Bistro Stars Hollow - duchovní oáza (nejen) pivních fajnšmekrů!
+                    Ne nadarmo s říká o Stars Hollow že je duchovní oáza (nejen) pivních fajnšmekrů!
                     Myšlenkovou předlohou našeho bistra je oblíbené Lukovo bistro z ještě oblíbenějšího seriálu Gilmorova děvčata.
-                    V rozporu s dobou a se vší pokorou a pečlivostí bdíme nad tím, aby forma neměla navrch před obsahem. Nemíníme se Vám proto podbízet okázalými designovými, gastronomickými ani žádnými jinými trendy a věcmi, které by ve Vás mohly vyvolat pocit, že jste a jsme lepší nebo horší, než ve skutečnosti jste a jsme.
-                    Jsme obyčejné místo, kde se schází různé generace, různé honorace, popíci i metly, flinkové i floutci, oni i ony, Brandonové i Dony, milující i milovaní, malí i velcí….výškou i vědomím….ale ať už se cítíte blbě nebo dobře, tak věřte, že zde bude vždy ještě minimálně o stupeň lépe….někdy i o 11 stupňů z Humpolce!
-                    Jsme totiž obyčejné místo - s pečlivě vybranou, krásnou hudbou, nekonvenční nabídkou, osobitou atmosférou a věčně zamračenou obsluhou - prostě ostrůvek úsměvně švihlé pohody v moři každodenní uspěchanosti!
+                    V rozporu s dobou, se vší pokorou a pečlivostí bdíme nad tím, aby forma neměla navrch před obsahem. 
+                    Nemíníme se Vám proto podbízet okázalými designovými, gastronomickými ani žádnými jinými trendy a věcmi, které by ve Vás mohly vyvolat pocit, 
+                    že jste a jsme lepší nebo horší, než ve skutečnosti jste a jsme.
+                    Jsme obyčejné místo, kde se schází různé generace, různé honorace, popíci i metly, flinkové i floutci, oni i ony, Brandonové i Dony, 
+                    milující i milovaní, malí i velcí….výškou i vědomím….ale ať už se cítíte blbě nebo dobře, 
+                    tak věřte, že zde bude vždy ještě minimálně o stupeň lépe….někdy i o 11 stupňů z Humpolce!
+
+                    Jsme totiž obyčejné místo - s pečlivě vybranou, krásnou hudbou, nekonvenční nabídkou, osobitou atmosférou a věčně zamračenou obsluhou - 
+                    prostě ostrůvek úsměvně švihlé pohody v moři každodenní uspěchanosti!
                 </p>
             </div>
         </div>
         <!-- Column for Facebook widget -->
         <div class="col-md-4 order-md-0">
             <div class="facebook-container">
-                <div class="fb-page" data-href="https://www.facebook.com/bistroStarsHollow" data-show-posts="true" data-width="500" data-height="500" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                <div class="fb-page" data-href="https://www.facebook.com/bistroStarsHollow" data-show-posts="true" data-width="350" data-height="500" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
                     <blockquote cite="https://www.facebook.com/bistroStarsHollow" class="fb-xfbml-parse-ignore">
                         <a href="https://www.facebook.com/bistroStarsHollow">Pivotéka a Bistro Stars Hollow</a>
                     </blockquote>
@@ -62,6 +68,12 @@
     {
     <!-- Include Card.css -->
     <link rel="stylesheet" href="~/css/Index.css" asp-append-version="true" />
+    <style>
+        .facebook-container {
+            max-width: 100%; /* Set maximum width to 100% of its parent container */
+            overflow-x: hidden; /* Hide horizontal overflow */
+        }
+    </style>
 }
 @section Scripts {
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/cs_CZ/sdk.js#xfbml=1&version=v19.0" nonce="m5EPqYPG"></script>

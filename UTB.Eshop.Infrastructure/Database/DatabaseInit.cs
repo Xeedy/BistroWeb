@@ -1050,8 +1050,6 @@ namespace BistroWeb.Infrastructure.Database
         }
 
 
-        //for Identity tables
-
 
         public List<Role> CreateRoles()
         {

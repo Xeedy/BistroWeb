@@ -12,6 +12,8 @@ namespace BistroWeb.Application.ViewModels
     {
         public IList<Carousel> Carousels { get; set; }
         public List<Product> Products { get; set; } = new List<Product>();
+        public List<Tapped> Tapeeds { get; set; }
+
         public IList<Brewery> Brewery { get; set; }
         [Required(ErrorMessage = "Please select a brewery")]
         public int SelectedBreweryId { get; set; }
