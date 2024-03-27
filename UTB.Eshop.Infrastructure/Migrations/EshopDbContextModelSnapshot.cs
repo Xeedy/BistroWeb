@@ -283,26 +283,32 @@ namespace BistroWeb.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Carousel");
+                    b.ToTable("Carousels");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             ImageAlt = "First slide",
-                            ImageSrc = "/img/carousel/information-technology-specialist.jpg"
+                            ImageSrc = "/img/carousel/Bistro_1.jpg"
                         },
                         new
                         {
                             Id = 2,
                             ImageAlt = "Second slide",
-                            ImageSrc = "/img/carousel/Information-Technology-1-1.jpg"
+                            ImageSrc = "/img/carousel/Bistro_2.jpg"
                         },
                         new
                         {
                             Id = 3,
                             ImageAlt = "Third slide",
-                            ImageSrc = "/img/carousel/itec-index-banner.jpg"
+                            ImageSrc = "/img/carousel/Bistro_3.jpg"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ImageAlt = "Third slide",
+                            ImageSrc = "/img/carousel/Bistro_4.jpg"
                         });
                 });
 

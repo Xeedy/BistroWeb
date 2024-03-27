@@ -28,13 +28,52 @@
     display: block;
     margin-bottom: 20px;
 }
-
-.rating-button {
-    margin: 0 2px;
+.star-button {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
 }
 
-.rated {
-    background-color: #007bff !important; /* Bootstrap primary color */
-    color: white !important;
+    .star-button.rated {
+        color: #ffc107; /* Gold color for rated stars */
+    }
+
+    .star-button.not-rated {
+        color: #ddd; /* Light grey for not-rated stars */
+    }
+
+.rated-products-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.rated-product {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.rating-value {
+    font-size: 18px;
+    color: #ffc107; /* Gold color for the star */
+    margin-right: 10px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.star-rating {
+    margin-left: 5px;
+    color: #ffc107; /* Gold color for the star */
+}
+
+.product-name {
+    font-size: 16px;
+    color: #333; /* Dark grey color for text */
+}
+
+/* Optional: Add a hover effect to the rated product items */
+.rated-product:hover {
+    background-color: #f8f8f8; /* Light grey background on hover */
 }
 

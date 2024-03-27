@@ -6,31 +6,36 @@
 }
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
                     <h2>Můj profil</h2>
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-4"><strong>Přezdívka:</strong></div>
-                        <div class="col-sm-8">@Model.UserName</div>
+                        <div class="col">
+                            <strong>Přezdívka:</strong> @Model.UserName
+                        </div>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-sm-4"><strong>Jméno</strong></div>
-                        <div class="col-sm-8">@Model.FirstName</div>
+                    <div class="row">
+                        <div class="col">
+                            <strong>Jméno:</strong> @Model.FirstName
+                        </div>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-sm-4"><strong>Přijímení</strong></div>
-                        <div class="col-sm-8">@Model.LastName</div>
+                    <div class="row">
+                        <div class="col">
+                            <strong>Přijímení:</strong> @Model.LastName
+                        </div>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-sm-4"><strong>Email:</strong></div>
-                        <div class="col-sm-8">@Model.Email</div>
+                    <div class="row">
+                        <div class="col">
+                            <strong>Email:</strong> @Model.Email
+                        </div>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-sm-4"><strong>Telefon:</strong></div>
-                        <div class="col-sm-8">@Model.PhoneNumber</div>
+                    <div class="row">
+                        <div class="col">
+                            <strong>Telefon:</strong> @Model.PhoneNumber
+                        </div>
                     </div>
                     <div class="text-center mt-4">
                         <a class="btn btn-primary" asp-controller="Account" asp-action="ChangePassword">Změnit heslo</a>
@@ -38,8 +43,36 @@
                 </div>
             </div>
         </div>
+        <!-- Second column (blank) -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Oceněné piva</h2>
+                </div>
+                <div class="card-body">
+                    @if (Model.Rated != null && Model.Rated.Any())
+                    {
+                        <ul class="rated-products-list">
+                            @foreach (var rating in Model.Rated)
+                            {
+                                <li class="rated-product">
+                                    <span class="rating-value">@rating.RatingValue</span> -
+                                    <span class="product-name">@rating.Product.Name</span>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>You have not rated any products yet.</p>
+                    }
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
 @if (isManager)
 {
     <div class="container mt-5">
@@ -69,5 +102,10 @@
             </div>
         </div>
     </div>
+}
+@section Styles
+    {
+    <link rel="stylesheet" href="~/css/CreateBrewery.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Profile.css" asp-append-version="true" />
 }
 

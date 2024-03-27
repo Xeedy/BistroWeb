@@ -32,7 +32,8 @@ namespace BistroWeb.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            CarouselProductViewModel viewModel = _homeService.GetIndexViewModel();
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

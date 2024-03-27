@@ -97,6 +97,17 @@ namespace Portal.Web.Areas.Security.Controllers
                 return NotFound();
             }
 
+            var upcomingShifts = await _eshopDbContext.Shifts
+                .Where(s => s.UserId == user.Id && s.StartDate >= DateTime.Today)
+                .OrderBy(s => s.StartDate)
+                .ToListAsync();
+
+            var ratings = await _eshopDbContext.Ratings
+                .Where(r => r.UserId == user.Id)
+                .Include(r => r.Product) // Include the product details
+                .OrderByDescending(r => r.RatingValue) // Order by rating value descending
+                .ToListAsync();
+
             var model = new UserProfileViewModel
             {
                 UserName = user.UserName,
@@ -104,19 +115,13 @@ namespace Portal.Web.Areas.Security.Controllers
                 LastName = user.LastName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
-                UpcomingShifts = await _eshopDbContext.Shifts
-                    .Where(s => s.UserId == user.Id && s.StartDate >= DateTime.Today) // Use user.Id for filtering
-                    .OrderBy(s => s.StartDate)
-                    .ToListAsync()
+                UpcomingShifts = upcomingShifts,
+                Rated = ratings // This is directly assigning the list of Ratings to the model
             };
 
             return View(model);
         }
-        [HttpGet]
-        public async Task<IActionResult> ChangePassword()
-        {
-            return View();
-        }
+
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {

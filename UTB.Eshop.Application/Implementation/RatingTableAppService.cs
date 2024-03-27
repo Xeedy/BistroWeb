@@ -132,7 +132,19 @@ namespace BistroWeb.Application.Implementation
             var product = _eshopDbContext.Products.FirstOrDefault(p => p.Id == productId);
             return product?.Name ?? "Unknown"; // If the product is null, return "Unknown"
         }
+        // In your IRatingTableAppService interface
+
+        // Implementation in RatingTableAppService
+        public async Task<List<Rating>> GetRatingsByUserIdAsync(string userId)
+        {
+            return await _eshopDbContext.Ratings
+                .Where(r => r.UserId.ToString() == userId) // Adjust according to your UserId type
+                .Include(r => r.Product) // Assuming you have a navigation property to Product
+                .ToListAsync();
+        }
     }
+   
+
 
 
 }

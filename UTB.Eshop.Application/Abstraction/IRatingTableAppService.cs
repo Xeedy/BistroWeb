@@ -16,5 +16,6 @@ namespace BistroWeb.Application.Abstraction
         Task<double> GetAverageRatingForProductAsync(int productId);
         Task<List<Rating>> GetRatingsAsync();
         string GetProductNameById(int productId);
+        Task<List<Rating>> GetRatingsByUserIdAsync(string userId);
     }
 }

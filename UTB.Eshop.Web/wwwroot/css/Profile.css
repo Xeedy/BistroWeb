@@ -1,0 +1,35 @@
+﻿.rated-products-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.rated-product {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 8px;
+}
+
+.rating-value {
+    font-weight: bold;
+    color: #555;
+    margin-right: 10px;
+}
+
+.product-name {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Style the list numbers */
+.rated-products-list li:before {
+    content: counter(item) ". ";
+    counter-increment: item;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Initialize the counter */
+.rated-products-list {
+    counter-reset: item;
+}

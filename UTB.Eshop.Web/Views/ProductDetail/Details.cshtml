@@ -40,20 +40,18 @@
                     <div class="rating-buttons">
                         @for (int i = 1; i <= 5; i++)
                         {
-                            <form id="ratingForm_@i" method="post" action="@Url.Action("RateProduct", "ProductDetail")" class="d-inline">
+                            <form id="ratingForm_@i" method="post" action="@Url.Action("RateProduct", "ProductDetail")" class="d-inline rating-form">
                                 <input type="hidden" name="productId" value="@Model.Product.Id" />
                                 <input type="hidden" name="ratingValue" value="@i" />
-                                <button type="submit" class="btn btn-outline-primary rating-button @(Model.UserRating == i ? "rated" : "")">@i</button>
+                                <button type="submit" class="star-button @(Model.UserRating >= i ? "rated" : "not-rated")" aria-label="Rate @i out of 5">
+                                    @Html.Raw("&#9733;")
+                                </button>
                             </form>
                         }
                     </div>
+
+
                 }
-                <div class="col-md-6">
-                    <!-- Other product details -->
-                    <h4>Pivní paráda:</h4>
-                    <p>@Model.AverageRating.ToString("F2")</p> <!-- Display the average rating value -->
-                    <!-- Other product details -->
-                </div>
                 <br />
                 <a class="btn btn-primary" href="@Url.Action("Lahve", "Home")">Zpět na lahváče</a>
             </div>
@@ -86,5 +84,9 @@
                 });
             });
         });
+    </script>
+}
+
+
     </script>
 }

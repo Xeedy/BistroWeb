@@ -11,6 +11,7 @@ namespace BistroWeb.Infrastructure.Database
     public class EshopDbContext : IdentityDbContext<User, Role, int>
     {
         public DbSet<Product> Products { get; set; }
+        public DbSet<Carousel> Carousels { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Brewery> Breweries { get; set; }
         public DbSet<Missing> Missings { get; set; }

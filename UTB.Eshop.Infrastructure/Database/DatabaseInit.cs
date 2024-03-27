@@ -1022,21 +1022,27 @@ namespace BistroWeb.Infrastructure.Database
             carousels.Add(new Carousel()
             {
                 Id = 1,
-                ImageSrc = "/img/carousel/information-technology-specialist.jpg",
+                ImageSrc = "/img/carousel/Bistro_1.jpg",
                 ImageAlt = "First slide"
             });
 
             carousels.Add(new Carousel()
             {
                 Id = 2,
-                ImageSrc = "/img/carousel/Information-Technology-1-1.jpg",
+                ImageSrc = "/img/carousel/Bistro_2.jpg",
                 ImageAlt = "Second slide"
             });
 
             carousels.Add(new Carousel()
             {
                 Id = 3,
-                ImageSrc = "/img/carousel/itec-index-banner.jpg",
+                ImageSrc = "/img/carousel/Bistro_3.jpg",
+                ImageAlt = "Third slide"
+            });
+            carousels.Add(new Carousel()
+            {
+                Id = 4,
+                ImageSrc = "/img/carousel/Bistro_4.jpg",
                 ImageAlt = "Third slide"
             });
 
