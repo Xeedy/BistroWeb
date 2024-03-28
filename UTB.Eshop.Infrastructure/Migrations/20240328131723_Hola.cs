@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BistroWeb.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Reverse : Migration
+    public partial class Hola : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -114,7 +114,7 @@ namespace BistroWeb.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Carousel",
+                name: "Carousels",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -126,7 +126,7 @@ namespace BistroWeb.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Carousel", x => x.Id);
+                    table.PrimaryKey("PK_Carousels", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -482,13 +482,14 @@ namespace BistroWeb.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Carousel",
+                table: "Carousels",
                 columns: new[] { "Id", "ImageAlt", "ImageSrc" },
                 values: new object[,]
                 {
-                    { 1, "First slide", "/img/carousel/information-technology-specialist.jpg" },
-                    { 2, "Second slide", "/img/carousel/Information-Technology-1-1.jpg" },
-                    { 3, "Third slide", "/img/carousel/itec-index-banner.jpg" }
+                    { 1, "First slide", "/img/carousel/Bistro_1.jpg" },
+                    { 2, "Second slide", "/img/carousel/Bistro_2.jpg" },
+                    { 3, "Third slide", "/img/carousel/Bistro_3.jpg" },
+                    { 4, "Third slide", "/img/carousel/Bistro_4.jpg" }
                 });
 
             migrationBuilder.InsertData(
@@ -716,7 +717,7 @@ namespace BistroWeb.Infrastructure.Migrations
                 name: "Calendars");
 
             migrationBuilder.DropTable(
-                name: "Carousel");
+                name: "Carousels");
 
             migrationBuilder.DropTable(
                 name: "Items");

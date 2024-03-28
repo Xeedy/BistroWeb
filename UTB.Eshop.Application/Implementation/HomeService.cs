@@ -16,14 +16,22 @@ namespace BistroWeb.Application.Implementation
         public CarouselProductViewModel GetIndexViewModel()
         {
             CarouselProductViewModel viewModel = new CarouselProductViewModel();
-            viewModel.Products = _eshopDbContext.Products.ToList();
+            viewModel.Products = _eshopDbContext.Products.Include(p => p.Breweries).Include(p => p.Typees).ToList();
             viewModel.Brewery = _eshopDbContext.Breweries.ToList();
             viewModel.Carousels = _eshopDbContext.Carousels.ToList();
+            viewModel.Tapeeds = _eshopDbContext.Tappeds.Include(p => p.Breweries).Include(p => p.Typees).ToList();
+            viewModel.Typee = _eshopDbContext.Typees.ToList();
             return viewModel;
         }
         public IEnumerable<Product> GetProducts()
         {
             return _eshopDbContext.Products.Include(p => p.Breweries).ToList();
+        }
+        public IEnumerable<Tapped> GetTappeds()
+        {
+            return _eshopDbContext.Tappeds.Include(p => p.Breweries).ToList();
+            return _eshopDbContext.Tappeds.Include(p => p.Typees).ToList();
+
         }
         public MenuItemViewModel GetIndexViewModel2()
         {

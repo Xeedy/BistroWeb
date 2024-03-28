@@ -36,7 +36,7 @@
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-start">
                 @foreach (var product in Model.Where(p => p.Active))
                 {
-                    <div class="col mb-5 breweryItem" data-brewery="@product.Breweries?.Name" data-new="@product.New.ToString().ToLower()">
+                    <div class="col mb-5 breweryItem" data-brewery="@product.Breweries?.Name" data-typee = "@product.Typees?.Name" data-new="@product.New.ToString().ToLower()">
                         <div class="product-card h-100">
                             <!-- "New" badge -->
                             @if (product.New)
@@ -52,6 +52,7 @@
                                     <p>@product.Price CZK</p>
                                     <!-- Display brewery name -->
                                     <p class="fw-bolder brewery">@product.Breweries?.Name</p>
+                                    <p class="fw-bolder typee">@product.Typees?.Name</p>
                                 </div>
                             </div>
                             <!-- Product actions -->

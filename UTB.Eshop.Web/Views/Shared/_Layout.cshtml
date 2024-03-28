@@ -85,9 +85,11 @@
                                         }
                                         @if (User.IsInRole(nameof(Roles.Manager)))
                                         {
+                                            <!--
                                             <li class="nav-item">
                                                 <a class="nav-link text-dark" asp-area="Admin" asp-controller="Missing" asp-action="Index">Chybějící položky</a>
                                             </li>
+                                            -->
                                             <li class="nav-item">
                                                 <a class="nav-link text-dark" asp-area="Admin" asp-controller="Calendar" asp-action="Index">Šichtovnice</a>
                                             </li>

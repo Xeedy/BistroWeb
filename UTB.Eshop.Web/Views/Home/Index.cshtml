@@ -59,6 +59,39 @@
         </div>
     </div>
 </div>
+<div class="container mt-5">
+    <div class="row">
+        @if (Model.Tapeeds != null && Model.Tapeeds.Any())
+        {
+            @foreach (var tapped in Model.Tapeeds.Where(p => p.Active))
+            {
+                <div class="col-md-3 mb-4">
+                    <div class="card">
+                        <!-- Card content -->
+                        <div class="card-body">
+                            <img class="img-fluid brewery-image" src="@tapped.Breweries.ImageSrc" alt="Brewery Image" style="max-width: 200px; height: auto;" />
+                            <!-- Card title -->
+                            <h5 class="card-title">@tapped.Name</h5>
+                            <!-- Beer Price -->
+                            <p class="card-text">0,5l: @tapped.MainPrice,-</p>
+                            <p class="card-text">0,3l: @tapped.OtherPrice,-</p>
+                            <!-- Brewery -->
+                            <p class="card-text">Pivovar: @tapped.Breweries.Name</p>
+                            <!-- Type of beer -->
+                            <p class="card-text">Typ: @tapped.Typees.Name</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-md-12">
+                <p>No tapped beers available</p>
+            </div>
+        }
+    </div>
+</div>
 
 
 
@@ -72,6 +105,11 @@
         .facebook-container {
             max-width: 100%; /* Set maximum width to 100% of its parent container */
             overflow-x: hidden; /* Hide horizontal overflow */
+        }
+
+        .small-image {
+            max-width: 200px;
+            height: auto;
         }
     </style>
 }
