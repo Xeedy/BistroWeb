@@ -49,12 +49,15 @@ footer {
     margin-top: auto;
 }
 
-    footer h4 {
-        font-size: 18px;
-        text-transform: capitalize;
-        margin-bottom: 15px;
-        position: relative;
-    }
+    footer h4:before {
+            content: '';
+            position: absolute;
+            height: 2px;
+            width: 40px;
+            left: 0;
+            bottom: -5px;
+            background-color: orange;
+        }
 
         footer h4:before {
             content: '';
