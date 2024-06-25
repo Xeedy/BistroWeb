@@ -303,12 +303,6 @@ namespace BistroWeb.Infrastructure.Migrations
                             Id = 3,
                             ImageAlt = "Third slide",
                             ImageSrc = "/img/carousel/Bistro_3.jpg"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ImageAlt = "Third slide",
-                            ImageSrc = "/img/carousel/Bistro_4.jpg"
                         });
                 });
 

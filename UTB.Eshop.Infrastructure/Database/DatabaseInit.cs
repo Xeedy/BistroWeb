@@ -1039,12 +1039,6 @@ namespace BistroWeb.Infrastructure.Database
                 ImageSrc = "/img/carousel/Bistro_3.jpg",
                 ImageAlt = "Third slide"
             });
-            carousels.Add(new Carousel()
-            {
-                Id = 4,
-                ImageSrc = "/img/carousel/Bistro_4.jpg",
-                ImageAlt = "Third slide"
-            });
 
             return carousels;
         }

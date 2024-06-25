@@ -133,11 +133,26 @@
         </nav>
     </header>
 
+    <!-- Container-fluid for carousel -->
+    @if (ViewBag.ShowCarousel ?? false)
+    {
+        <div class="container-fluid px-0">
+            <!-- Added px-0 to remove default padding -->
+            @RenderSection("Carousel", required: false)
+        </div>
+    }
+    else
+    {
+        @RenderSection("Carousel", required: false)
+    }
+
+    <!-- Main content area -->
     <div class="container body-section flex-grow-2">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
+
     <footer class="text-light bg-dark">
         <div class="container py-4">
             <div class="row">

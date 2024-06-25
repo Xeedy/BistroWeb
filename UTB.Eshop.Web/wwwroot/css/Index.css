@@ -1,5 +1,14 @@
 ﻿.beercontainer {
 }
+#carouselExampleControls {
+    margin: 0;
+    padding: 0;
+}
+
+.carousel-inner {
+    margin: 0;
+    padding: 0;
+}
 
 /* Repeat for other elements, defining and using new variables */
 .wtextcontainer{
