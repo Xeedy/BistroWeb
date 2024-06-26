@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\Lahve.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\js\Lahve.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\UTB.Eshop.Application\BistroWeb.Application.csproj" />
     <ProjectReference Include="..\UTB.Eshop.Domain\BistroWeb.Domain.csproj" />
     <ProjectReference Include="..\UTB.Eshop.Infrastructure\BistroWeb.Infrastructure.csproj" />
@@ -21,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\js\Lahve.js" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map" />

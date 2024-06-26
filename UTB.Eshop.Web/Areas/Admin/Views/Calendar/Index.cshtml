@@ -21,6 +21,10 @@
     }
 
     var firstDayOfMonth = new DateTime(currentYear, currentMonth, 1);
+    while (firstDayOfMonth.DayOfWeek != DayOfWeek.Monday)
+    {
+        firstDayOfMonth = firstDayOfMonth.AddDays(-1);
+    }
     var daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth);
 }
 <div class="main-container">
@@ -35,13 +39,13 @@
         <table class="calendar-table">
             <thead>
                 <tr>
-                    <th>Ne</th>
                     <th>Po</th>
                     <th>Út</th>
                     <th>St</th>
                     <th>Čt</th>
                     <th>Pá</th>
                     <th>So</th>
+                    <th>Ne</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,7 +54,7 @@
                     <tr>
                         @for (int j = 0; j < 7; j++)
                         {
-                            var currentDay = firstDayOfMonth.AddDays(i * 7 + j - (int)firstDayOfMonth.DayOfWeek);
+                            var currentDay = firstDayOfMonth.AddDays(i * 7 + j);
                             if (currentDay.Month == currentMonth && currentDay.Year == currentYear)
                             {
                                 var dayClass = currentDay < DateTime.Today ? "past-day" :
@@ -109,11 +113,6 @@
                 <button type="submit" class="delete-shift-button" onclick="return confirm('Opravdu si přejete smazat směnu?');">Smazat směnu</button>
             </form>
         </div>
-
-
-
-
-
     </div>
 </div>
 @section Styles {

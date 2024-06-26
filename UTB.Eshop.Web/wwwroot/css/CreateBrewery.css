@@ -50,4 +50,35 @@ body, html {
         display: none;
     }
 }
+.no-min-width {
+    min-width: auto; /* or another value that suits your layout */
+}
+
+.navbar-nav .nav-link,
+.navbar-text,
+.navbar-brand {
+    color: white;
+}
+
+    .navbar-nav .nav-link:hover {
+        color: orange !important;
+    }
+
+.logo-img {
+    filter: invert(1);
+    width: 100px;
+    height: auto;
+}
+
+.navbar-toggler {
+    background-color: white !important;
+}
+
+.dropdown-item-custom {
+    color: blue !important;
+}
+
+    .dropdown-item-custom:hover {
+        color: red !important;
+    }
 

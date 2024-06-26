@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Product>
+﻿@model IEnumerable<BistroWeb.Domain.Entities.Product>
 
 @{
     ViewData["Title"] = "Administrace produktů";
@@ -6,49 +6,219 @@
 
 <h1 style="color: white;">@ViewData["Title"]</h1>
 <div class="custom-form-container">
-<a class="btn btn-success" asp-action="Create">Přidat pivo</a>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Název</th>
-                <th>Cena</th>
-                <th class="hide-on-mobile">Popisek</th>
-                <th>Pivovar</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var product in Model)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(model => product.Name)</td>
-                    <td>@Html.DisplayFor(model => product.Price)</td>
-                    <td class="hide-on-mobile">@Html.DisplayFor(model => product.Description)</td>
-                    <td>@Html.DisplayFor(model => product.Breweries.Name)</td>
-                    <td colspan="2" style="text-align: right;">
-                        <div class="dropdown">
-                            <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@product.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
-                            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@product.Id">
-                                <li>
-                                    <a class="dropdown-item" href="@Url.Action("Edit", new { id = product.Id })">Editovat</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="@Url.Action("Delete", new { id = product.Id })" onclick="return ConfirmDelete();">Smazat</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <a class="btn btn-success" asp-action="Create">Přidat pivo</a>
+    <ul class="nav nav-tabs" id="myUniqueTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-content" type="button" role="tab" aria-controls="all" aria-selected="true">Všechny produkty</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="active-tab" data-bs-toggle="tab" data-bs-target="#active-content" type="button" role="tab" aria-controls="active" aria-selected="false">Aktivní produkty</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="inactive-tab" data-bs-toggle="tab" data-bs-target="#inactive-content" type="button" role="tab" aria-controls="inactive" aria-selected="false">Neaktivní produkty</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="new-tab" data-bs-toggle="tab" data-bs-target="#new-content" type="button" role="tab" aria-controls="new" aria-selected="false">Nové produkty</button>
+        </li>
+    </ul>
+    
+    <div class="tab-content" id="myUniqueTabContent">
+        <div class="tab-pane fade show active" id="all-content" role="tabpanel" aria-labelledby="all-tab">
+            <form id="searchFormAll">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Vyhledat produkt..." id="searchInputAll">
+                    <button class="btn btn-outline-secondary" type="button" id="clearSearchAll">Vymazat filtr</button>
+                    <button class="btn btn-outline-secondary" type="button" id="searchButtonAll">Hledat</button>
+                </div>
+            </form>
+            <div id="noResultsAll" class="alert alert-info" style="display: none;">
+                Žádné položky nebyly nalezeny.
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Název</th>
+                        <th>Cena</th>
+                        <th class="hide-on-mobile">Pivovar</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(model => product.Name)</td>
+                            <td>@Html.DisplayFor(model => product.Price)</td>
+                            <td class="hide-on-mobile">@Html.DisplayFor(model => product.Breweries.Name)</td>
+                            <td colspan="2" style="text-align: right;">
+                                <div class="dropdown">
+                                    <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@product.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+                                    <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@product.Id">
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Edit", new { id = product.Id })">Editovat</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Delete", new { id = product.Id })" onclick="return ConfirmDelete();">Smazat</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- Active products -->
+        <div class="tab-pane fade" id="active-content" role="tabpanel" aria-labelledby="active-tab">
+            <form id="searchFormActive">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Vyhledat produkt..." id="searchInputActive">
+                    <button class="btn btn-outline-secondary" type="button" id="clearSearchActive">Vymazat filtr</button>
+                    <button class="btn btn-outline-secondary" type="button" id="searchButtonActive">Hledat</button>
+                </div>
+            </form>
+            <div id="noResultsActive" class="alert alert-info" style="display: none;">
+                Žádné položky nebyly nalezeny.
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Název</th>
+                        <th>Cena</th>
+                        <th class="hide-on-mobile">Pivovar</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.Where(p => p.Active))
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(model => product.Name)</td>
+                            <td>@Html.DisplayFor(model => product.Price)</td>
+                            <td class="hide-on-mobile">@Html.DisplayFor(model => product.Breweries.Name)</td>
+                            <td colspan="2" style="text-align: right;">
+                                <div class="dropdown">
+                                    <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@product.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+                                    <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@product.Id">
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Edit", new { id = product.Id })">Editovat</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Delete", new { id = product.Id })" onclick="return ConfirmDelete();">Smazat</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="inactive-content" role="tabpanel" aria-labelledby="inactive-tab">
+            <form id="searchFormInactive">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Vyhledat produkt..." id="searchInputInactive">
+                    <button class="btn btn-outline-secondary" type="button" id="clearSearchInactive">Vymazat filtr</button>
+                    <button class="btn btn-outline-secondary" type="button" id="searchButtonInactive">Hledat</button>
+                </div>
+            </form>
+            <div id="noResultsInactive" class="alert alert-info" style="display: none;">
+                Žádné položky nebyly nalezeny.
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Název</th>
+                        <th>Cena</th>
+                        <th class="hide-on-mobile">Pivovar</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.Where(p => !p.Active))
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(model => product.Name)</td>
+                            <td>@Html.DisplayFor(model => product.Price)</td>
+                            <td class="hide-on-mobile">@Html.DisplayFor(model => product.Breweries.Name)</td>
+                            <td colspan="2" style="text-align: right;">
+                                <div class="dropdown">
+                                    <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@product.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+                                    <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@product.Id">
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Edit", new { id = product.Id })">Editovat</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Delete", new { id = product.Id })" onclick="return ConfirmDelete();">Smazat</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tab-pane fade" id="new-content" role="tabpanel" aria-labelledby="new-tab">
+            <form id="searchFormNew">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Vyhledat produkt..." id="searchInputNew">
+                    <button class="btn btn-outline-secondary" type="button" id="clearSearchNew">Vymazat filtr</button>
+                    <button class="btn btn-outline-secondary" type="button" id="searchButtonNew">Hledat</button>
+                </div>
+            </form>
+            <div id="noResultsNew" class="alert alert-info" style="display: none;">
+                Žádné položky nebyly nalezeny.
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Název</th>
+                        <th>Cena</th>
+                        <th class="hide-on-mobile">Pivovar</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.Where(p => p.New))
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(model => product.Name)</td>
+                            <td>@Html.DisplayFor(model => product.Price)</td>
+                            <td class="hide-on-mobile">@Html.DisplayFor(model => product.Breweries.Name)</td>
+                            <td colspan="2" style="text-align: right;">
+                                <div class="dropdown">
+                                    <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@product.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+                                    <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@product.Id">
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Edit", new { id = product.Id })">Editovat</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Delete", new { id = product.Id })" onclick="return ConfirmDelete();">Smazat</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
 @section Styles
     {
     <link rel="stylesheet" href="~/css/CreateBrewery.css" asp-append-version="true" />
 }
+
 @section Scripts
     {
+    <script src="~/js/Lahve.js"></script>
     <script src="~/js/dialogs.js"></script>
 }
