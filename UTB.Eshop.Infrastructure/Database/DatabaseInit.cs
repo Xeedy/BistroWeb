@@ -307,8 +307,9 @@ namespace BistroWeb.Infrastructure.Database
                     Description = "Testovací sada",
                     Price = 999,
                     New = false,
+                    Active = true,
                     ImageSrc = "/img/products/produkty-01.jpg"
-                }); 
+                });
 
                 products.Add(new Product
                 {
@@ -319,9 +320,345 @@ namespace BistroWeb.Infrastructure.Database
                     Description = "Cosik",
                     Price = 10,
                     New = false,
+                    Active = true,
                     ImageSrc = "/img/products/produkty-01.jpg"
                 });
-
+                products.Add(new Product
+                {
+                    Id = 3,
+                    Name = "Testovacka1",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 4,
+                    Name = "Testovacka2",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 5,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 6,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 7,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 8,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 9,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 10,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 11,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 12,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 13,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 14,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 15,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 16,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 17,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 18,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 19,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 20,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 21,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 22,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 23,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 24,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 25,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 26,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 27,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 28,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 29,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
+                products.Add(new Product
+                {
+                    Id = 30,
+                    Name = "Testovacka",
+                    BreweryId = breweries[1].Id,  // Use the actual Id of the second Brewery
+                    TypeeId = typees[1].Id,
+                    Description = "Cosik",
+                    Price = 10,
+                    New = false,
+                    Active = true,
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                });
                 return products;
             }
             else
@@ -1023,21 +1360,27 @@ namespace BistroWeb.Infrastructure.Database
             {
                 Id = 1,
                 ImageSrc = "/img/carousel/Bistro_1.jpg",
-                ImageAlt = "First slide"
+                ImageAlt = "First slide",
+                CaptionTitle = "Ahoj",
+                CaptionText = "Ahoj2"
             });
 
             carousels.Add(new Carousel()
             {
                 Id = 2,
                 ImageSrc = "/img/carousel/Bistro_2.jpg",
-                ImageAlt = "Second slide"
+                ImageAlt = "Second slide",
+                CaptionTitle = "Ahoj",
+                CaptionText = "Ahoj2"
             });
 
             carousels.Add(new Carousel()
             {
                 Id = 3,
                 ImageSrc = "/img/carousel/Bistro_3.jpg",
-                ImageAlt = "Third slide"
+                ImageAlt = "Third slide",
+                CaptionTitle = "Ahoj",
+                CaptionText = "Ahoj2"
             });
 
             return carousels;

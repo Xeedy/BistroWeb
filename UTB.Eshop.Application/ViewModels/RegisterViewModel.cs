@@ -24,7 +24,7 @@ namespace BistroWeb.Application.ViewModels
         public string? Password { get; set; }
 
         [Required]
-        [Compare(nameof(Password), ErrorMessage = "Passwords don't match!")]
+        [Compare(nameof(Password), ErrorMessage = "Hesla se neshodují")]
         public string? RepeatedPassword { get; set; }
     }
 }

@@ -2,57 +2,108 @@
 
 @{
     ViewData["Title"] = "Síň slávy";
+
+    // Deklarujeme topBeers před použitím
+    var topBeers = Model
+        .Where(x => x.AverageRating > 0.00) // Vyloučíme piva s hodnocením 0,00
+        .OrderByDescending(x => x.AverageRating) // Seřadíme podle hodnocení
+        .Take(3) // Vezmeme top 3
+        .ToList();
+
+    var otherBeers = Model
+        .Where(x => x.AverageRating > 0.00 && !topBeers.Contains(x)) // Vyloučíme piva s hodnocením 0,00 a top 3
+        .OrderByDescending(x => x.AverageRating) // Seřadíme podle hodnocení
+        .ToList();
 }
-<h1 style="color: white;">@ViewData["Title"]</h1>
-<div class="custom-form-container">
-    @{
-        if (Model != null && Model.Any())
+<h1 class="page-title">@ViewData["Title"]</h1>
+<div class="ratingcontainer">
+    <div class="row justify-content-center">
+        @if (topBeers.Any())
         {
-            var sortedModel = Model.OrderByDescending(x => x.AverageRating).Where(x => x.AverageRating != 0.00);
-            if (sortedModel.Any())
-            {
-                <div class="row">
-                    <div class="col-md-6">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Hodnocení</th>
-                                    <th>Název</th>
-                                    <th>Pivovar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var brewery in sortedModel)
-                                {
-                                    <tr>
-                                        <td>@brewery.AverageRating.ToString("F2")</td>
-                                        <td>@brewery.Product.Name</td>
-                                        <td>@brewery.Product.Breweries?.Name</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-md-6">
-                        <!-- Blank column -->
-                    </div>
+            <div class="col-md-3 text-center rank-2 clickable-card" data-href="@Url.Action("Details", "ProductDetail", new { id = topBeers[1].Product.Id })">
+                <img src="@topBeers[1].Product.ImageSrc" class="winner-image" alt="@topBeers[1].Product.Name" />
+                <div class="winner-info">
+                    <h5 class="winner-title">@topBeers[1].Product.Name</h5>
+                    <p class="winner-brewer">@topBeers[1].Product.Breweries?.Name</p>
+                    <span class="score">@topBeers[1].AverageRating.ToString("F2")</span>
+                    <span class="rank">#2</span>
                 </div>
-            }
-            else
-            {
-                <p>No records found.</p>
-            }
+            </div>
+            <div class="col-md-4 text-center rank-1 clickable-card" data-href="@Url.Action("Details", "ProductDetail", new { id = topBeers[0].Product.Id })">
+                <img src="@topBeers[0].Product.ImageSrc" class="winner-image" alt="@topBeers[0].Product.Name" />
+                <div class="winner-info">
+                    <h5 class="winner-title">@topBeers[0].Product.Name</h5>
+                    <p class="winner-brewer">@topBeers[0].Product.Breweries?.Name</p>
+                    <span class="score">@topBeers[0].AverageRating.ToString("F2")</span>
+                    <span class="rank">#1</span>
+                </div>
+            </div>
+            <div class="col-md-3 text-center rank-3 clickable-card" data-href="@Url.Action("Details", "ProductDetail", new { id = topBeers[2].Product.Id })">
+                <img src="@topBeers[2].Product.ImageSrc" class="winner-image" alt="@topBeers[2].Product.Name" />
+                <div class="winner-info">
+                    <h5 class="winner-title">@topBeers[2].Product.Name</h5>
+                    <p class="winner-brewer">@topBeers[2].Product.Breweries?.Name</p>
+                    <span class="score">@topBeers[2].AverageRating.ToString("F2")</span>
+                    <span class="rank">#3</span>
+                </div>
+            </div>
         }
-        else
-        {
-            <p>No records found.</p>
-        }
-    }
+    </div>
+
+
+    <!-- Other Beers Section -->
+    <div class="row other-beers-list">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Pozice</th>
+                        <th scope="col">Název</th>
+                        <th scope="col" class="hide-on-mobile">Pivovar</th>
+                        <th scope="col">Hod.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < otherBeers.Count; i++)
+                    {
+                        var beer = otherBeers[i];
+                        <tr class="clickable-row" data-href="@Url.Action("Details", "ProductDetail", new { id = beer.Product.Id })">
+                            <td>@(i + 4).</td> <!-- Začínáme na pozici 4, protože top 3 už jsou zobrazena -->
+                            <td>@beer.Product.Name</td>
+                            <td class="hide-on-mobile">@beer.Product.Breweries?.Name</td>
+                            <td class="star">@beer.AverageRating.ToString("F2")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
+
+
 @section Styles
     {
-    <link rel="stylesheet" href="~/css/CreateBrewery.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Rating.css" asp-append-version="true" />
 }
 @section Scripts
     {
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            var rows = document.querySelectorAll(".clickable-row");
+            rows.forEach(function (row) {
+                row.addEventListener("click", function () {
+                    window.location = this.getAttribute("data-href");
+                });
+            });
+            // Clickable cards for top 3 beers
+            var cards = document.querySelectorAll(".clickable-card");
+            cards.forEach(function (card) {
+                card.addEventListener("click", function () {
+                    window.location = this.getAttribute("data-href");
+                });
+            });
+        });
+    </script>
 }
+

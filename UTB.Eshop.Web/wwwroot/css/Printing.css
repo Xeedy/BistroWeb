@@ -1,0 +1,35 @@
+﻿/* Tiskové styly */
+.printcontainer {
+    display: block;
+    width: 100%;
+    flex: 2; /* This will allow the container to grow */
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin-right: 10px; /* Add a little space between the columns */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+@media print {
+    header, footer, .navbar, .container-fluid {
+        display: none; /* Skryje hlavičku, patičku a další prvky layoutu při tisku */
+    }
+
+    .printcontainer {
+        display: block;
+        width: 100%;
+    }
+    .printcontainer {
+        display: block;
+        width: 100%;
+        flex: 2; /* This will allow the container to grow */
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 20px;
+        margin-right: 10px; /* Add a little space between the columns */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+}

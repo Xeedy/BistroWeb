@@ -118,8 +118,5 @@ namespace BistroWeb.Web.Areas.Admin.Controllers
             LoadTypees(); // Ensure that breweries are loaded for the view
             return View(model);
         }
-
-
-
     }
 }

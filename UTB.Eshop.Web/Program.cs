@@ -5,6 +5,7 @@ using BistroWeb.Infrastructure.Database;
 using Microsoft.AspNetCore.Identity;
 using BistroWeb.Infrastructure.Identity;
 using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,9 @@ CultureInfo.DefaultThreadCurrentCulture = cultInfo;
 CultureInfo.DefaultThreadCurrentUICulture = cultInfo;
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddViewLocalization()
+    .AddDataAnnotationsLocalization();
 
 string connectionString = builder.Configuration.GetConnectionString("MySQL");
 ServerVersion serverVersion = new MySqlServerVersion("8.2.0");
@@ -83,6 +86,12 @@ builder.Services.AddScoped<IRatingTableAppService, RatingTableAppService>();
 builder.Services.AddScoped<IHomeService, HomeService>();
 
 var app = builder.Build();
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("cs-CZ"),
+    SupportedCultures = new[] { cultInfo },
+    SupportedUICultures = new[] { cultInfo }
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

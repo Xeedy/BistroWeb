@@ -26,6 +26,6 @@ namespace BistroWeb.Domain.Entities
         [FileContent("image")]
         public IFormFile? Image { get; set; }
         [JsonIgnore]
-        public ICollection<Product>? Products { get; set; }
+        public virtual ICollection<Product>? Products { get; set; }
     }
 }

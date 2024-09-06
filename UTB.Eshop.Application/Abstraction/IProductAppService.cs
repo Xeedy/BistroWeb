@@ -14,5 +14,6 @@ namespace BistroWeb.Application.Abstraction
         bool Delete(int id);
         Task Edit(Product editedProduct);
         Product GetProductById(int id);
+        IList<Product> GetActiveProducts();
     }
 }

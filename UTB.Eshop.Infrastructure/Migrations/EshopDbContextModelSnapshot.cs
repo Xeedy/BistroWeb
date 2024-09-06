@@ -273,6 +273,14 @@ namespace BistroWeb.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("CaptionText")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CaptionTitle")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("ImageAlt")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -289,18 +297,24 @@ namespace BistroWeb.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
+                            CaptionText = "Ahoj2",
+                            CaptionTitle = "Ahoj",
                             ImageAlt = "First slide",
                             ImageSrc = "/img/carousel/Bistro_1.jpg"
                         },
                         new
                         {
                             Id = 2,
+                            CaptionText = "Ahoj2",
+                            CaptionTitle = "Ahoj",
                             ImageAlt = "Second slide",
                             ImageSrc = "/img/carousel/Bistro_2.jpg"
                         },
                         new
                         {
                             Id = 3,
+                            CaptionText = "Ahoj2",
+                            CaptionTitle = "Ahoj",
                             ImageAlt = "Third slide",
                             ImageSrc = "/img/carousel/Bistro_3.jpg"
                         });
@@ -1058,7 +1072,7 @@ namespace BistroWeb.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Active = false,
+                            Active = true,
                             BreweryId = 1,
                             Description = "Testovací sada",
                             ImageSrc = "/img/products/produkty-01.jpg",
@@ -1070,7 +1084,343 @@ namespace BistroWeb.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            Active = false,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka1",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka2",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Active = true,
+                            BreweryId = 2,
+                            Description = "Cosik",
+                            ImageSrc = "/img/products/produkty-01.jpg",
+                            Name = "Testovacka",
+                            New = false,
+                            Price = 10.0,
+                            TypeeId = 2
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Active = true,
                             BreweryId = 2,
                             Description = "Cosik",
                             ImageSrc = "/img/products/produkty-01.jpg",

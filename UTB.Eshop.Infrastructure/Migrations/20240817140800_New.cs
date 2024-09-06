@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BistroWeb.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Hola : Migration
+    public partial class New : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -122,6 +122,10 @@ namespace BistroWeb.Infrastructure.Migrations
                     ImageSrc = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ImageAlt = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CaptionTitle = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CaptionText = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -483,13 +487,12 @@ namespace BistroWeb.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Carousels",
-                columns: new[] { "Id", "ImageAlt", "ImageSrc" },
+                columns: new[] { "Id", "CaptionText", "CaptionTitle", "ImageAlt", "ImageSrc" },
                 values: new object[,]
                 {
-                    { 1, "First slide", "/img/carousel/Bistro_1.jpg" },
-                    { 2, "Second slide", "/img/carousel/Bistro_2.jpg" },
-                    { 3, "Third slide", "/img/carousel/Bistro_3.jpg" },
-                    { 4, "Third slide", "/img/carousel/Bistro_4.jpg" }
+                    { 1, "Ahoj2", "Ahoj", "First slide", "/img/carousel/Bistro_1.jpg" },
+                    { 2, "Ahoj2", "Ahoj", "Second slide", "/img/carousel/Bistro_2.jpg" },
+                    { 3, "Ahoj2", "Ahoj", "Third slide", "/img/carousel/Bistro_3.jpg" }
                 });
 
             migrationBuilder.InsertData(
@@ -614,8 +617,36 @@ namespace BistroWeb.Infrastructure.Migrations
                 columns: new[] { "Id", "Active", "BreweryId", "Description", "ImageSrc", "Name", "New", "Price", "TypeeId" },
                 values: new object[,]
                 {
-                    { 1, false, 1, "Testovací sada", "/img/products/produkty-01.jpg", "Test", false, 999.0, 1 },
-                    { 2, false, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 }
+                    { 1, true, 1, "Testovací sada", "/img/products/produkty-01.jpg", "Test", false, 999.0, 1 },
+                    { 2, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 3, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka1", false, 10.0, 2 },
+                    { 4, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka2", false, 10.0, 2 },
+                    { 5, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 6, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 7, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 8, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 9, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 10, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 11, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 12, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 13, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 14, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 15, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 16, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 17, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 18, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 19, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 20, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 21, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 22, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 23, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 24, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 25, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 26, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 27, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 28, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 29, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 },
+                    { 30, true, 2, "Cosik", "/img/products/produkty-01.jpg", "Testovacka", false, 10.0, 2 }
                 });
 
             migrationBuilder.InsertData(

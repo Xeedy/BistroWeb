@@ -5,9 +5,12 @@
 }
 
 <h1 style="color: white;">@ViewData["Title"]</h1>
+<a href="@Url.Action("Print", "Print")" class="btn btn-primary">Stáhnout produkty jako Word dokument</a>
+
+
+
 <div class="custom-form-container">
     <div id="breweryFilterContainer" class="brewery-filter-container">
-        <label>Zvolte pivovar:</label><br />
         @{
             // Assuming "Zobrazit vše" is always displayed.
             <button class="brewery-filter-button active" data-value="">Zobrazit vše</button>
@@ -70,13 +73,17 @@
     </section>
 </div>
 @section Styles
-    {
-    <!-- Include Card.css -->
+{
     <link rel="stylesheet" href="~/css/Card.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/CreateBrewery.css" asp-append-version="true" />
 }
 
+
 @section Scripts
-    {
+{
     <script src="~/js/Filter.js" asp-append-version="true"></script>
+    <script>
+
+    </script>
 }
+

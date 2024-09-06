@@ -10,5 +10,8 @@ namespace BistroWeb.Domain.Entities
     {
         public string ImageSrc { get; set; }
         public string ImageAlt { get; set; }
+        public string CaptionTitle { get; set; }
+        public string CaptionText { get; set; }
     }
 }
+

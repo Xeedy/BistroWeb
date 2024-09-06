@@ -91,6 +91,15 @@ namespace BistroWeb.Application.Implementation
                 await _eshopDbContext.SaveChangesAsync();
             }
         }
+        public IList<Product> GetActiveProducts()
+        {
+            return _eshopDbContext.Products
+                .Include(p => p.Breweries)
+                .Include(p => p.Typees)
+                .Where(p => p.Active)
+                .ToList();
+        }
+
     }
 
 

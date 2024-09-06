@@ -1,115 +1,299 @@
 ﻿@using BistroWeb.Application.ViewModels
 @model IList<UserListViewModel>
+
 @{
     ViewData["Title"] = "Správa uživatelů";
 }
 
 <h1 style="color: white;">@ViewData["Title"]</h1>
 <div class="custom-form-container">
-    <h2>Admin Users</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Username</th>
-                <!-- Add more columns as needed -->
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in Model.Where(u => u.Roles.Contains("Admin")))
-            {
-                <tr>
-                    <td>@user.UserName</td>
-                    <td colspan="2" style="text-align: right;">
-                        <div class="dropdown">
-                            <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@user.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
-                            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@user.Id">
-                                <li>
-                                    <a class="dropdown-item" href="@Url.Action("Edit", new { id = user.Id })">Editovat</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#" onclick="confirmDelete('@user.Id', '@user.UserName')">Smazat</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <a class="btn btn-success" asp-action="Create">Přidat uživatele</a>
+    <ul class="nav nav-tabs" id="userTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="all-users-tab" data-bs-toggle="tab" data-bs-target="#all-users-content" type="button" role="tab" aria-controls="all-users" aria-selected="true">Všichni uživatelé</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="admin-users-tab" data-bs-toggle="tab" data-bs-target="#admin-users-content" type="button" role="tab" aria-controls="admin-users" aria-selected="false">Admin uživatelé</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="manager-users-tab" data-bs-toggle="tab" data-bs-target="#manager-users-content" type="button" role="tab" aria-controls="manager-users" aria-selected="false">Manažer uživatelé</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="customer-users-tab" data-bs-toggle="tab" data-bs-target="#customer-users-content" type="button" role="tab" aria-controls="customer-users" aria-selected="false">Zákazníci</button>
+        </li>
+    </ul>
 
-    <h2>Manager Users</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Username</th>
-                <!-- Add more columns as needed -->
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in Model.Where(u => u.Roles.Contains("Manager")))
-            {
-                <tr>
-                    <td>@user.UserName</td>
-                    <td colspan="2" style="text-align: right;">
-                        <div class="dropdown">
-                            <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@user.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
-                            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@user.Id">
-                                <li>
-                                    <a class="dropdown-item" href="@Url.Action("Edit", new { id = user.Id })">Editovat</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#" onclick="confirmDelete('@user.Id', '@user.UserName')">Smazat</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="tab-content" id="userTabsContent">
+        <!-- All Users Tab -->
+        <div class="tab-pane fade show active" id="all-users-content" role="tabpanel" aria-labelledby="all-users-tab">
+            <!-- Search input for All Users -->
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="searchInputAllUsers" placeholder="Vyhledat uživatele...">
+                <button class="btn btn-outline-secondary" type="button" id="searchButtonAllUsers">Hledat</button>
+                <button class="btn btn-outline-secondary" type="button" id="clearSearchAllUsers">Vymazat</button>
+            </div>
+            <div id="noResultsAllUsers" class="alert alert-info" style="display: none;">
+                    Žádné položky nebyly nalezeny.
+            </div>
+            <!-- Content for All Users -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Přezdívka</th>
+                        <th>Role</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="all-users-tbody">
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@user.UserName</td>
+                            <td>@string.Join(", ", user.Roles)</td>
+                            <td colspan="2" style="text-align: right;">
+                                <div class="dropdown">
+                                    <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@user.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+                                    <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@user.Id">
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Edit", new { id = user.Id })">Editovat</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#" onclick="confirmDelete('@user.Id', '@user.UserName')">Smazat</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
-    <h2>Customer Users</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Username</th>
-                <!-- Add more columns as needed -->
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in Model.Where(u => u.Roles.Contains("Customer")))
-            {
-                <tr>
-                    <td>@user.UserName</td>
-                    <td colspan="2" style="text-align: right;">
-                        <div class="dropdown">
-                            <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@user.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
-                            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@user.Id">
-                                <li>
-                                    <a class="dropdown-item" href="@Url.Action("Edit", new { id = user.Id })">Editovat</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#" onclick="confirmDelete('@user.Id', '@user.UserName')">Smazat</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        <!-- Admin Users Tab -->
+        <div class="tab-pane fade" id="admin-users-content" role="tabpanel" aria-labelledby="admin-users-tab">
+            <!-- Search input for Admin Users -->
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="searchInputAdminUsers" placeholder="Vyhledat admin uživatele...">
+                <button class="btn btn-outline-secondary" type="button" id="searchButtonAdminUsers">Hledat</button>
+                <button class="btn btn-outline-secondary" type="button" id="clearSearchAdminUsers">Vymazat</button>
+            </div>
+            <div id="noResultsAdminUsers" class="alert alert-info" style="display: none;">
+                Žádné položky nebyly nalezeny.
+            </div>
+            <!-- Content for Admin Users -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Přezdívka</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="admin-users-tbody">
+                    @foreach (var user in Model.Where(u => u.Roles.Contains("Admin")))
+                    {
+                        <tr>
+                            <td>@user.UserName</td>
+                            <td colspan="2" style="text-align: right;">
+                                <div class="dropdown">
+                                    <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@user.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+                                    <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@user.Id">
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Edit", new { id = user.Id })">Editovat</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#" onclick="confirmDelete('@user.Id', '@user.UserName')">Smazat</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Manager Users Tab -->
+        <div class="tab-pane fade" id="manager-users-content" role="tabpanel" aria-labelledby="manager-users-tab">
+            <!-- Search input for Manager Users -->
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="searchInputManagerUsers" placeholder="Vyhledat manažer uživatele...">
+                <button class="btn btn-outline-secondary" type="button" id="searchButtonManagerUsers">Hledat</button>
+                <button class="btn btn-outline-secondary" type="button" id="clearSearchManagerUsers">Vymazat</button>
+            </div>
+            <div id="noResultsManagerUsers" class="alert alert-info" style="display: none;">
+                    Žádné položky nebyly nalezeny.
+            </div>
+            <!-- Content for Manager Users -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Přezdívka</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="manager-users-tbody">
+                    @foreach (var user in Model.Where(u => u.Roles.Contains("Manager")))
+                    {
+                        <tr>
+                            <td>@user.UserName</td>
+                            <td colspan="2" style="text-align: right;">
+                                <div class="dropdown">
+                                    <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@user.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+                                    <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@user.Id">
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Edit", new { id = user.Id })">Editovat</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#" onclick="confirmDelete('@user.Id', '@user.UserName')">Smazat</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Customer Users Tab -->
+        <div class="tab-pane fade" id="customer-users-content" role="tabpanel" aria-labelledby="customer-users-tab">
+            <!-- Search input for Customer Users -->
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="searchInputCustomerUsers" placeholder="Vyhledat zákazníky...">
+                <button class="btn btn-outline-secondary" type="button" id="searchButtonCustomerUsers">Hledat</button>
+                <button class="btn btn-outline-secondary" type="button" id="clearSearchCustomerUsers">Vymazat</button>
+            </div>
+            <div id="noResultsCustomerUsers" class="alert alert-info" style="display: none;">
+                    Žádné položky nebyly nalezeny.
+            </div>
+            <!-- Content for Customer Users -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Přezdívka</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="customer-users-tbody">
+                    @foreach (var user in Model.Where(u => u.Roles.Contains("Customer")))
+                    {
+                        <tr>
+                            <td>@user.UserName</td>
+                            <td colspan="2" style="text-align: right;">
+                                <div class="dropdown">
+                                    <i class="bi bi-three-dots-vertical dropdown-toggle" id="dropdownMenuButton_@user.Id" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+                                    <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton_@user.Id">
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Edit", new { id = user.Id })">Editovat</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#" onclick="confirmDelete('@user.Id', '@user.UserName')">Smazat</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
 @section Styles
     {
     <link rel="stylesheet" href="~/css/CreateBrewery.css" asp-append-version="true" />
 }
+
 @section Scripts
     {
     <script>
-        function confirmDelete(id, username) {
-            if (confirm(`Do you really want to delete user ${username}?`)) {
-                window.location.href = `@Url.Action("Delete", "Accounts")?id=${id}`;
-            }
-        }
+        document.addEventListener("DOMContentLoaded", function () {
+                function filterUsers(inputId, tbodyId, noResultsId) {
+                    const input = document.getElementById(inputId);
+                    const tableBody = document.getElementById(tbodyId);
+                    const noResults = document.getElementById(noResultsId);
+
+                    // Ensure elements exist before adding event listeners
+                    if (!input || !tableBody || !noResults) return;
+
+                    const rows = tableBody.getElementsByTagName("tr");
+
+                    input.addEventListener("input", function () {
+                        const filter = input.value.toLowerCase();
+                        let hasResults = false;
+
+                        for (let i = 0; i < rows.length; i++) {
+                            const cells = rows[i].getElementsByTagName("td");
+                            const nicknameCell = cells[0];
+
+                            if (nicknameCell) {
+                                const nickname = nicknameCell.innerText.toLowerCase();
+                                if (nickname.includes(filter)) {
+                                    rows[i].style.display = "";
+                                    hasResults = true;
+                                } else {
+                                    rows[i].style.display = "none";
+                                }
+                            }
+                        }
+
+                        // Show or hide the "no results" message
+                        noResults.style.display = hasResults ? "none" : "block";
+                    });
+
+                    const clearButton = document.getElementById("clearSearch" + inputId);
+                    if (clearButton) {
+                        clearButton.addEventListener("click", function () {
+                            input.value = "";
+                            input.dispatchEvent(new Event("input"));
+                        });
+                    }
+                }
+
+                function setupFilters() {
+                    // Setup filters for all tabs
+                    filterUsers("searchInputAllUsers", "all-users-tbody", "noResultsAllUsers");
+                    filterUsers("searchInputAdminUsers", "admin-users-tbody", "noResultsAdminUsers");
+                    filterUsers("searchInputManagerUsers", "manager-users-tbody", "noResultsManagerUsers");
+                    filterUsers("searchInputCustomerUsers", "customer-users-tbody", "noResultsCustomerUsers");
+                }
+
+                function applyFiltersToActiveTab() {
+                    const activeTabId = document.querySelector('.tab-pane.active')?.id;
+
+                    if (!activeTabId) return;
+
+                    const filters = {
+                        "all-users-content": ["searchInputAllUsers", "all-users-tbody", "noResultsAllUsers"],
+                        "admin-users-content": ["searchInputAdminUsers", "admin-users-tbody", "noResultsAdminUsers"],
+                        "manager-users-content": ["searchInputManagerUsers", "manager-users-tbody", "noResultsManagerUsers"],
+                        "customer-users-content": ["searchInputCustomerUsers", "customer-users-tbody", "noResultsCustomerUsers"]
+                    };
+
+                    for (const [tabId, [inputId, tbodyId, noResultsId]] of Object.entries(filters)) {
+                        if (tabId === activeTabId) {
+                            filterUsers(inputId, tbodyId, noResultsId);
+                        }
+                    }
+                }
+
+                // Initialize filters
+                setupFilters();
+                applyFiltersToActiveTab();
+
+                // Event listener for tab change
+                document.querySelectorAll('.nav-link').forEach(tab => {
+                    tab.addEventListener('shown.bs.tab', function () {
+                        applyFiltersToActiveTab();
+                    });
+                });
+            });
     </script>
-    }
+}
+
+

@@ -30,6 +30,12 @@ namespace Portal.Web.Areas.Security.Controllers
         {
             return View();
         }
+        [Authorize]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel registerVM)

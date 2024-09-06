@@ -13,10 +13,13 @@ body, html {
     position: relative;
     min-height: 100%;
     min-width: 100%;
+    user-select: none; /* Zabrání výbìru textu */
+    -webkit-user-select: none; /* Pro Safari */
+    -moz-user-select: none; /* Pro starší Firefox */
+    -ms-user-select: none; /* Pro starší IE/Edge */
 }
-/* Specific section where 100% width is not desired */
 .no-min-width {
-    min-width: auto; /* or another value that suits your layout */
+    min-width: auto;
 }
 
 .navbar-nav .nav-link,
@@ -28,7 +31,9 @@ body, html {
     .navbar-nav .nav-link:hover {
         color: orange !important;
     }
-
+.navbar {
+    margin-bottom: 0 !important;
+}
 .logo-img {
     filter: invert(1);
     width: 100px;
@@ -132,4 +137,13 @@ footer {
     font-size: 5px;
     margin: 0;
     text-align: center;
+}
+.facebook-container {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.small-image {
+    max-width: 200px;
+    height: auto;
 }

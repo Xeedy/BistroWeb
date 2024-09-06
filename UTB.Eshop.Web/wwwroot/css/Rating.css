@@ -1,0 +1,324 @@
+﻿/* Styling for the page title */
+.page-title {
+    font-size: 3rem; /* Zvětšení velikosti textu */
+    background: linear-gradient(45deg, #f39c12, #f1c40f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    position: relative;
+    animation: fadeIn 2s ease-in-out;
+    /* Textový stín pro efekt hloubky */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Animace nástupu */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Container styling */
+.ratingcontainer {
+    padding: 0px;
+    border-radius: 15px;
+}
+
+/* Podium design for winners */
+.winner-image {
+    width: 100%; /* Upravíme šířku na 100% šířky kontejneru */
+    height: auto; /* Automatická výška pro udržení poměru stran */
+    object-fit: contain; /* Zachování poměru stran */
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Kartička pro první místo */
+.rank-1 {
+    background-color: #1c2533;
+    border-radius: 10px;
+    padding: 30px;
+    margin: 0 20px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: auto;
+}
+
+/* Kartičky pro druhé a třetí místo - menší výška a zarovnání dolů */
+.rank-2, .rank-3 {
+    background-color: #1c2533;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 0 20px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 70%; /* Snížená výška oproti první kartičce */
+    margin-top: auto; /* Posunutí dolů, aby byly zarovnány se spodní linií rank-1 */
+}
+
+/* Textové informace - zarovnání na spodní část */
+.winner-info {
+    text-align: center;
+    width: 100%;
+}
+
+.winner-title {
+    font-size: 1.75rem;
+    margin-bottom: 5px;
+}
+
+.winner-brewer {
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+}
+
+/* Hodnocení vlevo, rank vpravo */
+.score, .rank {
+    display: inline-block;
+    font-size: 1rem;
+    color: #ddd;
+    width: 45%;
+}
+
+.score {
+    text-align: left;
+}
+
+.rank {
+    text-align: right;
+}
+
+.score::after {
+    content: "⭐";
+    margin-right: 5px;
+    color: #ffc107; /* Zlatá barva pro hvězdičku */
+}
+
+/* Responzivní přizpůsobení */
+@media (max-width: 768px) {
+    .winner-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .winner-info h5 {
+        font-size: 1.25rem;
+    }
+
+    .winner-info p {
+        font-size: 1.1rem;
+    }
+
+    .score, .rank {
+        font-size: 1rem;
+    }
+
+    .rank-1, .rank-2, .rank-3 {
+        padding: 20px;
+    }
+    .hide-on-mobile {
+        display: none;
+    }
+    .row.justify-content-center {
+        align-items: center;
+    }
+
+    .rank-1 {
+        order: 1;
+        margin-bottom: 15px; /* Přidání mezery pod kartičku */
+    }
+
+    .rank-2 {
+        order: 2;
+        margin-bottom: 15px; /* Přidání mezery pod kartičku */
+    }
+
+    .rank-3 {
+        order: 3;
+    }
+    .table {
+        width: 100%;
+    }
+}
+
+/* Other beers styles */
+.table {
+    margin-top: 20px;
+    background-color: #1c2533;
+    color: #fff;
+    border-radius: 10px;
+    width: 91%;
+    border-collapse: collapse; /* Zajistí kompaktní tabulku */
+    margin-inline: auto;
+}
+
+    .table thead th {
+        border-bottom: 2px solid #444;
+        color: #fff;
+        text-align: left;
+        padding: 10px;
+    }
+    .table tbody tr:last-child {
+        border-bottom: none; /* Odstraní spodní čáru u poslední položky */
+    }
+    .table td {
+        padding: 10px;
+        color: #fff;
+        text-align: left;
+        white-space: nowrap; /* Zabrání zalamování textu */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+        .table td:nth-child(1) {
+            width: 7%; /* Zvětšená šířka pro název */
+        }
+        .table td:nth-child(2) {
+            width: 40%; /* Zvětšená šířka pro název */
+        }
+
+        .table td:nth-child(3) {
+            width: 35%; /* Užší šířka pro pivovar */
+        }
+
+        .table td:nth-child(4) {
+            width: 2%; /* Šířka pro hodnocení */
+            text-align: left;
+        }
+
+        .table td.star {
+            text-align: right;
+            padding-right: 10px;
+            position: relative;
+
+        }
+
+            .table td.star::after {
+                content: "⭐";
+                color: #ffc107; /* Zlatá barva pro hvězdičku */
+                margin-left: 5px;
+            }
+    .table tbody tr:last-child td {
+        border-bottom: none; /* Odstraní spodní čáru u poslední buňky */
+    }
+.clickable-row {
+    cursor: pointer;
+}
+
+    .clickable-row:hover {
+        background-color: #2a3d55;
+    }
+
+.clickable-row {
+    cursor: pointer;
+}
+
+    .clickable-row:hover {
+        background-color: #2a3d55;
+    }
+.clickable-card {
+    cursor: pointer;
+}
+
+    .clickable-card:hover {
+        background-color: #2a3d55;
+        transition: background-color 0.3s ease;
+    }
+/* Základní styly pro karty */
+/* Základní styly pro karty */
+.rank-1, .rank-2, .rank-3 {
+    position: relative;
+    overflow: hidden;
+}
+
+    /* Skrytí gradientu mimo hover */
+    .rank-1::before, .rank-2::before, .rank-3::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -150%;
+        width: 200%;
+        height: 100%;
+        background: linear-gradient(120deg, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 75%);
+        opacity: 0; /* Skryje gradient mimo hover */
+        transform: skewX(-25deg);
+        transition: opacity 0.3s ease; /* Přechod opacity pro plynulejší efekt */
+    }
+
+    /* Efekt pro Rank 1 - Zlatá */
+    .rank-1.clickable-card:hover::before {
+        opacity: 1; /* Zviditelní gradient při hoveru */
+        animation: shimmer 1.5s forwards;
+    }
+
+    .rank-1.clickable-card:hover {
+        background-color: #ffd700; /* Zlatá barva */
+        color: #000; /* Černý text */
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Efekt pro Rank 2 - Stříbrná */
+    .rank-2.clickable-card:hover::before {
+        opacity: 1; /* Zviditelní gradient při hoveru */
+        animation: shimmer 1.5s forwards;
+    }
+
+    .rank-2.clickable-card:hover {
+        background-color: #c0c0c0; /* Stříbrná barva */
+        color: #000; /* Černý text */
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Efekt pro Rank 3 - Bronzová */
+    .rank-3.clickable-card:hover::before {
+        opacity: 1; /* Zviditelní gradient při hoveru */
+        animation: shimmer 1.5s forwards;
+    }
+
+    .rank-3.clickable-card:hover {
+        background-color: #cd7f32; /* Bronzová barva */
+        color: #000; /* Černý text */
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+/* Definice klíčových snímků pro shimmer animaci */
+@keyframes shimmer {
+    0% {
+        left: -150%;
+    }
+
+    100% {
+        left: 150%;
+    }
+}
+
+/* Text uvnitř karet se změní na černý při hoveru */
+.rank-1.clickable-card:hover .winner-title,
+.rank-1.clickable-card:hover .winner-brewer,
+.rank-1.clickable-card:hover .score,
+.rank-1.clickable-card:hover .rank,
+.rank-2.clickable-card:hover .winner-title,
+.rank-2.clickable-card:hover .winner-brewer,
+.rank-2.clickable-card:hover .score,
+.rank-2.clickable-card:hover .rank,
+.rank-3.clickable-card:hover .winner-title,
+.rank-3.clickable-card:hover .winner-brewer,
+.rank-3.clickable-card:hover .score,
+.rank-3.clickable-card:hover .rank {
+    color: #000; /* Černý text pro všechny textové prvky */
+}

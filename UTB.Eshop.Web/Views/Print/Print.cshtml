@@ -1,0 +1,30 @@
+﻿@model IEnumerable<IGrouping<string, BistroWeb.Domain.Entities.Product>>
+
+@{
+    ViewData["Title"] = "Tisková verze produktů";
+    Layout = "_Layout"; // Použijte váš hlavní layout
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="printcontainer">
+    @foreach (var breweryGroup in Model)
+    {
+        <div class="brewery">@breweryGroup.Key</div> <!-- Toto je klíč, podle kterého jsou produkty seskupeny, v tomto případě název pivovaru -->
+        @foreach (var product in breweryGroup)
+        {
+            <div class="product">
+                <div class="product-name">
+                    @product.Name, @product.Typees?.Name
+                </div>
+                <div class="product-price">
+                    @product.Price ,-
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@section Styles
+    {
+    <link rel="stylesheet" href="~/css/Printing.css" asp-append-version="true" />
+}
