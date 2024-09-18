@@ -308,7 +308,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 999,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
 
                 products.Add(new Product
@@ -321,7 +321,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -333,7 +333,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -345,7 +345,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -357,7 +357,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -369,7 +369,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -381,7 +381,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -393,7 +393,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -405,7 +405,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -417,7 +417,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -429,7 +429,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -441,7 +441,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -453,7 +453,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -465,7 +465,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -477,7 +477,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -489,7 +489,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -501,7 +501,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -513,7 +513,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -525,7 +525,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -537,7 +537,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -549,7 +549,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -561,7 +561,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -573,7 +573,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -585,7 +585,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -597,7 +597,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -609,7 +609,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -621,7 +621,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -633,7 +633,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -645,7 +645,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 products.Add(new Product
                 {
@@ -657,7 +657,7 @@ namespace BistroWeb.Infrastructure.Database
                     Price = 10,
                     New = false,
                     Active = true,
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/products/NEIPA.jpg"
                 });
                 return products;
             }
@@ -1385,9 +1385,6 @@ namespace BistroWeb.Infrastructure.Database
 
             return carousels;
         }
-
-
-
         public List<Role> CreateRoles()
         {
             List<Role> roles = new List<Role>();

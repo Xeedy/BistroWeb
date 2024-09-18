@@ -46,6 +46,7 @@ namespace BistroWeb.Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        [Route("lahvace")]
         public IActionResult Lahve()
         {
             IEnumerable<Product> products = _homeService.GetProducts();
@@ -56,6 +57,7 @@ namespace BistroWeb.Web.Controllers
         {
             return View();
         }
+        [Route("menu")]
         public IActionResult Menu()
         {
             MenuItemViewModel viewModel = _homeService.GetIndexViewModel2();
@@ -65,7 +67,7 @@ namespace BistroWeb.Web.Controllers
         {
             return View();
         }
-
+        [Route("hodnoceni")]
         public async Task<IActionResult> AllProductRatings()
         {
             var products = await _eshopDbContext.Products

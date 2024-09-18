@@ -25,12 +25,13 @@ namespace Portal.Web.Areas.Security.Controllers
             this._eshopDbContext = eshopDbContext;
             this._userManager = userManager; // UserManager injection
         }
-
+        [Route("registrace")]
         public IActionResult Register()
         {
             return View();
         }
         [Authorize]
+        [Route("zmenahesla")]
         public IActionResult ChangePassword()
         {
             return View();
@@ -38,6 +39,7 @@ namespace Portal.Web.Areas.Security.Controllers
 
 
         [HttpPost]
+        [Route("registrace")]
         public async Task<IActionResult> Register(RegisterViewModel registerVM)
         {
             if (ModelState.IsValid)
@@ -67,13 +69,14 @@ namespace Portal.Web.Areas.Security.Controllers
 
             return View(registerVM);
         }
-
+        [Route("prihlaseni")]
         public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("prihlaseni")]
         public async Task<IActionResult> Login(LoginViewModel loginVM)
         {
             if (ModelState.IsValid)
@@ -95,6 +98,7 @@ namespace Portal.Web.Areas.Security.Controllers
             return RedirectToAction(nameof(Login));
         }
         [Authorize]
+        [Route("profil")]
         public async Task<IActionResult> Profile()
         {
             var user = await _userManager.GetUserAsync(User); // Get the current user
