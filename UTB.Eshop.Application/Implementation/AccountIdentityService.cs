@@ -10,8 +10,8 @@ namespace BistroWeb.Application.Implementation
 {
     public class AccountIdentityService : IAccountService
     {
-        UserManager<User> userManager;
-        SignInManager<User> sigInManager;
+        readonly UserManager<User> userManager;
+        readonly SignInManager<User> sigInManager;
 
         public AccountIdentityService(UserManager<User> userManager, SignInManager<User> sigInManager)
         {
@@ -51,7 +51,7 @@ namespace BistroWeb.Application.Implementation
                 if (resultRole.Succeeded == false)
                 {
                     for (int i = 0; i < result.Errors.Count(); ++i)
-                        result.Errors.Append(result.Errors.ElementAt(i));
+                        _ = result.Errors.Append(result.Errors.ElementAt(i));
                 }
             }
 

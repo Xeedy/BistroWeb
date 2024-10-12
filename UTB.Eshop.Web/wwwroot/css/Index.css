@@ -99,3 +99,53 @@
 .carousel-control-next:hover {
     opacity: 1;
 }
+/* Flexbox container for equal height columns */
+
+/* Facebook widget container will grow to fill the space */
+.facebook-container {
+    flex-grow: 1; /* Makes the widget fill the height of its container */
+    overflow-y: auto; /* Ensures that content is scrollable if it overflows */
+}
+
+/* Optional: If you want to limit the maximum height */
+.facebook-container {
+    max-height: 100vh; /* Limits the height to the viewport height */
+}
+.Infinite {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.Infinite-inner {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.cardInfinite {
+    min-width: 33.33%;
+    padding: 20px;
+    background-color: lightblue;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 10px;
+    z-index: 1;
+}
+
+.left {
+    left: 10px;
+}
+
+.right {
+    right: 10px;
+}
