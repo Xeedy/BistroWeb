@@ -15,7 +15,7 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/img/base/logo-blank.png" alt="BistroWeb.Web Logo" class="logo-img">
@@ -36,14 +36,28 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Menu">Nábidník</a>
                         </li>
+                        <!--
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" id="navbarDropdownCustomer" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Nábidník</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownCustomer">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Menu">Nábidník</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="HookahMenu">Tabáky</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Accesories">Příslušenství</a>
+                                </li>
+                            </ul>
+                        </li>
+                    -->
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="AllProductRatings">Hodnocení piv</a>
                         </li>
-
                         @if (User.Identity.IsAuthenticated == true)
                         {
-                            <!-- Role-based admin/manager navigation -->
-                            @if (User.IsInRole(nameof(Roles.Admin)) || User.IsInRole(nameof(Roles.Manager)))
+                            if (User.IsInRole(nameof(Roles.Admin)) || User.IsInRole(nameof(Roles.Manager)))
                             {
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle text-light" id="navbarDropdownCustomer" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Správa</a>
@@ -71,62 +85,53 @@
                                         }
                                         @if (User.IsInRole(nameof(Roles.Manager)))
                                         {
+                                            <!--
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Missing" asp-action="Index">Chybějící položky</a>
+                                            </li>
+                                            -->
                                             <li class="nav-item">
                                                 <a class="nav-link text-dark" asp-area="Admin" asp-controller="Calendar" asp-action="Index">Šichtovnice</a>
                                             </li>
+                                        }
+                                        @if (User.Identity.IsAuthenticated == true && (User.IsInRole(nameof(Roles.Customer))))
+                                        {
+                                            <!--
+                                            <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Domů</a>
+                                            </li>
+                                            -->
                                         }
                                     </ul>
                                 </li>
                             }
                         }
                     </ul>
-
-                    <!-- Authentication buttons aligned to the right -->
-                    @if (User.Identity.IsAuthenticated == true)
-                    {
-                        <ul class="navbar-nav ms-auto">
-                            <!-- Use ms-auto to align it to the right -->
-                            <li class="nav-item dropdown">
-                                <!-- Profile Image Button -->
-                                <a class="nav-link dropdown-toggle text-light" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/img/brewery/Belgium.png" alt="Profile Picture" class="profile-pic" style="width: 40px; height: 40px; border-radius: 50%;">
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end profile-dropdown" aria-labelledby="navbarDropdown">
-                                    <!-- Menu items -->
-                                    <li>
-                                        <a class="dropdown-item" asp-area="Security" asp-controller="Account" asp-action="Profile">
-                                            <i class="bi bi-person"></i> Profil
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-area="Security" asp-controller="Account" asp-action="Settings">
-                                            <i class="bi bi-gear"></i> Nastavení
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-area="Security" asp-controller="Account" asp-action="Logout">
-                                            <i class="bi bi-box-arrow-right"></i> Odhlásit se
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    }
-                    else
-                    {
-                        <ul class="navbar-nav ms-auto">
-                            <!-- Use ms-auto to align it to the right -->
-                            <li class="nav-item"><a class="nav-link text-light" asp-area="Security" asp-controller="Account" asp-action="Register"><i class="bi bi-person-plus"></i> Zaregistrovat se</a></li>
-                            <li class="nav-item"><a class="nav-link text-light" asp-area="Security" asp-controller="Account" asp-action="Login"><i class="bi bi-unlock"></i> Přihlásit se</a></li>
-                        </ul>
+                    @{
+                        @if (User.Identity.IsAuthenticated == false)
+                        {
+                            <ul class="navbar-nav navbar-right">
+                                <li class="nav-item"><a class="nav-link text-light" asp-area="Security" asp-controller="Account" asp-action="Register"><i class="bi bi-person-plus"></i> Zaregistrovat se</a></li>
+                                <li class="nav-item"><a class="nav-link text-light" asp-area="Security" asp-controller="Account" asp-action="Login"><i class="bi bi-unlock"></i> Přihlásit se</a></li>
+                            </ul>
+                        }
+                        else
+                        {
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-light" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person"></i>Přihlášen @User.Identity.Name</a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item text-dark" asp-area="Security" asp-controller="Account" asp-action="Profile"><i class="bi bi-person"></i> Profil</a></li>
+                                        <li><a class="dropdown-item text-dark" asp-area="Security" asp-controller="Account" asp-action="Logout"><i class="bi bi-person-slash me-1"></i> Odhlásit se</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        }
                     }
                 </div>
             </div>
         </nav>
     </header>
-
-
-
 
     <!-- Container-fluid for carousel -->
     @if (ViewBag.ShowCarousel ?? false)
@@ -148,7 +153,7 @@
         </main>
     </div>
 
-    <footer class="text-light" style="background-color: #161925;">
+    <footer class="text-light bg-dark">
         <div class="container py-4">
             <div class="row">
                 <div class="col-md-3 mb-3 mb-md-0">

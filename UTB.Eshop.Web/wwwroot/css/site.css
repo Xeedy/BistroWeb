@@ -1,4 +1,5 @@
-@import url('https://fonts.cdnfonts.com/css/liberation-sans'); /* Import Liberation Sans fontu */
+/* Base Styles */
+@import url('https://fonts.googleapis.com/css?family=Poppins:300');
 
 html {
     font-size: 16px;
@@ -7,8 +8,8 @@ html {
 body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Liberation Sans', sans-serif; /* Liberation Sans font */
-    background: #cdc6ae;
+    font-family: 'Poppins', sans-serif; /* Poppins font */
+    background: linear-gradient(#30142b, #2772a1);
     position: relative;
     min-height: 100%;
     min-width: 100%;
@@ -17,14 +18,8 @@ body, html {
     -moz-user-select: none; /* Pro starší Firefox */
     -ms-user-select: none; /* Pro starší IE/Edge */
 }
-
-
-
 .no-min-width {
     min-width: auto;
-}
-.navbar {
-    background-color: #161925 !important; /* Zmìò na požadovanou barvu */
 }
 
 .navbar-nav .nav-link,
@@ -34,20 +29,19 @@ body, html {
 }
 
     .navbar-nav .nav-link:hover {
-        color: #FC440F !important;
+        color: orange !important;
     }
 .navbar {
     margin-bottom: 0 !important;
 }
 .logo-img {
     filter: invert(1);
-    color: #FC440F;
     width: 100px;
     height: auto;
 }
 
 .navbar-toggler {
-    background-color: #FC440F !important;
+    background-color: white !important;
 }
 
 .dropdown-item-custom {
@@ -59,22 +53,31 @@ body, html {
     }
 
 footer {
-    background-color: #161925;
+    background-color: black;
     color: white;
     padding: 0;
     margin-top: auto;
-    margin-bottom: 0px;
 }
 
     footer h4:before {
-        content: '';
-        height: 2px;
-        width: 40px;
-        left: 0;
-        bottom: -5px;
-        background-color: #FC440F;
-    }
+            content: '';
+            position: absolute;
+            height: 2px;
+            width: 40px;
+            left: 0;
+            bottom: -5px;
+            background-color: orange;
+        }
 
+        footer h4:before {
+            content: '';
+            position: absolute;
+            height: 2px;
+            width: 40px;
+            left: 0;
+            bottom: -5px;
+            background-color: orange;
+        }
 
     footer ul {
         list-style-type: none;
@@ -94,7 +97,7 @@ footer {
     }
 
         .footer li.list a:hover {
-            color: #FC440F;
+            color: orange;
             transform: translateX(-10px);
         }
 
@@ -116,12 +119,12 @@ footer {
     }
 
     .social-btn i {
-        color: #FC440F;
+        color: orange;
         font-size: 20px;
     }
 
 .www-link a {
-    color: #FC440F !important;
+    color: orange !important;
     text-decoration: none;
 }
 
@@ -143,29 +146,4 @@ footer {
 .small-image {
     max-width: 200px;
     height: auto;
-}
-.profile-pic {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-}
-
-.team-member-pic {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-}
-
-.team-member {
-    display: flex;
-    align-items: center;
-}
-
-    .team-member div {
-        display: flex;
-        flex-direction: column;
-    }
-/* Remove the default dropdown caret/arrow */
-.navbar .dropdown-toggle::after {
-    display: none;
 }

@@ -113,74 +113,15 @@
         }
     </div>
 </div>
-<div class="container mt-5>
-    <div class="row">
-        <!-- Left Column for Beers List -->
-        <div class="col-md-8">
-            @if (Model.Tapeeds != null && Model.Tapeeds.Any())
-            {
-                @foreach (var tapped in Model.Tapeeds.Where(p => p.Active).Take(5))
-                {
-                    <div class="beer-item mb-4 d-flex align-items-center">
-                        <div class="beer-image">
-                            <img class="img-fluid" src="@tapped.Breweries.ImageSrc" alt="Brewery Image" style="width: 100px; height: 100px;" />
-                        </div>
-                        <div class="beer-details ms-3">
-                            <!-- Beer Name -->
-                            <h5 class="mb-1"><strong>@tapped.Name</strong></h5>
-                            <!-- Beer Price -->
-                            <p class="mb-1">0,5l: @tapped.MainPrice,- | 0,3l: @tapped.OtherPrice,-</p>
-                            <!-- Brewery Name -->
-                            <p class="mb-1">Pivovar: @tapped.Breweries.Name</p>
-                            <!-- Beer Type -->
-                            <p class="mb-1">Typ: @tapped.Typees.Name</p>
-                        </div>
-                    </div>
-                    <hr />
-                }
-            }
-            else
-            {
-                <div class="col-md-12">
-                    <p>Bohužel žádná piva k zobrazení</p>
-                </div>
-            }
-        </div>
-        <!-- Right Column for Facebook widget -->
-        <div class="col-md-4 d-flex flex-column">
-            <div class="facebook-container flex-grow-1">
-                <div class="fb-page" data-href="https://www.facebook.com/bistroStarsHollow"
-                     data-show-posts="true" data-width="350" data-small-header="false"
-                     data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
-                    <blockquote cite="https://www.facebook.com/bistroStarsHollow" class="fb-xfbml-parse-ignore">
-                        <a href="https://www.facebook.com/bistroStarsHollow">Pivotéka a Bistro Stars Hollow</a>
-                    </blockquote>
-                </div>
-            </div>
-        </div>
-
-    </div>
+<!-- Infinite Card Slider -->
+<div data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
+    <div><h3>1</h3></div>
+    <div><h3>2</h3></div>
+    <div><h3>3</h3></div>
+    <div><h3>4</h3></div>
+    <div><h3>5</h3></div>
+    <div><h3>6</h3></div>
 </div>
-<div class="container mt-3">
-    <div class="wtextcontainer">
-        <div class="Infinite">
-            <div class="Infinite-inner">
-                <div class="cardInfinite">Card 1</div>
-                <div class="cardInfinite">Card 2</div>
-                <div class="cardInfinite">Card 3</div>
-                <div class="cardInfinite">Card 4</div>
-                <div class="cardInfinite">Card 5</div>
-                <div class="cardInfinite">Card 6</div>
-                <div class="cardInfinite">Card 1</div>
-                <div class="cardInfinite">Card 2</div>
-                <div class="cardInfinite">Card 3</div>
-            </div>
-            <button class="arrow left" onclick="showPrevious()">&#9664;</button>
-            <button class="arrow right" onclick="showNext()">&#9654;</button>
-        </div>
-    </div>
-</div>
-
 
 
 
@@ -195,28 +136,15 @@
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/cs_CZ/sdk.js#xfbml=1&version=v19.0" nonce="m5EPqYPG"></script>
     <script src="~/js/CardBrewery.js" asp-append-version="true"></script>
     <script>
-        let currentIndex = 0;
-        const totalCards = 9; // Total number of cards
-
-        function showNext() {
-            currentIndex += 1; // Move to the next card
-            if (currentIndex > totalCards - 3) {
-                currentIndex = totalCards - 3; // Prevent going past the last set
-            }
-            updateCarousel();
-        }
-
-        function showPrevious() {
-            currentIndex -= 1; // Move to the previous card
-            if (currentIndex < 0) {
-                currentIndex = 0; // Prevent going before the first card
-            }
-            updateCarousel();
-        }
-
-        function updateCarousel() {
-            const offset = -currentIndex * (100 / 3);
-            document.querySelector('.Infinite-inner').style.transform = `translateX(${offset}%)`;
-        }
+        $(document).ready(function () {
+            $('.slider').slick({
+                dots: true,               // Zobrazí tečky navigace
+                infinite: true,           // Nekonečné rolování
+                speed: 500,               // Rychlost přechodu v milisekundách
+                slidesToShow: 1,          // Počet viditelných slidů
+                slidesToScroll: 1         // Počet slidů, které se posouvají na jeden krok
+            });
+        });
     </script>
+
 }
