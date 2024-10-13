@@ -114,13 +114,13 @@
     </div>
 </div>
 <!-- Infinite Card Slider -->
-<div data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
-    <div><h3>1</h3></div>
-    <div><h3>2</h3></div>
-    <div><h3>3</h3></div>
-    <div><h3>4</h3></div>
-    <div><h3>5</h3></div>
-    <div><h3>6</h3></div>
+<div id="infiniteCarousel">
+    <div><img class="infiniteImage" src="~/img/brewery/Bernard.jpg" /></div>
+    <div><img class="infiniteImage" src="~/img/brewery/Cestmir.jpg" /></div>
+    <div><img class="infiniteImage" src="~/img/brewery/Bernard.jpg" /></div>
+    <div><img class="infiniteImage" src="~/img/brewery/Cestmir.jpg" /></div>
+    <div><img class="infiniteImage" src="~/img/brewery/Bernard.jpg" /></div>
+    <div><img class="infiniteImage" src="~/img/brewery/Cestmir.jpg" /></div>
 </div>
 
 
@@ -133,17 +133,34 @@
     }
 
 @section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/cs_CZ/sdk.js#xfbml=1&version=v19.0" nonce="m5EPqYPG"></script>
     <script src="~/js/CardBrewery.js" asp-append-version="true"></script>
     <script>
-        $(document).ready(function () {
-            $('.slider').slick({
-                dots: true,               // Zobrazí tečky navigace
-                infinite: true,           // Nekonečné rolování
-                speed: 500,               // Rychlost přechodu v milisekundách
-                slidesToShow: 1,          // Počet viditelných slidů
-                slidesToScroll: 1         // Počet slidů, které se posouvají na jeden krok
-            });
+        $('#infiniteCarousel').slick({
+            centerMode: true,
+            centerPadding: '60px',
+            slidesToShow: 3,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 1
+                    }
+                }
+            ]
         });
     </script>
 
