@@ -14,6 +14,10 @@
         });
         document.getElementById('assignShiftForm').style.display = 'none';
         assignShiftContainer.classList.remove("active");
+
+        // Explicitně skrýt tlačítko pro smazání
+        document.getElementById('deleteShiftContainer').style.display = 'none';
+
         if (lastActiveCell) {
             lastActiveCell.classList.remove('active-day');
             lastActiveCell = null;
@@ -60,7 +64,7 @@
                 if (assignedUserNameElement) {
                     // Retrieve the stored shift ID
                     const assignedShiftId = assignedUserNameElement.getAttribute('data-shift-id');
-                    const deleteConfirmed = confirm('Are you sure you want to delete the assigned shift for this day?');
+                    const deleteConfirmed = confirm('Opravdu chcete smazat přiřazenou směnu pro tento den?');
                     if (deleteConfirmed) {
                         // Use the retrieved shift ID to populate the hidden input in the delete form
                         document.getElementById('deleteShiftId').value = assignedShiftId;

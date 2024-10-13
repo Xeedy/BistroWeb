@@ -98,7 +98,7 @@
 
 
 /* Styles for form elements inside the container */
-select, button {
+select, submitButton {
     width: 100%;
     margin: 5px 0;
     padding: 10px;
@@ -106,16 +106,20 @@ select, button {
     border-radius: 4px;
 }
 
-button {
-    background-color: #4CAF50;
+.submitButton {
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #45a049; /* Red background */
     color: white;
-    border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-    button:hover {
-        background-color: #45a049;
+    .submitButton:hover {
+        background-color: #388E3C;
     }
 
 @media (max-width: 768px) {
@@ -146,3 +150,18 @@ button {
     color: #007bff;
     font-weight: bold;
 }
+.delete-shift-button {
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f44336; /* Red background */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .delete-shift-button:hover {
+        background-color: #e53935; /* Darker red on hover */
+    }
