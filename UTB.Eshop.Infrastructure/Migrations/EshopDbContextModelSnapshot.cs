@@ -1672,6 +1672,9 @@ namespace BistroWeb.Infrastructure.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<string>("ProfilePictureUrl")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("longtext");
 
@@ -1708,6 +1711,7 @@ namespace BistroWeb.Infrastructure.Migrations
                             NormalizedUserName = "XEEDY",
                             PasswordHash = "AQAAAAEAACcQAAAAEM9O98Suoh2o2JOK1ZOJScgOfQ21odn/k6EYUpGWnrbevCaBFFXrNL7JZxHNczhh/w==",
                             PhoneNumberConfirmed = false,
+                            ProfilePictureUrl = "/img/profile/xeedy.jpg",
                             SecurityStamp = "SEJEPXC646ZBNCDYSM3H5FRK5RWP2TN6",
                             TwoFactorEnabled = false,
                             UserName = "Xeedy"
@@ -1726,6 +1730,7 @@ namespace BistroWeb.Infrastructure.Migrations
                             NormalizedUserName = "MANAGER",
                             PasswordHash = "AQAAAAEAACcQAAAAEOzeajp5etRMZn7TWj9lhDMJ2GSNTtljLWVIWivadWXNMz8hj6mZ9iDR+alfEUHEMQ==",
                             PhoneNumberConfirmed = false,
+                            ProfilePictureUrl = "/img/profile/SGB.jpg",
                             SecurityStamp = "MAJXOSATJKOEM4YFF32Y5G2XPR5OFEL6",
                             TwoFactorEnabled = false,
                             UserName = "manager"

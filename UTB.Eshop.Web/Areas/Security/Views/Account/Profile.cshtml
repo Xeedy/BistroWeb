@@ -6,12 +6,13 @@
 }
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
+        <div class="col-md-4 mb-4">
+            <div class="card rounded">
+                <div class="card-header text-center">
                     <h2>Můj profil</h2>
                 </div>
-                <div class="card-body">
+                <div class="card-body text-center">
+                    <img src="@Url.Content(Model.ProfilePictureUrl ?? "~/img/profile/default.jpg")" alt="Profilová fotka" class="img-fluid profile-picture" />
                     <div class="row">
                         <div class="col">
                             <strong>Přezdívka:</strong> @Model.UserName
@@ -43,9 +44,10 @@
                 </div>
             </div>
         </div>
-        <!-- Second column (blank) -->
-        <div class="col-md-4">
-            <div class="card">
+
+        <!-- Druhý sloupec (oceněné piva) -->
+        <div class="col-md-8 mb-4">
+            <div class="card rounded">
                 <div class="card-header">
                     <h2>Oceněné piva</h2>
                 </div>
@@ -64,20 +66,20 @@
                     }
                     else
                     {
-                        <p>You have not rated any products yet.</p>
+                        <p>Ještě jste neohodnotili žádné produkty.</p>
                     }
-
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+
 @if (isManager)
 {
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <h2>Nadcházející směny</h2>

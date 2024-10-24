@@ -1,4 +1,8 @@
-﻿using System;
+﻿using BistroWeb.Domain.Implementation.Validations;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace BistroWeb.Domain.Entities.Interfaces
 {
     public interface IUser
@@ -9,5 +13,6 @@ namespace BistroWeb.Domain.Entities.Interfaces
         public string? PhoneNumber { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
+        public string? ProfilePictureUrl { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace BistroWeb.Application.ViewModels
         public string LastName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+        public string ProfilePictureUrl { get; set; }
         public List<Shift> UpcomingShifts { get; set; }
         public List<Rating> Rated { get; set; }
     }

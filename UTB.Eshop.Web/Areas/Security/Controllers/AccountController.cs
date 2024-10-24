@@ -125,6 +125,7 @@ namespace Portal.Web.Areas.Security.Controllers
                 LastName = user.LastName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
+                ProfilePictureUrl = user.ProfilePictureUrl,
                 UpcomingShifts = upcomingShifts,
                 Rated = ratings // This is directly assigning the list of Ratings to the model
             };

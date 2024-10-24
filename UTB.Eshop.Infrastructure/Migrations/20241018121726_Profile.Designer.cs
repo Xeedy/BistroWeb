@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BistroWeb.Infrastructure.Migrations
 {
     [DbContext(typeof(EshopDbContext))]
-    [Migration("20241013131533_New")]
-    partial class New
+    [Migration("20241018121726_Profile")]
+    partial class Profile
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -240,10 +240,6 @@ namespace BistroWeb.Infrastructure.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Note")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime(6)");
 
@@ -261,7 +257,6 @@ namespace BistroWeb.Infrastructure.Migrations
                             Id = 1,
                             Description = "Description of Sample Calendar 1",
                             EndDate = new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Note = "This is testing note",
                             StartDate = new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Sample Calendar 1"
                         },
@@ -270,7 +265,6 @@ namespace BistroWeb.Infrastructure.Migrations
                             Id = 2,
                             Description = "Description of Sample Calendar 2",
                             EndDate = new DateTime(2024, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Note = "This is testing note2",
                             StartDate = new DateTime(2024, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Sample Calendar 2"
                         });
@@ -1472,9 +1466,6 @@ namespace BistroWeb.Infrastructure.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Note")
-                        .HasColumnType("longtext");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime(6)");
 
@@ -1684,6 +1675,9 @@ namespace BistroWeb.Infrastructure.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<string>("ProfilePictureUrl")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("longtext");
 
@@ -1720,6 +1714,7 @@ namespace BistroWeb.Infrastructure.Migrations
                             NormalizedUserName = "XEEDY",
                             PasswordHash = "AQAAAAEAACcQAAAAEM9O98Suoh2o2JOK1ZOJScgOfQ21odn/k6EYUpGWnrbevCaBFFXrNL7JZxHNczhh/w==",
                             PhoneNumberConfirmed = false,
+                            ProfilePictureUrl = "/img/profile/IMG_2399.jpeg",
                             SecurityStamp = "SEJEPXC646ZBNCDYSM3H5FRK5RWP2TN6",
                             TwoFactorEnabled = false,
                             UserName = "Xeedy"
@@ -1738,6 +1733,7 @@ namespace BistroWeb.Infrastructure.Migrations
                             NormalizedUserName = "MANAGER",
                             PasswordHash = "AQAAAAEAACcQAAAAEOzeajp5etRMZn7TWj9lhDMJ2GSNTtljLWVIWivadWXNMz8hj6mZ9iDR+alfEUHEMQ==",
                             PhoneNumberConfirmed = false,
+                            ProfilePictureUrl = "/img/profile/SGB.jpg",
                             SecurityStamp = "MAJXOSATJKOEM4YFF32Y5G2XPR5OFEL6",
                             TwoFactorEnabled = false,
                             UserName = "manager"

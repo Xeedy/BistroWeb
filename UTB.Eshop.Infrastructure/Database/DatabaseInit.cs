@@ -1442,7 +1442,8 @@ namespace BistroWeb.Infrastructure.Database
                 TwoFactorEnabled = false,
                 LockoutEnd = null,
                 LockoutEnabled = true,
-                AccessFailedCount = 0
+                AccessFailedCount = 0,
+                ProfilePictureUrl = "/img/profile/xeedy.jpg"
             };
 
             List<IdentityUserRole<int>> adminUserRoles = new List<IdentityUserRole<int>>()
@@ -1488,7 +1489,8 @@ namespace BistroWeb.Infrastructure.Database
                 TwoFactorEnabled = false,
                 LockoutEnd = null,
                 LockoutEnabled = true,
-                AccessFailedCount = 0
+                AccessFailedCount = 0,
+                ProfilePictureUrl = "/img/profile/SGB.jpg"
             };
 
             List<IdentityUserRole<int>> managerUserRoles = new List<IdentityUserRole<int>>()

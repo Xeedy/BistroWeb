@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BistroWeb.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class New : Migration
+    public partial class Profile : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -45,6 +45,8 @@ namespace BistroWeb.Infrastructure.Migrations
                     FirstName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     LastName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ProfilePictureUrl = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -105,8 +107,6 @@ namespace BistroWeb.Infrastructure.Migrations
                     StartDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Description = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Note = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -320,9 +320,7 @@ namespace BistroWeb.Infrastructure.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     StartDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    Note = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -440,11 +438,11 @@ namespace BistroWeb.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePictureUrl", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { 1, 0, "b09a83ae-cfd3-4ee7-97e6-fbcf0b0fe78c", "michal.tesik1@gmail.com", true, "Michal", "Těšík", true, null, "MICHAL.TESIK1@GMAIL.COM", "XEEDY", "AQAAAAEAACcQAAAAEM9O98Suoh2o2JOK1ZOJScgOfQ21odn/k6EYUpGWnrbevCaBFFXrNL7JZxHNczhh/w==", null, false, "SEJEPXC646ZBNCDYSM3H5FRK5RWP2TN6", false, "Xeedy" },
-                    { 2, 0, "7a8d96fd-5918-441b-b800-cbafa99de97b", "manager@manager.cz", true, "Managerek", "Managerovy", true, null, "MANAGER@MANAGER.CZ", "MANAGER", "AQAAAAEAACcQAAAAEOzeajp5etRMZn7TWj9lhDMJ2GSNTtljLWVIWivadWXNMz8hj6mZ9iDR+alfEUHEMQ==", null, false, "MAJXOSATJKOEM4YFF32Y5G2XPR5OFEL6", false, "manager" }
+                    { 1, 0, "b09a83ae-cfd3-4ee7-97e6-fbcf0b0fe78c", "michal.tesik1@gmail.com", true, "Michal", "Těšík", true, null, "MICHAL.TESIK1@GMAIL.COM", "XEEDY", "AQAAAAEAACcQAAAAEM9O98Suoh2o2JOK1ZOJScgOfQ21odn/k6EYUpGWnrbevCaBFFXrNL7JZxHNczhh/w==", null, false, "/img/profile/IMG_2399.jpeg", "SEJEPXC646ZBNCDYSM3H5FRK5RWP2TN6", false, "Xeedy" },
+                    { 2, 0, "7a8d96fd-5918-441b-b800-cbafa99de97b", "manager@manager.cz", true, "Managerek", "Managerovy", true, null, "MANAGER@MANAGER.CZ", "MANAGER", "AQAAAAEAACcQAAAAEOzeajp5etRMZn7TWj9lhDMJ2GSNTtljLWVIWivadWXNMz8hj6mZ9iDR+alfEUHEMQ==", null, false, "/img/profile/SGB.jpg", "MAJXOSATJKOEM4YFF32Y5G2XPR5OFEL6", false, "manager" }
                 });
 
             migrationBuilder.InsertData(
@@ -482,11 +480,11 @@ namespace BistroWeb.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Calendars",
-                columns: new[] { "Id", "Description", "EndDate", "Note", "StartDate", "Title" },
+                columns: new[] { "Id", "Description", "EndDate", "StartDate", "Title" },
                 values: new object[,]
                 {
-                    { 1, "Description of Sample Calendar 1", new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "This is testing note", new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sample Calendar 1" },
-                    { 2, "Description of Sample Calendar 2", new DateTime(2024, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "This is testing note2", new DateTime(2024, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sample Calendar 2" }
+                    { 1, "Description of Sample Calendar 1", new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sample Calendar 1" },
+                    { 2, "Description of Sample Calendar 2", new DateTime(2024, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sample Calendar 2" }
                 });
 
             migrationBuilder.InsertData(

@@ -21,7 +21,6 @@
     color: #333;
 }
 
-/* Style the list numbers */
 .rated-products-list li:before {
     content: counter(item) ". ";
     counter-increment: item;
@@ -32,4 +31,19 @@
 /* Initialize the counter */
 .rated-products-list {
     counter-reset: item;
+}
+.profile-picture {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+    .profile-picture {
+        width: 160px;
+        height: 160px;
+    }
 }
